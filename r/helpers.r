@@ -440,3 +440,55 @@ pval_format <- function(x) {
     TRUE ~ sprintf("%4.3f", x)
   )
 }
+
+# function to draw beta coefficient figure
+draw_beta_fig <- function(df) {
+    df |>
+        ggplot(aes(x = median.coeff, y = param, color = sim, shape = sim)) +
+        geom_errorbar(aes(xmin = lower.ci, xmax = upper.ci), width = 0, lwd = 0.5) +
+        geom_vline(xintercept = 0, lty = 2, color = "gray50") +
+        geom_point(aes(size = sim)) +
+        # below allows changing point size manually
+        scale_size_manual(values = rep(4, length(unique(df$sim)))) +
+        # invert y-axis order
+        scale_y_discrete(limits = rev(levels(df$param))) +
+        facet_grid(
+            sim ~ emp,
+            switch = "y",
+            labeller = labeller(
+                emp = c(
+                    "ADVAN" = "Empirical: ADVAN Mobility Data",
+                    "NHTS" = "Empirical: National Household Travel Survey"
+                ),
+                sim = function(x) {
+                    paste("Simulation:<br>", x)
+                }
+            ),
+        ) +
+        scale_x_continuous(
+            limits = c(-1.5, 5),
+            breaks = seq(-1.0, 5, by = 1)
+        ) +
+        coord_cartesian(clip = "off") +
+        theme(
+            legend.position = "none",
+            strip.placement = "outside",
+            strip.text.x.top = element_markdown(size = 14),
+            strip.text.y.left = element_markdown(
+                angle = 0,
+                hjust = 0.5,
+                size = 14
+            ),
+            plot.title = element_text(size = 20, face = "bold"),
+            plot.subtitle = element_text(size = 16),
+            axis.ticks = element_blank(),
+            axis.line.x = element_blank(),
+            axis.title.x = element_text(margin = margin(t = 10)),
+            panel.spacing = unit(2.0, "lines"),
+            plot.margin = margin(t = 10, r = 40, b = 10, l = 10)
+        ) +
+        labs(
+            y = "",
+            x = "Coefficient estimate",
+        )
+}

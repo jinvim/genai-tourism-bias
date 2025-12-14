@@ -82,11 +82,11 @@ These findings show the need for tourism scholars and practitioners to assess an
 
 This study proposes that LLMs have systematic biases in their suggestions, favoring popular tourism patterns while attenuating less popular ones.
 But first, we need to define the meaning of *bias.*
-Consider a situation where an algorithm has a four-in-ten chance of suggesting U.S. domestic tourists to visit New York City.
+Consider a situation where an algorithm has a four-in-ten chance of suggesting US domestic tourists to visit New York City.
 Could we say that this algorithm has a systematic tendency to favor New York City as a tourism destination?
 We argue that to answer this question, one first need an empirical benchmark of what would "unbiased" suggestions look like.
 For example, if four in ten Americans visit New York City, then the algorithm's tendency is simply reproducing what is expected in the real-world tourism patterns.
-If, however, only one in ten U.S. domestic tourists visit New York City, then the algorithm does favor New York City beyond the empirical expectation.
+If, however, only one in ten US domestic tourists visit New York City, then the algorithm does favor New York City beyond the empirical expectation.
 This study defines algorithmic bias as systematic deviation from expected real-world patterns.
 Our empirical testing framework builds on this definition.
 We test algorithmic bias in large language models' travel suggestions by modeling the divergence from the empirical baseline as a function of popularity factors.
@@ -222,20 +222,20 @@ Separately from the simulation, two data sources were used to estimate real-worl
 This empirical data is then used to derive baseline expectations and popularity factors.
 Finally, we combine simulation and empirical data to test four hypothesized popularity biases by fitting the regression model in @eq-log-model.
 
-![Overview of the simulation and analysis process](figures/fig-steps.svg){#fig-steps}
+![Overview of the simulation and analysis process](figures/steps.svg){#fig-steps}
 
 ### Definition of population and simulated samples
 
-The population of our simulations is U.S. residents aged 18 and over. 
-The U.S. domestic tourism market is one of the largest in the world [@unwto], offering geographically and socioeconomically diverse destinations.
-Hence, the U.S. context provides sufficient variability for large-scale simulations, while excluding complications of international tourism like visa requirements.
-Most generative AI models also perform better on English tasks [@qin2025], making the U.S. context advantageous for these models.
+The population of our simulations is US residents aged 18 and over. 
+The US domestic tourism market is one of the largest in the world [@unwto], offering geographically and socioeconomically diverse destinations.
+Hence, the US context provides sufficient variability for large-scale simulations, while excluding complications of international tourism like visa requirements.
+Most generative AI models also perform better on English tasks [@qin2025], making the US context advantageous for these models.
 
 We used 2019-2023 American Community Survey 5-Year Public Use Microdata Sample data to derive stratum weights for the population.
 @tbl-demo summarizes sex, age, and household income proportions of the population.
 From this population, we took a random sample of 1,000 individuals stratified by state, sex, age, and income.
 This sampling procedure was repeated 1,000 times, yielding one million simulated individuals with demographic characteristics that mirror the population.
-By using empirically derived profiles, we ensure that the demographic distribution of simulated travelers resembles that of U.S. domestic tourists.
+By using empirically derived profiles, we ensure that the demographic distribution of simulated travelers resembles that of US domestic tourists.
 This approach also fixes the number of outgoing tourists from each state, allowing us to control for origin-specific propensity to travel.
 One limitation is that generative AI models may also influence the decision to travel itself, which we do not account for here.
 
@@ -293,7 +293,7 @@ Finally, our approach recognizes the network and temporal nature of tourism.
 Beyond looking at the propensity of large language models to suggest specific destinations, our simulation captures the entire tourist flow network across origins, destinations, and months.
 
 The simulation starts with a system prompt containing the simulation context, response structure, and examples (available in @apx-prompt).
-To simplify the simulation, we assume that each person chooses one domestic destination within the U.S. (50 U.S. states and the District of Columbia).
+To simplify the simulation, we assume that each person chooses one domestic destination within the US (50 US states and the District of Columbia).
 The large language models were instructed to act as travel agents recommending one domestic travel destination based on the provided demographic profile.
 The system prompt was followed by a user prompt that included demographic characteristics of each simulated individual.
 Twenty people were processed at a time to improve the efficiency of the simulation. 
@@ -312,7 +312,7 @@ They are among the leading large language models currently available in terms of
 Because our simulations require a large number of responses, we chose their smallest variants optimized for speed and cost.
 Although the two large language models are closed-source, they are comparable in pricing structures ($0.10 per million input tokens; $0.30 and $0.40 per million output tokens, respectively).
 
-All requests were made from the IP address of the university located in the southeastern U.S., using custom automation scripts.
+All requests were made from the IP address of the university located in the southeastern US, using custom automation scripts.
 We explicitly instructed large language models not to use IP-specific details when generating recommendations to avoid potential bias.
 Data collection continued until we achieved a complete dataset.
 The collected data were then aggregated to create destination-origin-month matrices for each iteration and model, where each cell represents the number of tourists from the origin. $i$ to destination $j$ in a month $m$.
@@ -323,10 +323,10 @@ The empirical data serves two purposes in this study.
 It provides the baseline for real-world tourism patterns against which we compare the characteristics of AI-simulated tourist flows.
 Additionally, we use the empirically derived baseline and popularity factors to explain the discrepancies between AI-simulated and empirical tourist flows.
 Because biases also exist in the empirical mobility data [see @huang2021a; @li2024b], we rely on two different data sources to ensure the robustness of our findings.
-Our primary data source is the @advan mobility dataset, which estimates movements across U.S. census block groups based on mobile device panels.
+Our primary data source is the @advan Mobility Data, which estimates movements across US census block groups based on mobile device panels.
 This dataset is our primary data source due to its high spatial and temporal resolution, and availability of longitudinal data.
-The supplementary data source is the U.S. Department of Transportation's 2022 NHTS (National Household Travel Survey) dataset.
-NHTS is the only official national travel survey in the U.S., which collects travel behavior data such as trip purpose, modes, and distances [@nhts2022].
+The supplementary data source is the Department of Transportation's 2022 National Household Travel Survey (NHTS).
+National Household Travel Survey is the only official national travel survey in the US, which collects travel behavior data such as trip purpose, modes, and distances [@nhts2022].
 
 For both datasets, we used monthly data from January through December 2022 (the latest available for NHTS). 
 Following pre-processing steps were employed to filter out non-tourism mobility flows.
@@ -412,12 +412,12 @@ df.sum <- df.sum |>
                 "emp.nhts"
             ),
             labels = c(
-                "Simulation: ADVAN",
-                "Simulation: NHTS",
+                "Simulation: ADVAN Mobility Data",
+                "Simulation: National Household Travel Survey",
                 "Simulation: Gemini 2.5 Flash Lite",
                 "Simulation: GPT 4.1 Nano",
-                "Empirical: ADVAN",
-                "Empirical: NHTS"
+                "Empirical: ADVAN Mobility Data",
+                "Empirical: National Household Travel Survey"
             ),
             ordered = TRUE
         )
@@ -427,8 +427,8 @@ df.sum <- df.sum |>
 
 ```{r}
 #| label: intext-desc
-max.advan <- round(df.sum |> filter(data.name == "Simulation: ADVAN", variable == "Tourist flow") |> pull(max))
-max.nhts <- round(df.sum |> filter(data.name == "Simulation: NHTS", variable == "Tourist flow") |> pull(max))
+max.advan <- round(df.sum |> filter(data.name == "Simulation: ADVAN Mobility Data", variable == "Tourist flow") |> pull(max))
+max.nhts <- round(df.sum |> filter(data.name == "Simulation: National Household Travel Survey", variable == "Tourist flow") |> pull(max))
 max.gemini <- round(df.sum |> filter(data.name == "Simulation: Gemini 2.5 Flash Lite", variable == "Tourist flow") |> pull(max))
 max.gpt <- round(df.sum |> filter(data.name == "Simulation: GPT 4.1 Nano", variable == "Tourist flow") |> pull(max))
 ```
@@ -531,7 +531,10 @@ t.any.gpt.nhts <- df.any |>
 
 t.any.gemini <- tbl_merge(
     list(t.any.gemini.advan, t.any.gemini.nhts ),
-    tab_spanner = c("*Simulation: ADVAN*", "*Simulation: NHTS*")
+    tab_spanner = c(
+        "*Simulation: ADVAN*",
+        "*Simulation: NHTS*"
+    )
 ) 
 t.any.gpt <- tbl_merge(list(t.any.gpt.advan, t.any.gpt.nhts )) 
 
@@ -544,7 +547,7 @@ tbl_stack(
         style = cell_text(style = "italic"),
         locations = cells_row_groups()
     ) |>
-    tab_footnote("Note: Counts and percentages of destination-origin-month cells with no tourist flow in either simulations, any flow in either of simulations, and any flow in both simulations. Percentages are calculated based on number of possible destination-origin-month combinations (N=31,212). Based on simulated visits aggregated across all 1,000 iterations.")
+    tab_footnote("Note: ADVAN=ADVAN Mobility Data, NHTS=National Household Travel Survey. Counts and percentages of destination-origin-month cells with no tourist flow in either simulations, any flow in either of simulations, and any flow in both simulations. Percentages are calculated based on number of possible destination-origin-month combinations (N=31,212). Based on simulated visits aggregated across all 1,000 iterations.")
 ```
 
 ```{r}
@@ -575,14 +578,14 @@ This sparsity is expected, given that each iteration assigns 1,000 tourists acro
 Thus, even if we randomly assign each of simulated tourists, only about 3.2% of destination-origin-month cells would have at least one tourist flow.
 But the head of the distribution differs across simulations.
 Large language model simulations show higher concentration of tourist flows in the most popular destination-origin-month combination.
-The maximum tourist flow across all cells and iterations is `{r} max.gemini` for Gemini 2.5 Flash Lite and `{r} max.gpt` for GPT 4.1 Nano, which are higher than the two empirical-based simulations (`{r} max.advan` for ADVAN and `{r} max.nhts` for NHTS).
+The maximum tourist flow across all cells and iterations is `{r} max.gemini` for Gemini 2.5 Flash Lite and `{r} max.gpt` for GPT 4.1 Nano, which are higher than the two empirical-based simulations (`{r} max.advan` for ADVAN Mobility Data and `{r} max.nhts` for National Household Travel Survey).
 
 Similar patterns are observed when considering presence of *any* tourist flow, without accounting for differences in number of tourists.
 @tbl-any presents the agreement between large language model and empirical-based simulations in the precense of any tourist flow across destination-origin-month combinations.
 We aggregated the simulated visits across all 1,000 iterations, to reduce the sparsity arising from having only 1,000 tourists per iteration.
 Hence, the results indicate whether any of one million simulated tourists were assigned to a given destination-origin-month combination.
 In all four comparisons, large language models exclude specific destination-origin-month combinations even though they are present in empirical-based simulations.
-For example, `r intext.any$only.advan.gemini` of 31,212 combinations are observable in simulation based on empirical ADVAN data  but not in flows generated by Gemini 2.5 Flash Lite.
+For example, `r intext.any$only.advan.gemini` of 31,212 combinations are observable in simulation based on empirical ADVAN Mobility Data but not in flows generated by Gemini 2.5 Flash Lite.
 Another consistent pattern is that large language models rarely suggest destination-origin-month combinations that are absent in empirical-based simulations. 
 Meaning, large language models typically *prune* a large portion of destination-origin-month combinations, but rarely generate new combinations that are absent in empirical data.
 
@@ -598,7 +601,6 @@ df.dst <- bind_rows(
         data.name = factor(
             data.name,
             levels = c("advan", "nhts", "gemini", "gpt"),
-            labels = c("ADVAN", "NHTS", "Gemini 2.5 Flash Lite", "GPT 4.1 Nano"),
             ordered = TRUE
         )
     ) |>
@@ -611,16 +613,25 @@ df.dst <- bind_rows(
 
 ```{r}
 #| label: intext-dst
-dst.gini.advan <- df.dst |> filter(data.name == "ADVAN") |> pull(median.gini) |> first() |> pval_format()
-dst.gini.nhts <- df.dst |> filter(data.name == "NHTS") |> pull(median.gini) |> first() |> pval_format()
-dst.gini.gemini <- df.dst |> filter(data.name == "Gemini 2.5 Flash Lite") |> pull(median.gini) |> first() |> pval_format()
-dst.gini.gpt <- df.dst |> filter(data.name == "GPT 4.1 Nano") |> pull(median.gini) |> first() |> pval_format()
+dst.gini.advan <- df.dst |> filter(data.name == "advan") |> pull(median.gini) |> first() |> pval_format()
+dst.gini.nhts <- df.dst |> filter(data.name == "nhts") |> pull(median.gini) |> first() |> pval_format()
+dst.gini.gemini <- df.dst |> filter(data.name == "gemini") |> pull(median.gini) |> first() |> pval_format()
+dst.gini.gpt <- df.dst |> filter(data.name == "gpt") |> pull(median.gini) |> first() |> pval_format()
 ```
 
 ```{r}
 #| label: plot-dst
 #| include: false
 bbox <- st_bbox(sf.states)
+data_labeller <- as_labeller(
+            c(
+                "advan" = "ADVAN Mobility Data",
+                "nhts" = "National Household Travel Survey",
+                "gemini" = "Gemini 2.5 Flash Lite",
+                "gpt" = "GPT 4.1 Nano"
+            )
+        )
+
 df.dst.label <- df.dst |>
     group_by(data.name) |>
     summarize(median.gini = first(median.gini)) |>
@@ -629,6 +640,7 @@ df.dst.label <- df.dst |>
             st_point(c(bbox["xmax"], bbox["ymin"]))
         )
     )
+
 p.dst <- df.dst |>
     ggplot() +
     geom_sf(
@@ -650,7 +662,7 @@ p.dst <- df.dst |>
         hjust = 1,
         linewidth = 0,
     ) +
-    facet_wrap( ~ data.name, ncol = 4) +
+    facet_wrap(~ data.name, ncol = 4, labeller = data_labeller) +
     coord_sf(datum = NA) +
     theme(legend.position = "bottom") +
     guides(fill = guide_legend(title.position = "top", title.hjust = 0.5, nrow = 1)) +
@@ -675,7 +687,6 @@ df.month <- bind_rows(
         data.name = factor(
             data.name,
             levels = c("advan", "nhts", "gemini", "gpt"),
-            labels = c("ADVAN", "NHTS", "Gemini 2.5 Flash Lite", "GPT 4.1 Nano"),
             ordered = TRUE
         )
     )
@@ -683,10 +694,10 @@ df.month <- bind_rows(
 
 ```{r} 
 #| label: intext-month-prop
-month.gini.advan <- df.month |> filter(data.name == "ADVAN") |> pull(median.gini) |> first() |> pval_format()
-month.gini.nhts <- df.month |> filter(data.name == "NHTS") |> pull(median.gini) |> first() |> pval_format()
-month.gini.gemini <- df.month |> filter(data.name == "Gemini 2.5 Flash Lite") |> pull(median.gini) |> first() |> pval_format()
-month.gini.gpt <- df.month |> filter(data.name == "GPT 4.1 Nano") |> pull(median.gini) |> first() |> pval_format()
+month.gini.advan <- df.month |> filter(data.name == "advan") |> pull(median.gini) |> first() |> pval_format()
+month.gini.nhts <- df.month |> filter(data.name == "nhts") |> pull(median.gini) |> first() |> pval_format()
+month.gini.gemini <- df.month |> filter(data.name == "gemini") |> pull(median.gini) |> first() |> pval_format()
+month.gini.gpt <- df.month |> filter(data.name == "gpt") |> pull(median.gini) |> first() |> pval_format()
 ```
 
 ```{r} 
@@ -717,16 +728,16 @@ p.month <- df.month |>
     geom_vline(xintercept = 0, lty = 1, color = "black") +
     scale_fill_manual(
         values = c(
-            "ADVAN" = color.advan,
-            "NHTS" = color.nhts,
-            "Gemini 2.5 Flash Lite" = color.gemini,
-            "GPT 4.1 Nano" = color.gpt
+            "advan" = color.advan,
+            "nhts" = color.nhts,
+            "gemini" = color.gemini,
+            "gpt" = color.gpt
         )
     ) +
     scale_x_continuous(expand = expansion(mult = c(0.0, 0.1))) +
     scale_y_discrete(breaks = c("Jan", "Dec")) +
     coord_cartesian(clip = "off") +
-    facet_wrap( ~ data.name, ncol = 4) +
+    facet_wrap(~ data.name, ncol = 4, labeller = data_labeller) +
     theme(
         axis.line.x = element_blank(),
         axis.ticks.x = element_blank(),
@@ -755,7 +766,7 @@ df.month.gini <- bind_rows(
         data.name = factor(
             data.name,
             levels = c("advan", "nhts", "gemini", "gpt"),
-            labels = c("ADVAN", "NHTS", "Gemini 2.5 Flash Lite", "GPT 4.1 Nano")
+            ordered = TRUE
         )
     ) |>
     left_join(
@@ -807,7 +818,7 @@ p.month.gini <- df.month.gini |>
         hjust = 1,
         linewidth = 0,
     ) +
-    facet_wrap( ~ data.name, ncol = 4) +
+    facet_wrap(~ data.name, ncol = 4, labeller = data_labeller) +
     coord_sf(datum = NA) +
     theme(legend.position = "bottom") +
     guides(fill = guide_legend(title.position = "top", title.hjust = 0.5, nrow = 1)) +
@@ -832,7 +843,6 @@ df.org.entropy <- bind_rows(
         data.name = factor(
             data.name,
             levels = c("advan", "nhts", "gemini", "gpt"),
-            labels = c("ADVAN", "NHTS", "Gemini 2.5 Flash Lite", "GPT 4.1 Nano"),
             ordered = TRUE
         )
     ) |>
@@ -883,7 +893,7 @@ p.org.entropy <- df.org.entropy |>
         hjust = 1,
         linewidth = 0,
     ) +
-    facet_wrap( ~ data.name, ncol = 4) +
+    facet_wrap( ~ data.name, ncol = 4, labeller = data_labeller) +
     coord_sf(datum = NA) +
     theme(legend.position = "bottom") +
     guides(fill = guide_legend(title.position = "top", title.hjust = 0.5, nrow = 1)) +
@@ -899,13 +909,13 @@ p.org.entropy
 
 ```{r}
 #| label: fig-prop
-#| fig-cap: Characteristics of tourist flow distributions across destinations, months, destination-month pairs, and origin-destination pairs
+#| fig-cap: Characteristics of destination, month, destination-month, and origin-destination popularities across simulations
 #| fig-width: 12
 #| fig-height: 16 
 (p.dst / p.month / p.month.gini / p.org.entropy) + 
     plot_annotation(
-        title = "Generative AI Produce More Unevenly Distributed Tourist Flows",
-        subtitle = "Large language models tend to generate tourist flows that...",
+        title = "Large Language Models Produce More Unevenly Distributed Tourist Flows",
+        subtitle = "Simulations using large language models tend to generate tourist flows that...",
         tag_levels = "a",
         tag_prefix = "(", tag_suffix = ")"
     ) & 
@@ -920,11 +930,11 @@ Mathematical definitions of the metrics are available in @apx-eq.
 First, we examine distribution of tourist share by destination states ($D_j$) and months ($M_m$).
 We use the Gini index to quantify the inequality in these distributions, where a higher Gini index indicates greater concentration of tourist share among fewer states or months.
 In all four simulations, tourist visits concentrate in a few popular states, such as California, Florida, and Texas (@fig-prop[a]()).
-However, large language model simulations show higher Gini indices than empirical-based simulations, indicating greater inequality in tourist arrivals across states (ADVAN=`r dst.gini.advan` and NHTS=`r dst.gini.nhts`; Gemini 2.5 Flash Lite=`r dst.gini.gemini` and GPT 4.1 Nano=`r dst.gini.gpt`).
+However, large language model simulations show higher Gini indices than empirical-based simulations, indicating greater inequality in tourist arrivals across states (ADVAN Mobility Data=`r dst.gini.advan` and National Household Travel Survey=`r dst.gini.nhts`; Gemini 2.5 Flash Lite=`r dst.gini.gemini` and GPT 4.1 Nano=`r dst.gini.gpt`).
 
 Seasonal patterns are also more pronounced in the large language model outputs than in the empirical-based scenarios (@fig-prop[b]()).
 The two large language model-generated networks also have substantially high Gini indices across months (Median = `r month.gini.gemini` and `r month.gini.gpt` for Gemini 2.5 Flash Lite and GPT-4.1 Nano).
-This level of seasonality exceeds that of the two empirical-based scenarios (Median = `r month.gini.advan` and `r month.gini.nhts` for ADVAN and NHTS).
+This level of seasonality exceeds that of the two empirical-based scenarios (Median = `r month.gini.advan` and `r month.gini.nhts` for ADVAN Mobility Data and National Household Travel Survey).
 Although, the two large language models are different in which months are most popular.
 Gemini 2.5 Flash Lite shows a clear peak during September and October, with more than half of all simulated tourist arrivals concentrated in these two months.
 GPT-4.1 Nano shows peaks in April, May, and September.
@@ -932,7 +942,7 @@ Further, large language models worsen the seasonality of tourism demand at the d
 In @fig-prop[c](), we calculated Gini index of monthly tourist share for each destination state and took the median over 1,000 iterations.
 Few states show relatively high seasonality in the empirical-based simulations, such as Alaska and Hawaii.
 However, most states exhibit high seasonality in the large language model simulations.
-This tendency leads to overall higher level Gini indices accross all destinations (Median of medians = `r dst.month.gini.advan` and `r dst.month.gini.nhts` for ADVAN and NHTS; `r dst.month.gini.gemini` and `r dst.month.gini.gpt` for Gemini 2.5 Flash Lite and GPT 4.1 Nano).
+This tendency leads to overall higher level Gini indices accross all destinations (Median of medians = `r dst.month.gini.advan` and `r dst.month.gini.nhts` for ADVAN Mobility Data and National Household Travel Survey; `r dst.month.gini.gemini` and `r dst.month.gini.gpt` for Gemini 2.5 Flash Lite and GPT 4.1 Nano).
 
 Examining patterns in origin-destination pairs require a different approach.
 Although Gini index can be used, it does not effectively capture whether destination states receive tourists from a diverse set of origin states or rely on a few.
@@ -943,7 +953,7 @@ We calculate the entropy index for each destination and summarize the results ov
 
 @fig-prop[d]() shows that large language models have tendency to generate travel suggestions that destinations rely on a few origins.
 The empirical simulations show that states such as Florida, Illinois, and North Carolina tend to have diversified and balanced demand (higher entropy).
-For the two AI-simulated tourist flows, the entropy indices are overall lower than those of empirical-based simulations (Median of medians = `r dst.entropy.advan` and `r dst.entropy.nhts` for ADVAN and NHTS; `r dst.entropy.gemini` and `r dst.entropy.gpt` for Gemini 2.5 Flash Lite and GPT 4.1 Nano).
+For the two AI-simulated tourist flows, the entropy indices are overall lower than those of empirical-based simulations (Median of medians = `r dst.entropy.advan` and `r dst.entropy.nhts` for ADVAN Mobility Data and National Household Travel Survey; `r dst.entropy.gemini` and `r dst.entropy.gpt` for Gemini 2.5 Flash Lite and GPT 4.1 Nano).
 We also observe that fewer states exhibit relatively high entropy values in the large language model simulations (for example, Colorado and Hawaii for Gemini 2.5 Flash Lite).
 
 ```{r} 
@@ -1058,7 +1068,7 @@ The dotted red line indicates what can be expected by chance alone, if there is 
 This expectation under complete randomness is calculated by assuming that each individual have equal probability of choosing a destination (a probability of $1/51$).
 
 Reciprocity refers to the tendency to form mutual relationships—in our case, two states exchanging a similar number of tourists.
-Empirical-based simulations show higher levels of reciprocity compared to the random expectation (Median = `r recip.advan` and `r recip.nhts` for ADVAN and NHTS).
+Empirical-based simulations show higher levels of reciprocity compared to the random expectation (Median = `r recip.advan` and `r recip.nhts` for ADVAN Mobility Data and National Household Travel Survey).
 However, large language model simulations show lower levels of reciprocity than expected by chance (Median = `r recip.gemini` and `r recip.gpt` for Gemini 2.5 Flash Lite and GPT 4.1 Nano).
 Simply put, the large language models produce tourist flows with a clear separation between states that send tourists and those that receive them.
 
@@ -1134,19 +1144,19 @@ b.od.gpt.nhts <- betas.sum[16, 4] |> sprintf(fmt = "%4.3f")
 @tbl-betas and @fig-betas summarizes how the four popularity factors can explain deviation between large language model-simulated tourist flows and the empirical expectations (@eq-log-model).
 Across two large language models and two empirical baselines, destination-month popularity consistently has the largest positive coefficient.
 Meaning, large language models show a tendency to favor popular destination-month combinations when generating travel recommendations.
-Although, lower bounds of 95% credible intervals for Gemini 2.5 Flash Lite crosses zero with ADVAN baseline and is very wide with NHTS baseline, indicating unncertainty around the estimate.
+Although, lower bounds of 95% credible intervals for Gemini 2.5 Flash Lite crosses zero with ADVAN Mobility Data baseline and is very wide with National Household Travel Survey baseline, indicating unncertainty around the estimate.
 
 One way to interpret the coefficient for destination-month popularity is to consider it as an elasticity.
-For example, GPT 4.1 Nano with ADVAN baseline had a median coefficient of `r b.dm.gpt.advan` for destination-month popularity.
+For example, GPT 4.1 Nano with ADVAN Mobility Data baseline had a median coefficient of `r b.dm.gpt.advan` for destination-month popularity.
 If real-world data shows that a particular destination-month combination is twice as popular than what is expected under independence of destination and month popularity ($DM_{(j,m)} = 2$), then the expected tourist flow generated by GPT 4.1 Nano for that combination is approximately `r round(2 ** as.numeric(b.dm.gpt.advan), 1)` times higher ($2^{1.771}$), holding other factors constant.
 
 We find mixed results for the rest of the popularity factors.
 Some effects are specific to the large language model.
-For example, Gemini 2.5 Flash Lite consistently shows negative coefficients for destination popularity, indicating that it tends to negatively rescale popular destinations (Median $\beta_{1}$ = `r b.d.gemini.advan` and `r b.d.gemini.nhts` with ADVAN and NHTS baselines).
-The same pattern is only observed for GPT 4.1 Nano with NHTS baseline (Median $\beta_{1}$ = `r b.d.gpt.nhts`) but not with ADVAN baseline (Median $\beta_{1}$ = `r b.d.gpt.advan`).
-GPT 4.1 Nano with shows positive rescaling for origin-destination popularity (Median $\beta_{4}$ = `r b.od.gpt.advan` and `r b.od.gpt.nhts` with ADVAN and NHTS baselines), while Gemini 2.5 Flash Lite shows mixed findings (Median $\beta_{4}$ = `r b.od.gemini.advan` and `r b.od.gemini.nhts` with ADVAN and NHTS baselines).
+For example, Gemini 2.5 Flash Lite consistently shows negative coefficients for destination popularity, indicating that it tends to negatively rescale popular destinations (Median $\beta_{1}$ = `r b.d.gemini.advan` and `r b.d.gemini.nhts` with ADVAN Mobility Data and National Household Travel Survey baselines).
+The same pattern is only observed for GPT 4.1 Nano with National Household Travel Survey baseline (Median $\beta_{1}$ = `r b.d.gpt.nhts`) but not with ADVAN Mobility Data baseline (Median $\beta_{1}$ = `r b.d.gpt.advan`).
+GPT 4.1 Nano with shows positive rescaling for origin-destination popularity (Median $\beta_{4}$ = `r b.od.gpt.advan` and `r b.od.gpt.nhts` with ADVAN Mobility Data and National Household Travel Survey baselines), while Gemini 2.5 Flash Lite shows mixed findings (Median $\beta_{4}$ = `r b.od.gemini.advan` and `r b.od.gemini.nhts` with ADVAN Mobility Data and National Household Travel Survey baselines).
 
-Finally, we note that the month popularity coefficients are negative for GPT 4.1 Nano (Median $\beta_{2}$ = `r b.m.gpt.advan` and `r b.m.gpt.nhts` with ADVAN and NHTS baselines).
+Finally, we note that the month popularity coefficients are negative for GPT 4.1 Nano (Median $\beta_{2}$ = `r b.m.gpt.advan` and `r b.m.gpt.nhts` with ADVAN Mobility Data and National Household Travel Survey baselines).
 This is contradictory, given prior descriptive analysis indicated GPT 4.1 Nano having greater seasonality.
 One possible explanation is that peak months in GPT 4.1 Nano simulations do not align with those in empirical data (see @fig-prop[b]()).
 Therefore, the model attempts to fit the month popularity factor by flattening the empirical month popularity distribution.
@@ -1175,11 +1185,11 @@ betas.sum |>
     mutate(param = indent_row(param)) |>
     gt() |>
     tab_spanner(
-        label = "Empirical: ADVAN",
+        label = html("Empirical: ADVAN"),
         columns = ends_with("_ADVAN")
     ) |>
     tab_spanner(
-        label = "Empirical: NHTS",
+        label = html("Empirical: NHTS"),
         columns = ends_with("_NHTS")
     ) |>
     fmt_number(decimals = 3) |>
@@ -1204,65 +1214,13 @@ betas.sum |>
         locations = cells_row_groups()
     ) |>
     tab_footnote(
-        md("Note: Summary of Poisson model results over 1,000 iterations.")
+        md("Note: ADVAN=ADVAN Mobility Data, NHTS=National Household Travel Survey. Summary of Poisson model results over 1,000 iterations.")
     )
 ```
 
 ```{r} 
 #| label: fig-betas
-#| fig-cap: Summmary of popularity effect estimates across 1,000 iterations
-draw_beta_fig <- function(df) {
-    df |>
-        ggplot(aes(x = median.coeff, y = param, color = sim, shape = sim)) +
-        geom_errorbar(aes(xmin = lower.ci, xmax = upper.ci), width = 0, lwd = 0.5) +
-        geom_vline(xintercept = 0, lty = 2, color = "gray50") +
-        geom_point(aes(size = sim)) +
-        # below allows changing point size manually
-        scale_size_manual(values = rep(4, length(unique(df$sim)))) +
-        # invert y-axis order
-        scale_y_discrete(limits = rev(levels(df$param))) +
-        facet_grid(
-            sim ~ emp,
-            switch = "y",
-            labeller = labeller(
-                emp = c(
-                    "ADVAN" = "Empirical: ADVAN",
-                    "NHTS" = "Empirical: NHTS"
-                ),
-                sim = function(x) {
-                    paste("Simulation:<br>", x)
-                }
-            ),
-        ) +
-        scale_x_continuous(
-            limits = c(-1.5, 5),
-            breaks = seq(-1.0, 5, by = 1)
-        ) +
-        coord_cartesian(clip = "off") +
-        theme(
-            legend.position = "none",
-            strip.placement = "outside",
-            strip.text.x.top = element_markdown(size = 14),
-            strip.text.y.left = element_markdown(
-                angle = 0,
-                hjust = 0.5,
-                size = 14
-            ),
-            plot.title = element_text(size = 20, face = "bold"),
-            plot.subtitle = element_text(size = 16),
-            axis.ticks = element_blank(),
-            axis.line.x = element_blank(),
-            axis.title.x = element_text(margin = margin(t = 10)),
-            panel.spacing = unit(2.0, "lines"),
-            plot.margin = margin(t = 10, r = 40, b = 10, l = 10)
-        ) +
-        labs(
-            x = "Coefficient estimate",
-            y = "",
-            caption = "Note: Summary of Poisson model results over 1,000 iterations. Error bars represent 95% credible intervals for the estimates.",
-        )
-}
-
+#| fig-cap: Summary of popularity effect estimates across 1,000 iterations
 text.beta <- data.frame(
     median.coeff = c(0, 0),
     param = c(4, 4),
@@ -1291,13 +1249,46 @@ p.betas <- draw_beta_fig(betas.sum) +
     labs(
         title = "Generative AI Amplify Popularity of Destination-Month Pairs",
         subtitle = "Other popularity factors are dependent on specific large language model used and show mixed results",
+        caption = "Note: Summary of Poisson model results over 1,000 iterations. Error bars represent 95% credible intervals for the estimates.",
     )
 p.betas
 ```
 
-# Discussions
+## Robustness checks
 
-\FloatBarrier
+We conducted following robustness checks to test the sensitivity of our findings to different simulation choices (reported in @apx-robust).
+These additional simulations were performed with the first 100 iterations due to budget and computing time constraints.
+First, using alternative prompts does not substantially change the main findings.
+Large language model outputs are sensitive to the specific prompts used.
+Hence, we collected additional simulation data using slightly modified prompts (see @apx-prompt).
+One version excluded explicit instruction that demographic factors influence tourist choices ("reduced instruction" prompt).
+Another version instructed the models to act as *tourists* choosing destinations instead of travel agents giving suggestions ("tourist persona" prompt)
+None of these alterations substantially changed the main findings (@fig-prompt-betas).
+One notable exception is that Gemini 2.5 Flash Lite with reduced instruction prompt showed negative coefficients for month popularity.
+However, this case also showed stronger effects for destination-month and origin -destination popularity.
+
+Changing the temperature parameter also does not alter the results.
+The temperature parameter controls randomness in large language model outputs.
+Higher temperature setting produce more diverse outputs, while lower temperature setting generate more deterministic outputs.
+The default temperature setting used in our main analysis is 1.0.
+We collected additional data using temepratures of 0.5 and 1.5 (@fig-temp-betas).
+GPT 4.1 Nano with temperature of 1.5 could not generate valid outputs and hence was excluded.
+Similiar to @bai2025, we find that temperature setting has minimal impact on the popularity bias of large language models.
+
+Larger models in the Gemini 2.5 and GPT 4.1 series, as well as models from other providers, still show amplified destination-month popularity.
+We repeated the main analysis with larger variants of Gemini 2.5 and GPT-4.1 series models (Gemini 2.5 Flash and GPT-4.1 Mini).
+Additionally, we collected data using xAI's Grok 3 Mini and Meta's Llama 4 Scout to examine whether the findings are generalizable beyond OpenAI and Google models.
+Across all models tested, destination-month popularity shows strongest positive effects (@fig-model-betas).
+Compared to the models used in our main analysis, larger models show stronger destination-month popularity bias, not weaker.
+
+Finally, we examined robustness of our findings to alternative approach for fitting Poisson regression model to our iterative simulation data.
+Our results are robust to using aggregated data instead of fitting Poisson regression models for each iteration separately.
+We conducted alternative hypothesis tests by aggregating the simulation data across all 1,000 iterations and fitting a single Poisson regression model for each large language model simulation.
+This approach significantly reduces the number of destination-origin-month cells with zero tourist counts.
+We can also obtain significance levels for the estimated coefficients using  traditional frequentist tests.
+Coefficient estimates using aggregated data are nearly identical to median estimates from our main approach (see @tbl-agg-betas).
+
+# Discussions
 
 {{< pagebreak >}}
 

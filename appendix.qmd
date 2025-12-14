@@ -82,7 +82,7 @@ Recommend ONE DOMESTIC travel destination for each user. You will receive profil
 
 ---
 
-## Prompt without explicit instruction to use demographic information (zero-shot)
+## Prompt excluding an instruction that demographic factors influence travel decisions (zero-shot)
 
 You are a highly skilled AI travel advisor with expertise in the United States domestic tourism. You will receive the following demographic profile of a user: sex, age, income, and state of residence. Ensure your suggestions take into account ALL aspects.
 
@@ -94,7 +94,7 @@ Same as the full prompt.
 
 ---
 
-## Prompt framing large language model to act as a tourist (agent-based modeling style)
+## Prompt instructing large language models to act as a tourist (tourist persona; italics indicate differences from full prompt)
 
 You are a *United States domestic tourist choosing where to go.* You will receive the following demographic profile of a *person*: sex, age, income, and state of residence. You are the tourist described in the profile. *Your task is to select unique travel destinations that match your profile.*
 
@@ -201,3 +201,320 @@ Hence, the in-state travel ratio ($R_{InState}$) is defined as:
 $$
 R_{InState} = \frac{\sum_{i=j} Flow_{(i,j)}}{\sum_{i,j} Flow_{(i,j)}}
 $$ {#eq-instate}
+
+{{< pagebreak >}}
+
+# Robustness checks {#apx-robust}
+
+```{r} 
+#| label: setup-robust
+#| include: false
+library(tidyverse)
+library(arrow)
+library(sf)
+library(colorspace)
+library(gt)
+library(gtsummary)
+library(ggtext)
+library(glue)
+library(ineq)
+library(patchwork)
+library(spatstat)
+library(broom)
+
+options(tigris_use_cache = TRUE)
+```
+
+```{r} 
+#| label: load-functions-robust
+# load custom functions and theme
+source("r/helpers.r")
+source("r/theme.r")
+theme_set(theme_myriad())
+
+color.rand <- "#777777"
+color.nhts <- "#af9da6"
+color.advan <- "#c4b4a1"
+color.gemini <- "#214e7b"
+color.gpt <- "#ff7f05"
+color.grok <- "#e45756"
+color.llama <- "#4c78a8"
+```
+
+
+```{r} 
+#| label: read-alt-betas
+#| include: false
+#| results: hide
+betas.alt <- read_parquet("data/reg/betas-alt.parquet") |>
+    mutate(
+        param = factor(
+            param,
+            levels = c("ln_d", "ln_m", "ln_asdm", "ln_asod"),
+            labels = c("Destination", "Month", "Destination-Month", "Origin-Destination")
+        ),
+        emp = factor(
+            emp,
+            levels = c("advan", "nhts"),
+            labels = c("ADVAN", "NHTS")
+        )
+    )
+betas.alt.sum <- betas.alt |>
+    group_by(sim, emp, param) |>
+    summarize(
+        median.coeff = median(coeff),
+        lower.ci = quantile(coeff, 0.025),
+        upper.ci = quantile(coeff, 0.975),
+    )
+betas.alt.sum
+```
+
+```{r} 
+#| label: fig-prompt-betas
+#| fig-cap: Summary of popularity effect estimates with alternative prompts
+#| fig-height: 14.5
+#| fig-pos: "H"
+betas.alt.sum |>
+    filter(sim %in% c(
+        "gemini-2.5-flash-lite-preview-06-17",
+        "gemini-2.5-flash-lite-preview-06-17-zero",
+        "gemini-2.5-flash-lite-preview-06-17-agent",
+        "gpt-4.1-nano-2025-04-14",
+        "gpt-4.1-nano-2025-04-14-zero",
+        "gpt-4.1-nano-2025-04-14-agent"
+    )) |>
+    mutate(
+        sim = factor(
+            sim,
+            levels = c(
+                "gemini-2.5-flash-lite-preview-06-17",
+                "gemini-2.5-flash-lite-preview-06-17-zero",
+                "gemini-2.5-flash-lite-preview-06-17-agent",
+                "gpt-4.1-nano-2025-04-14",
+                "gpt-4.1-nano-2025-04-14-zero",
+                "gpt-4.1-nano-2025-04-14-agent"
+            ),
+            labels = c(
+                "Gemini 2.5 Flash Lite<br>(Default Prompt)",
+                "Gemini 2.5 Flash Lite<br>(Zero-shot)",
+                "Gemini 2.5 Flash Lite<br>(Tourist Persona)",
+                "GPT 4.1 Nano<br>(Default Prompt)",
+                "GPT 4.1 Nano<br>(Zero-shot)",
+                "GPT 4.1 Nano<br>(Tourist Persona)"
+            )
+        )
+    ) |>
+    draw_beta_fig() +
+    scale_shape_manual(
+        values = c(rep(20, 3), rep(18, 3))
+        ) +
+    scale_color_manual(
+        values = c(rep(color.gemini, 3), rep(color.gpt, 3))
+    ) +
+    labs(
+        title = "Using Alternative Prompts Produces Consistent Findings",
+        subtitle = "Large language models consistently amplify destination-month popularity across different prompts",
+        caption = "Note: Summary of Poisson model results over 100 iterations. Error bars represent 95% credible intervals for the estimates.\nZero-shot prompt excluded explicit instructions that demographic factors influence travel decisions.\nTourist persona prompt instructed the models to act as a tourist making travel choices, instead of being a travel agent.",
+    )
+```
+
+```{r} 
+#| label: fig-temp-betas
+#| fig-cap: Summary of popularity effect estimates with different temperature settings
+#| fig-height: 13
+#| fig-pos: "H"
+betas.alt.sum |>
+    filter(sim %in% c(
+        "gemini-2.5-flash-lite-preview-06-17",
+        "gemini-2.5-flash-lite-preview-06-17-temp0.5",
+        "gemini-2.5-flash-lite-preview-06-17-temp1.5",
+        "gpt-4.1-nano-2025-04-14",
+        "gpt-4.1-nano-2025-04-14-temp0.5"
+    )) |>
+    mutate(
+        sim = factor(
+            sim,
+            levels = c(
+                "gemini-2.5-flash-lite-preview-06-17",
+                "gemini-2.5-flash-lite-preview-06-17-temp0.5",
+                "gemini-2.5-flash-lite-preview-06-17-temp1.5",
+                "gpt-4.1-nano-2025-04-14",
+                "gpt-4.1-nano-2025-04-14-temp0.5"
+            ),
+            labels = c(
+                "Gemini 2.5 Flash Lite<br>(Temperature=1.0; Default)",
+                "Gemini 2.5 Flash Lite<br>(Temperature=0.5)",
+                "Gemini 2.5 Flash Lite<br>(Temperature=1.5)",
+                "GPT 4.1 Nano<br>(Temperature=1.0; Default)",
+                "GPT 4.1 Nano<br>(Temperature=0.5)"
+            )
+        )
+    ) |>
+    draw_beta_fig() +
+    scale_shape_manual(
+        values = c(rep(20, 3), rep(18, 2))
+        ) +
+    scale_color_manual(
+        values = c(rep(color.gemini, 3), rep(color.gpt, 2))
+    ) +
+    labs(
+        title = "Adjusting Temperature Parameter Does Not Change Key Findings",
+        subtitle = "Using more or less deterministic temperature settings does not substantially change results",
+        caption = "Note: Summary of Poisson model results over 100 iterations. Error bars represent 95% credible intervals for the estimates.\nLower temperature value (0.5) makes the output more deterministic, whereas higher temperature (1.5) yields less deterministic results.\nGPT 4.1 Nano with Temperature=1.5 failed to generate responses in the given structure and is thus excluded.",
+    )
+```
+
+```{r} 
+#| label: fig-model-betas
+#| fig-cap: Summary of popularity effect estimates with additional large language models
+#| fig-height: 14.5
+#| fig-pos: "H"
+betas.alt.sum |>
+    filter(sim %in% c(
+        "gemini-2.5-flash-lite-preview-06-17",
+        "gemini-2.5-flash-preview-05-20",
+        "gpt-4.1-nano-2025-04-14",
+        "gpt-4.1-mini-2025-04-14-temp1.0",
+        "grok-3-mini",
+        "llama4-scout-instruct-basic"
+    )) |>
+    mutate(
+        sim = factor(
+            sim,
+            levels = c(
+                "gemini-2.5-flash-lite-preview-06-17",
+                "gemini-2.5-flash-preview-05-20",
+                "gpt-4.1-nano-2025-04-14",
+                "gpt-4.1-mini-2025-04-14-temp1.0",
+                "grok-3-mini",
+                "llama4-scout-instruct-basic"
+            ),
+            labels = c(
+                "Gemini 2.5 Flash Lite",
+                "Gemini 2.5 Flash",
+                "GPT 4.1 Nano",
+                "GPT 4.1 Mini",
+                "Grok 3 Mini",
+                "Llama 4 Scout"
+            )
+        )
+    ) |>
+    draw_beta_fig() +
+    scale_shape_manual(
+        values = c(rep(20, 2), rep(18, 2), 17, 15)
+        ) +
+    scale_color_manual(
+        values = c(rep(color.gemini, 2), rep(color.gpt, 2), color.grok, color.llama)
+    ) +
+    scale_size_manual(
+        values = c(rep(4, 4), 3, 3)
+    ) +
+    labs(
+        title = "Amplification of Destination-Month Popularity is Consistent Across Models",
+        subtitle = "Larger models with more parameters show even stronger effects",
+        caption = "Note: Summary of Poisson model results over 100 iterations. Error bars represent 95% credible intervals for the estimates.",
+    )
+```
+
+{{< pagebreak >}}
+
+```{r} 
+#| label: calc-agg-betas
+agg.betas <- bind_rows(
+    fit_agg_ppml("data/reg/gemini-advan.parquet", "gemini", "advan"),
+    fit_agg_ppml("data/reg/gemini-nhts.parquet", "gemini", "nhts"),
+    fit_agg_ppml("data/reg/gpt-advan.parquet", "gpt", "advan"),
+    fit_agg_ppml("data/reg/gpt-nhts.parquet", "gpt", "nhts")
+) |> rename(param = term)
+
+# same as read-betas block
+agg.betas$param <- factor(
+    agg.betas$param,
+    levels = c("ln.d", "ln.m", "ln.asdm", "ln.asod"),
+    labels = c("Destination", "Month", "Destination-Month", "Origin-Destination")
+)
+agg.betas$sim <- factor(
+    agg.betas$sim,
+    levels = c("rand", "nhts", "advan", "gemini", "gpt"),
+    labels = c("Random", "NHTS", "ADVAN", "Gemini 2.5 Flash Lite", "GPT 4.1 Nano")
+)
+agg.betas$emp <- factor(
+    agg.betas$emp,
+    levels = c("advan", "nhts"),
+    labels = c("ADVAN", "NHTS")
+)
+```
+
+```{r} 
+#| label: tbl-agg-betas
+#| tbl-cap: Regression results with aggregated data
+#| tbl-pos: "H"
+# same as tbl-betas block
+agg.betas |> 
+    relocate(sim, emp, .before = param) |>
+    select(-statistic) |>
+    mutate(
+        std.error = std.error * -1 # this is a hack to get parenthesis
+    ) |>
+    pivot_wider(names_from = emp, values_from = c(estimate, std.error, p.value)) |>
+    relocate(ends_with("_ADVAN"), .after = param) |>
+    mutate(
+        param = factor(
+            param,
+            levels = levels(param),
+            labels = md(
+                c(
+                "$\\beta_{1}$: Destination",
+                "$\\beta_{2}$: Month",
+                "$\\beta_{3}$: Destination-Month",
+                "$\\beta_{4}$: Origin-Destination"
+                )
+            )
+        ),
+        sim = paste("Simulation:", sim),
+    ) |>
+    mutate(param = indent_row(param)) |>
+    gt(groupname_col = "sim") |>
+    tab_spanner(
+        label = "Empirical: ADVAN",
+        columns = ends_with("_ADVAN")
+    ) |>
+    tab_spanner(
+        label = "Empirical: NHTS",
+        columns = ends_with("_NHTS")
+    ) |>
+    fmt_number(decimals = 3) |>
+    fmt_number(
+        columns = starts_with("std.error"),
+        decimals = 3,
+        accounting = TRUE
+    ) |>
+    fmt(
+        columns = starts_with("p.value"),
+        fns = pval_format
+    ) |>
+    fmt_markdown(columns = param, rows = TRUE) |>
+    cols_align(
+        align="left",
+        columns = param
+    ) |>
+    cols_label(
+        param = "",
+        starts_with("estimate") ~ "Estimate",
+        starts_with("std.error") ~ "Robust SE",
+        starts_with("p.value") ~ md("*p*"),
+    ) |>
+    # italicize sim & emp names
+    tab_style(
+        style = cell_text(style = "italic"),
+        locations = cells_column_spanners()
+    ) |>
+    tab_style(
+        style = cell_text(style = "italic"),
+        locations = cells_row_groups()
+    ) |>
+    tab_footnote(
+        md("Note: ADVAN=ADVAN Mobility Data, NHTS=National Household Travel Survey.")
+    )
+
+```

@@ -47,6 +47,7 @@ format:
     floatsintext: true
     header-includes: 
       - \usepackage{placeins}
+      - \usepackage{float}
     fig-width: 12
     fig-height: 7
 execute:
