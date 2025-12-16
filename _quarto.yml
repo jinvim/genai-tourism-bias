@@ -35,12 +35,15 @@ keywords:
 
 date: last-modified
 format:
-  # apaquarto-docx: 
-  #   floatsintext: true
-    # header-includes: 
-    #   - \usepackage{setspace}
-    #   - \usepackage{placeins}
-    #   - \doublespacing
+  apaquarto-docx: 
+    floatsintext: true
+    header-includes: 
+      - \usepackage{setspace}
+      - \usepackage{placeins}
+      - \usepackage{float}
+      - \doublespacing
+    fig-format: svg
+    fig-dpi: 300
   apaquarto-pdf:
     documentmode: doc
     journal: SocArXiv
@@ -48,8 +51,8 @@ format:
     header-includes: 
       - \usepackage{placeins}
       - \usepackage{float}
-    fig-width: 12
-    fig-height: 7
+fig-width: 12
+fig-height: 7
 execute:
   echo: false
   warning: false

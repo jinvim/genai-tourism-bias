@@ -120,7 +120,7 @@ When the focus is on stereotyping, studies define bias as *act of* unjustified a
 This definition is inhereted from social psychology literature on implicit asssociations [@greenwald1998].
 Studies examining ethical implications of AI biases often define bias in terms of *outcomes or treatment*: unequal allocation of resources or unfavorable representation of social groups [for example @blodgett2020; @gallegos2024; @kordzadeh2022].
 Such definitions are analogous to legal definition of discrimination, a behaviroal outcome of biases, as disparate impacts or treatement [@seiner2006].
-Some distinguish bias from harm, where bias is defined as having a particular inclination or deviation of model outputs from empirical data [for example @ghosh2025; @wu2024a].
+Others distinguish bias from harm, where bias is defined as having a particular inclination or deviation of model outputs from empirical data [for example @ghosh2025; @wu2024a].
 In this more netural definition of bias that are closely tied to statistical and computer science, bias is considered unavoidable for generalization and because data itself reflects biases of the real world [@chen2023d; @ghosh2025].
 
 Even with a clear definition of bias, measuring biases in generative AI is challenging.
@@ -134,19 +134,69 @@ Existing methods for aessing biases in AI are also designed to quantify one type
 For example, a tourism recommendation algorithm may exhibit racial stereotype bias and  popularity bias simultaneously.
 But current metrics do not allow for measuring multiple biases at once, which limits diagnoses as models become more complex and their biases become more subtle.
 
-# Baseline-Rescaling-Output Model for testing algorithmic biases in tourism
+# Baseline-Rescaling-Outcome Model for testing algorithmic biases in tourism
+
+We propose a Baseline-Rescaling-Outcome Model to test algorithmic biases in tourism.
+Bias in this model is defined as a *systematic deviation of algorithmic outputs from empirically grounded expectations of tourism phenomena.*
+This definition separates bias from harm [@ghosh2025], as what is considered harmful depends on who is being affected [@blodgett2020].
+Consider tourism as a system involving multiple stakeholders [@leiper1979].
+If an algorithm systematically favors one destination over another, such bias is benefical to the favored but harmful to the rest.
+Even for the destination being favored, the tourism sector in that destination could benefit while locals suffer from over-tourism.
+
+Our model tests bias by modeling the divergence between algorithmic *outcome* and empirical *baseline* as a function of *rescaling* factors representing hypothesized bias mechanisms (@fig-model).
+Compared to existing methods for assessing biases in AI, our approach has three advantages.
+The model assume that the model and its modeling process are inaccessible, which allows testing biases in proprietary and closed-source models.
+This assumption is no different from how social scientists study human biases.
+We cannot directly observe the biases in cognitive processes, but we can infer countious or uncontious biases from behavioral outcomes such as speed of responses and error rates [@greenwald1998].
+Our approach is also flexible.
+As long as we can derive empirically grounded expectations, rescaling factors, and algorithmic outputs, we can test biases in algorithms beyond generative AI and outside of tourism context.
+Finally, the rescaling factors allows interpretable diagnosis of biases, ideal for translating findings into practical suggestions for mitigating biases.
+Although, we caution that the model is not, nor aiming to be, a theory of how biases arise in algorithms.
+Biases in algorithms are *caused by* complex socio-technical processes that includes biases in data generating processes, model architectures, and human feedback [@santurkar2023; @viglia2024a].
+Because we often lack access to these processes and due to uninterpretable nature of some algorithms, we can only speculate on what causes biases [@bai2025].
+
+![Baseline-Rescaling-Outcome Model](figures/model.svg){#fig-model}
+
+## Outcome: Projected tourism patterns under complete reliance on the algorithm
+
+Given that we assume no access to the modeling process, output of the algorithm is the only means to assess the bias.
+Specifically, we use outcome of when *all* decisions are made by the algorithm under study.
+This follows the practice of scenario-based projection models that predict outcomes under specified conditions [@runge2024].
+Examples include Shared Socioeconomic Pathways for climate trajectories [@ipcc2021] and COVID-19 diffusion models [@adam2020].
+These models contain “worst-case” scenarios that project the most extreme outcomes: climate projections without emission reductions or infection rates without government interventions.
+Though unrealistic, these extreme scenarios serve as benchmarks for assessing whether action is necessary.
+We apply the same logic to studying algorithmic biases.
+For example, if we want to test whether generative AI for tourist recommendation system is biased, we project a scenario where all tourists rely on the generative AI.
+Simiarly, biases in hiring algorithms for tourism firm can be tested by projecting a scenario where all hiring decisions are made by the algorithm. 
+
+## Baseline: Empirically grounded expectations of tourism phenomena
+
+But without a baseline, we cannot know whether the outputs are biased.
+Consider a situation where an algorithm has a four-in-ten chance of suggesting US domestic tourists to visit San Francisco.
+Could we say that this algorithm has a systematic tendency to favor San Francisco as a tourism destination?
+We argue that to answer this question, one first need an empirical benchmark of what would "unbiased" suggestions look like.
+If four in ten Americans visit San Francisco, then the algorithm's tendency is simply reproducing what is expected in the real-world tourism patterns.
+However, if only one in ten US domestic tourists visit San Francisco, then the algorithm does favor San Francisco beyond the empirical expectation.
+@santurkar2023 implement a similar approach to assess representation biases in large language models by comparing empirical distribution of public opinions with model-generated opinions.
+@abdollahpouri2020 similarly used real-world music and movie ratings to assess popularity biases by comparing empirical and algorithm-produced distributions of popularities.
+
+## Rescaling: Testable factors for hypothesized bias mechanisms
+
+Rescaling is the final component of the model that tests specific mechanisms that produce biases.
+We do so by reproducing the algorithm outcome using the baseline and a set of rescaling factors.
+Under the null condition of no bias, the algorothm should reproduce the baseline hence the rescaling factors are unnecessary.
+If the algorithm deviates from the baseline, we can test whether such deviation is systematic by explaining the divergence using hypothesized mechanisms.
+This approach yields interpretable tests of specific bias in algorithms, going beyond simply measuring the degree of divergence between baseline and algorithm output.
+The direction of bias is another important aspect that our model can capture.
+Since we adopted a neutral definition of bias, it is possible for an algorithm to exhibit bises that reduce empricially-observed asymmetries [@ghosh2025].
+For example, algorithms could be designed to favor less popular destinations and off-peak seasons, diversifying the tourism demand across destinations and time.
+Our model can test for such biases as negative rescaling factors, allowing us to explain algorithm outputs as mixtures of amplification and attenuation of empirical patterns.
 
 # Study design
 
 ## Empirical framework for testing popularity biases in large language model travel suggestions
 
 This study proposes that LLMs have systematic biases in their suggestions, favoring popular tourism patterns while attenuating less popular ones.
-But first, we need to define the meaning of *bias.*
-Consider a situation where an algorithm has a four-in-ten chance of suggesting US domestic tourists to visit New York City.
-Could we say that this algorithm has a systematic tendency to favor New York City as a tourism destination?
-We argue that to answer this question, one first need an empirical benchmark of what would "unbiased" suggestions look like.
-For example, if four in ten Americans visit New York City, then the algorithm's tendency is simply reproducing what is expected in the real-world tourism patterns.
-If, however, only one in ten US domestic tourists visit New York City, then the algorithm does favor New York City beyond the empirical expectation.
 This study defines algorithmic bias as systematic deviation from expected real-world patterns.
 Our empirical testing framework builds on this definition.
 We test algorithmic bias in large language models' travel suggestions by modeling the divergence from the empirical baseline as a function of popularity factors.
