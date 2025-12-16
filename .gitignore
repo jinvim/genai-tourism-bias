@@ -1,0 +1,12 @@
+style-guide/
+*_files/
+.DS_Store
+__pycache__/
+.quarto
+/.quarto/
+*.out.ipynb
+*.bkp
+*.ttt
+*.fff
+reviews/
+**/*.quarto_ipynb

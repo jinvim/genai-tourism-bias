@@ -1,0 +1,71 @@
+stat,data_x,data_y,statistic,pvalue
+gini_month,Random,Mobility data,-37.8815329677986,0.00019998000199980003
+gini_month,Random,Mobility data (alternative),-64.72334715207089,0.00019998000199980003
+gini_month,Random,Gemini 2.5 Flash Lite,-377.9953586187956,0.00019998000199980003
+gini_month,Random,GPT-4.1 Nano,-533.5092687676581,0.00019998000199980003
+gini_month,Mobility data,Mobility data (alternative),-25.672586356131518,0.00019998000199980003
+gini_month,Mobility data,Gemini 2.5 Flash Lite,-348.442081159403,0.00019998000199980003
+gini_month,Mobility data,GPT-4.1 Nano,-453.5930022588751,0.00019998000199980003
+gini_month,Mobility data (alternative),Gemini 2.5 Flash Lite,-330.5809547250316,0.00019998000199980003
+gini_month,Mobility data (alternative),GPT-4.1 Nano,-415.9910493618411,0.00019998000199980003
+gini_month,Gemini 2.5 Flash Lite,GPT-4.1 Nano,83.78542246960768,0.00019998000199980003
+centralization,Random,Mobility data,-302.39578360018277,0.00019998000199980003
+centralization,Random,Mobility data (alternative),-290.2643344588289,0.00019998000199980003
+centralization,Random,Gemini 2.5 Flash Lite,-312.87976753562276,0.00019998000199980003
+centralization,Random,GPT-4.1 Nano,-335.0009745647452,0.00019998000199980003
+centralization,Mobility data,Mobility data (alternative),8.65759365881858,0.00019998000199980003
+centralization,Mobility data,Gemini 2.5 Flash Lite,-32.41119854446208,0.00019998000199980003
+centralization,Mobility data,GPT-4.1 Nano,-74.43874199286111,0.00019998000199980003
+centralization,Mobility data (alternative),Gemini 2.5 Flash Lite,-36.78709434063457,0.00019998000199980003
+centralization,Mobility data (alternative),GPT-4.1 Nano,-72.40307865196861,0.00019998000199980003
+centralization,Gemini 2.5 Flash Lite,GPT-4.1 Nano,-34.0733487763542,0.00019998000199980003
+reciprocity,Random,Mobility data,-85.62848459065307,0.00019998000199980003
+reciprocity,Random,Mobility data (alternative),-147.33311232297706,0.00019998000199980003
+reciprocity,Random,Gemini 2.5 Flash Lite,66.12516882177385,0.00019998000199980003
+reciprocity,Random,GPT-4.1 Nano,117.26248140909915,0.00019998000199980003
+reciprocity,Mobility data,Mobility data (alternative),-32.864101221427376,0.00019998000199980003
+reciprocity,Mobility data,Gemini 2.5 Flash Lite,123.8289417068343,0.00019998000199980003
+reciprocity,Mobility data,GPT-4.1 Nano,159.83924077874047,0.00019998000199980003
+reciprocity,Mobility data (alternative),Gemini 2.5 Flash Lite,181.76175500489788,0.00019998000199980003
+reciprocity,Mobility data (alternative),GPT-4.1 Nano,216.80723371681333,0.00019998000199980003
+reciprocity,Gemini 2.5 Flash Lite,GPT-4.1 Nano,51.49229475508984,0.00019998000199980003
+resilience,Random,Mobility data,887.2124209119819,0.00019998000199980003
+resilience,Random,Mobility data (alternative),624.5357331302655,0.00019998000199980003
+resilience,Random,Gemini 2.5 Flash Lite,621.7541142887974,0.00019998000199980003
+resilience,Random,GPT-4.1 Nano,1291.191460847883,0.00019998000199980003
+resilience,Mobility data,Mobility data (alternative),-224.88702724527553,0.00019998000199980003
+resilience,Mobility data,Gemini 2.5 Flash Lite,7.516866312575365,0.00019998000199980003
+resilience,Mobility data,GPT-4.1 Nano,246.09912615553853,0.00019998000199980003
+resilience,Mobility data (alternative),Gemini 2.5 Flash Lite,180.14578699422248,0.00019998000199980003
+resilience,Mobility data (alternative),GPT-4.1 Nano,488.318249221363,0.00019998000199980003
+resilience,Gemini 2.5 Flash Lite,GPT-4.1 Nano,178.52005976067292,0.00019998000199980003
+mean_dist,Random,Mobility data,1030.3646036187074,0.00019998000199980003
+mean_dist,Random,Mobility data (alternative),785.1001058307675,0.00019998000199980003
+mean_dist,Random,Gemini 2.5 Flash Lite,252.8486415064932,0.00019998000199980003
+mean_dist,Random,GPT-4.1 Nano,1100.115214577113,0.00019998000199980003
+mean_dist,Mobility data,Mobility data (alternative),-227.91974484791373,0.00019998000199980003
+mean_dist,Mobility data,Gemini 2.5 Flash Lite,-104.01443085542971,0.00019998000199980003
+mean_dist,Mobility data,GPT-4.1 Nano,104.776920558234,0.00019998000199980003
+mean_dist,Mobility data (alternative),Gemini 2.5 Flash Lite,-38.19586174758653,0.00019998000199980003
+mean_dist,Mobility data (alternative),GPT-4.1 Nano,317.77118788833354,0.00019998000199980003
+mean_dist,Gemini 2.5 Flash Lite,GPT-4.1 Nano,130.35204322894506,0.00019998000199980003
+border,Random,Mobility data,-145.7234321591101,0.00019998000199980003
+border,Random,Mobility data (alternative),-276.9645846597083,0.00019998000199980003
+border,Random,Gemini 2.5 Flash Lite,-143.9059530069253,0.00019998000199980003
+border,Random,GPT-4.1 Nano,71.70722264968828,0.00019998000199980003
+border,Mobility data,Mobility data (alternative),-138.75132936774668,0.00019998000199980003
+border,Mobility data,Gemini 2.5 Flash Lite,-44.47220684639554,0.00019998000199980003
+border,Mobility data,GPT-4.1 Nano,213.49305780002294,0.00019998000199980003
+border,Mobility data (alternative),Gemini 2.5 Flash Lite,60.554244327386684,0.00019998000199980003
+border,Mobility data (alternative),GPT-4.1 Nano,338.43355523314665,0.00019998000199980003
+border,Gemini 2.5 Flash Lite,GPT-4.1 Nano,187.79463739262349,0.00019998000199980003
+self_loops,Random,Mobility data,-1448.4849254704145,0.00019998000199980003
+self_loops,Random,Mobility data (alternative),-869.7652374376224,0.00019998000199980003
+self_loops,Random,Gemini 2.5 Flash Lite,-369.68578105499444,0.00019998000199980003
+self_loops,Random,GPT-4.1 Nano,-1562.7863046406987,0.00019998000199980003
+self_loops,Mobility data,Mobility data (alternative),338.69479779122446,0.00019998000199980003
+self_loops,Mobility data,Gemini 2.5 Flash Lite,97.81934052554678,0.00019998000199980003
+self_loops,Mobility data,GPT-4.1 Nano,-207.71200703799082,0.00019998000199980003
+self_loops,Mobility data (alternative),Gemini 2.5 Flash Lite,-53.015974094123806,0.00019998000199980003
+self_loops,Mobility data (alternative),GPT-4.1 Nano,-516.8960509263497,0.00019998000199980003
+self_loops,Gemini 2.5 Flash Lite,GPT-4.1 Nano,-188.90357245566955,0.00019998000199980003

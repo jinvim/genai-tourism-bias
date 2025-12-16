@@ -1,0 +1,23 @@
+A day would come when we no longer need to plan our trips.
+Or at least, that is what companies like OpenAI, Google, and Anthropic envision—easily "outsourcing” travel decisions to AI agents [@dawes2024].
+From writing code to composing music, generative AI is transforming how we do many things [@marr2023].
+Tourism is no exception in this regard.
+The majority of travelers are already using generative AI to plan their trips [@booking.com2025].
+In response, major online travel agencies like Expedia and TripAdvisor are integrating generative AI into their platforms [@tripadvisor2023;@expedia2023].
+
+As tourism researchers, we pose a critical question: *What consequences await destinations if more tourists rely on generative AI to guide their travel decisions?*
+Some tourism and hospitality experts warn that generative AI can suppress destinations’ uniqueness and undermine the sustainability of tourism [@dogru2025; @lehto2025].
+Yet, we lack evidence to substantiate such concerns [@gossling2025; @mellors2025].
+This knowledge gap leaves tourism destinations and businesses uncertain about how to prepare for generative AI's potential impacts, or to determine whether such preparation is even necessary.
+
+In this study, we provide empirical insights into how this rapid adoption of generative AI may reshape tourism patterns.
+We do so using scenario-based projections simulating decisions of one million US domestic tourists.
+Scenarios include tourists making random choices, adhering to current patterns, and relying exclusively on large language models.
+The last scenario offers a "worst-case" benchmark for assessing whether the concerns about generative AI's impacts are valid.
+
+We show that compared to empirical-based simulations, large language models tend to concentrate visits during peak seasons and favor popular destinations.
+Large language models also produce tourism patterns where popular states primarily receive tourists while reciprocating fewer.
+However, these models show different tendencies regarding geographic patterns of tourist flows, like mean travel distance and preference for neighboring states and intra-state travel.
+We conclude that generative AI has the potential to undermine the sustainability and resilience of the tourism sector.
+While intuitive, this study offers valuable evidence quantifying how generative AI may reshape tourism patterns.
+These findings show the need for tourism scholars and practitioners to assess and prepare for generative AI's impact on the tourism system.

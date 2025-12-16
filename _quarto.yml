@@ -1,0 +1,58 @@
+title: Large Language Models Yield Unsustainable Tourist Flows
+author:
+  - name: Seonjin Lee
+    email: seonjin@sc.edu
+    orcid: 0000-0002-3944-0738
+    affiliations: 
+      - id: smartstate
+        name: Richardson Family SmartState Center for Economic Excellence in Tourism and Economic Development
+        department: School of Hospitality and Tourism Management, University of South Carolina
+        address: 1705 College St.
+        city: Columbia
+        state: SC
+        country: USA
+        postal-code: 29208
+    corresponding: true
+  - name: Lori Pennington-Gray
+    email: penninl@mailbox.sc.edu
+    affiliations:
+      - ref: smartstate
+abstract:
+  This study quantifies the impact of generative AI on tourist flow using scenario-based projection models.
+  We simulate one million US domestic tourists using Gemini 2.5 Flash and GPT 4.1 Nano.
+  Their tourism patterns are compared to the null model and empirical-based simulations.
+  Large language models generate tourist flows that are more seasonal, more unequal, and less reciprocal than empirical-based simulations.
+  Geographic patterns, like mean travel distance and preference for neighboring states and intra-state destinations, vary by model.
+  Findings show that the widespread adoption of generative AI can undermine the sustainability and resilience of tourism systems.
+  We urge tourism scholars and practitioners to proactively assess the consequences of adopting generative AI in tourism.
+keywords: 
+  - tourist flow network
+  - social network analysis
+  - generative AI impact
+  - large language models
+  - network simulation
+  - scenario-based projection models
+
+date: last-modified
+format:
+  # apaquarto-docx: 
+  #   floatsintext: true
+    # header-includes: 
+    #   - \usepackage{setspace}
+    #   - \usepackage{placeins}
+    #   - \doublespacing
+  apaquarto-pdf:
+    documentmode: doc
+    journal: SocArXiv
+    floatsintext: true
+    header-includes: 
+      - \usepackage{placeins}
+    fig-width: 12
+    fig-height: 7
+execute:
+  echo: false
+  warning: false
+  message: false
+  error: false
+bibliography: references.bib
+csl: apa.csl

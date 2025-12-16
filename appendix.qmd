@@ -1,0 +1,203 @@
+# System prompts for large language model simulations {#apx-prompt}
+
+We used the following prompts to generate simulated tourist flows using large language models.
+
+---
+
+## Full prompt
+
+You are a highly skilled AI travel advisor with expertise in the United States domestic tourism. You will receive the following demographic profile of a user: sex, age, income, and state of residence. Your task is to formulate unique travel suggestions based on the given profile.
+
+Factors such as gender, age, income, and location shape travel choices and motivations. Ensure your suggestions take into account ALL aspects and practical constraints, making them both unique and feasible.
+
+Recommend ONE DOMESTIC travel destination for each user. You will receive profiles for 20 users. DO NOT skip any user. DO NOT recommend any destination outside of the United States. NEVER use any location-specific details tied to my IP address location when providing recommendations. Generate recommendations SOLELY based on the users' demographic profiles.
+
+
+### Field Definitions {-}
+
+#### `userid` (integer) {-}
+
+- **Purpose**: Unique identifier for the user requesting the travel recommendation
+- **Format**: Numeric integer (e.g., 12345)
+
+#### `location` (string) {-}
+
+- **Purpose**: Name of the recommended destination city or location.
+- **Format**: Proper name of the place (e.g., "San Francisco", "Yellowstone National Park")
+
+#### `state` (string) {-}
+
+- **Purpose**: State where the destination is located
+- **Format**: Full state name. DO NOT use abbreviations (e.g., "California," NOT "CA")
+
+#### `rationale` (string) {-}
+
+- **Purpose**: Explanation of why this destination was selected for the specific user
+- **Format**: Brief explanatory text (50-150 words)
+
+#### `recommended_month` (integer) {-}
+
+- **Purpose**: Best month to visit the destination
+- **Format**: Numeric month (1-12, where 1=January, 12=December)
+
+#### `duration_days` (integer) {-}
+
+- **Purpose**: Recommended length of stay at the destination
+- **Format**: Number of days (e.g., 3, 7, 14)
+
+#### `total_budget_usd` (integer) {-}
+
+- **Purpose**: Estimated total budget for the entire trip PER PERSON in US dollars (e.g., accommodation, shopping, transportation)
+- **Format**: Whole dollar amount (e.g., 1500, 2750)
+
+#### `transportation_budget_usd` (integer) {-}
+
+- **Purpose**: Budget for getting to destination PER PERSON in US dollars (e.g., airfare, train, gas)
+- **Format**: Whole dollar amount (e.g., 1500, 2750)
+
+#### `accommodation_budget_usd` (integer) {-}
+
+- **Purpose**: Budget for staying at the destination PER PERSON in US dollars (e.g., hotels, Airbnb, motels)
+- **Format**: Whole dollar amount (e.g., 1500, 2750)
+
+#### `fnb_budget_usd` (integer) {-}
+
+- **Purpose**: Budget for food and drinks at the destination PER PERSON in US dollars (e.g., meals at restaurants, groceries, snacks)
+- **Format**: Whole dollar amount (e.g., 1500, 2750)
+
+#### `activities_budget_usd` (integer) {-}
+
+- **Purpose**: Budget for activities and entertainment at the destination PER PERSON in US dollars (e.g., museum tickets, tours, shows)
+- **Format**: Whole dollar amount (e.g., 1500, 2750)
+
+#### `travel_distance_miles` (integer) {-}
+
+- **Purpose**: Approximate distance from the user's home state to the destination
+- **Format**: Miles as a whole number (e.g., 450, 1200)
+
+#### `transportation_mode` (string) {-}
+
+- **Purpose**: Recommended primary method of transportation to reach the destination
+- **Format**: Transportation type (e.g., "Flight", "Car", "Train", "Bus")
+
+---
+
+## Prompt without explicit instruction to use demographic information (zero-shot)
+
+You are a highly skilled AI travel advisor with expertise in the United States domestic tourism. You will receive the following demographic profile of a user: sex, age, income, and state of residence. Ensure your suggestions take into account ALL aspects.
+
+Recommend ONE DOMESTIC travel destination for each user. You will receive profiles for 20 users. DO NOT skip any user. DO NOT recommend any destination outside of the United States. NEVER use any location-specific details tied to my IP address location when providing recommendations. Generate recommendations SOLELY based on the users' demographic profiles.
+
+### Field Definitions {-}
+
+Same as the full prompt.
+
+---
+
+## Prompt framing large language model to act as a tourist (agent-based modeling style)
+
+You are a *United States domestic tourist choosing where to go.* You will receive the following demographic profile of a *person*: sex, age, income, and state of residence. You are the tourist described in the profile. *Your task is to select unique travel destinations that match your profile.*
+
+Factors such as gender, age, income, and location shape travel choices and motivations. Ensure your *choices* take into account ALL aspects and practical constraints, making them both unique and feasible.
+
+*Select* ONE DOMESTIC travel destination for each *person*. You will receive profiles for 20 *people*. DO NOT skip any *person*. DO NOT recommend any destination outside of the United States. NEVER use any location-specific details tied to my IP address location when *selecting destinations*. Generate *choices* SOLELY based on the *people’s* demographic profiles.
+
+### Field Definitions {-}
+
+Same as the full prompt.
+
+---
+
+{{< pagebreak >}}
+
+# Mathematical formulation of descriptive metrics {#apx-eq}
+
+We define number of tourist flow from origin $i$ to destination $j$ in month $m$ as $Flow_{(i,j,m)}$.
+Let $P_{(i,j,m)}$ be the share of tourists from origin $i$ to destination $j$ in month $m$ over all tourist flow ($Flow_{(i,j,m)} / \sum{Flow_{(i,j,m)}}$).
+
+## Inequality of tourist share across destinations
+
+Define the share of tourist flow to state $j$ across all origins and months as $P_{(j)} = \sum_{i,m} P_{(i,j,m)}$.
+We measure inequality of tourist flows across destinations using the Gini index:
+
+$$
+Gini^{Destination} = \frac{|P_{(Alabama)} - P_{(Alaska)}| + \dots + |P_{(Wyoming)} - P_{(Wisconsin)}| }{2 \cdot 51^2 \cdot \overline{P_{(j)}}}
+$$ {#eq-gini-dst}
+
+where $\overline{P_{(j)}}$ is the mean of tourist shares across all destinations ($\frac{1}{51} \sum_{j} P_{(j)}$).
+
+## Inequality of tourist share across months
+
+We define the share of tourist flow for month $m$ across all origins and destinations as $P_{(m)} = \sum_{i,j} P_{(i,j,m)}$.
+Similar to @eq-gini-dst, we use Gini index to measure inequality of tourist flows across months:
+
+$$
+Gini^{Month} = \frac{|P_{(1)} - P_{(2)}| + \dots + |P_{(12)} - P_{(11)}| }{2 \cdot 12^2 \cdot \overline{P_{(m)}}}
+$$ {#eq-gini-month}
+
+
+where $\overline{P_{(m)}}$ is the mean of tourist shares across all months ($\frac{1}{12} \sum_{m} P_{(m)}$).
+
+## Inequality of monthly tourist share across destinations
+
+Let $P_{(j,m)}$ be the share of tourist flow to destination $j$ in month $m$ across all origins ($\sum_{i} P_{(i,j,m)}$).
+We measure the inequality of monthly tourist share for each destination $j$ using Gini index:
+
+$$
+Gini^{Month}_{j} = \frac{|P_{(j,1)} - P_{(j,2)}| + \dots + |P_{(j,12)} - P_{(j,11)}| }{2 \cdot 12^2 \cdot \overline{P_{(j,m)}}}
+$$ {#eq-gini-dst-month}
+
+where $\overline{P_{(j,m)}}$ is the mean of monthly tourist shares for destination $j$ ($\frac{1}{12} \sum_{m} P_{(j,m)}$).
+
+## Diversity of tourist origins per destination
+
+Following @lee2025c, we measure the diversity of tourist orgins for each destination $j$ using the entropy index.
+We define the share of tourist flow from origin $i$ to destination $j$ across all months as:
+
+$$
+S_{(i,j)} = \frac{\sum_{m} Flow_{(i,j,m)}}{\sum_{i,m} Flow_{(i,j,m)}}
+$$
+
+Note that $S_{(i,j)}$ is different from $P_{(i,j,m)}$, as denominator of $P_{(i,j,m)}$ is all tourist flows ($\sum_{i,j,m} Flow_{(i,j,m)}$), while denominator of $S_{(i,j)}$ is total tourist flows to destination $j$ ($\sum_{i,m} Flow_{(i,j,m)}$).
+Hence, $\sum_{i} S_{(i,j)} = 1$.
+Subsequently, we caculate the entropy index for destination $j$ as:
+
+$$
+Entropy_j = - \sum_{i}  S_{(i,j)} \cdot \ln (S_{(i,j)})
+$$ {#eq-entropy}
+
+The resilience index is a reflective measure of how diversified and balanced the demand for destination $j$ is across all origin states.
+A higher value indicates a more diversified demand, while a lower value indicates that the demand is concentrated in a few origin states.
+$Entropy_j$ reaches its maximum value of $\ln(51) \approx 3.93$ when tourist flows to destination $j$ are evenly distributed across all 51 origin states ($S_{(i,j)} = 1 / 51$).
+
+## Reciprocity
+
+Compared to the reciprocity in unweighted networks (where relationships are defined as either present or absent), metrics for reciprocity in weighted networks are relatively new and still under development.
+In this study, we adopt the network-level reciprocity metric proposed by @squartini2013.
+We first define tourist flow from origin $i$ to destination $j$ across all months as $Flow_{(i,j)}=\sum_{m} Flow_{(i,j,m)}$.
+The reciprocity is then defined as:
+
+$$
+Reciprocity = \frac{\sum_{i,j\ne i} min [ Flow_{(i,j)}, Flow_{(j,i)} ]}{\sum_{i,j} Flow_{(i,j)}} \quad (i\ne j)
+$$ {#eq-reciprocity}
+
+The numerator is the total reciprocated tourist flow, while denominator normalizes the total reciprocated flow using the total tourist flow. 
+
+## Ratio of flows to bordering states
+
+The ratio of flows to bordering states $R_{Border}$ is given by:
+
+$$
+R_{Border} = \frac{\sum_{i,j} Flow^*_{(i,j)}}{\sum_{i,j} Flow_{(i,j)}}
+$$ {#eq-border}
+
+where $Flow^*_{(i,j)}$ is the tourist flow from state $i$ to state $j$ if states $i$ and $j$ share a border, and 0 otherwise.
+
+## In-state travel ratio
+
+In this study, in-state travel refers to the tourist flow within the same state ($Flow_{(i,i)}, \dots , Flow_{(j,j)}$). 
+Hence, the in-state travel ratio ($R_{InState}$) is defined as:
+
+$$
+R_{InState} = \frac{\sum_{i=j} Flow_{(i,j)}}{\sum_{i,j} Flow_{(i,j)}}
+$$ {#eq-instate}

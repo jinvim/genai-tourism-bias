@@ -1,0 +1,11 @@
+|           | Metrics                            | Gemini 2.5 Flash         | GPT4.1 Nano              | Supported? |
+| :-------- | :--------------------------------- | :----------------------- | :----------------------- | :--------: |
+| ***H1***  | Gini index across months           | Higher                   | Higher                   |    Yes     |
+| ***H2***  | In-strength centralization         | Slightly higher          | Slightly higher          |    Yes     |
+| ***H3***  | Reciprocity                        | Less reciprocal          | Less reciprocal          |    Yes     |
+| ***H4a*** | Mean travel distance               | Longer                   | Shorter                  |     No     |
+| ***H5a*** | Ratio of flows to bordering states | Similar ratio            | Lower ratio              |     No     |
+| ***H6a*** | Self-loop ratio                    | Similar self-loop ratio  | Higher self-loop ratio   | Partially  |
+| ***H4b*** | Effect of travel distance          | Positive effect          | Weaker negative effect   |     No     |
+| ***H5b*** | Effect of shared border            | Stronger positive effect | Weaker positive effect   |     No     |
+| ***H6b*** | Effect of self-loop                | Similar positive effect  | Stronger positive effect | Partially  |

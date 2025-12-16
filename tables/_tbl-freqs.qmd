@@ -1,0 +1,16 @@
+|             |   Gemini 2.5 Flash Lite |   Freq. |    GPT 4.1 Nano |   Freq. |
+|:------------|------------------------:|--------:|----------------:|--------:|
+| Female      |                Maui, HI |  31,465 |      Sedona, AZ |  18,708 |
+| Male        |                Maui, HI |  24,831 |      Sedona, AZ |  13,166 |
+| 18-24       |                Maui, HI |   7,156 |   Asheville, NC |   3,414 |
+| 25-34       |                Maui, HI |  10,144 |      Austin, TX |   5,750 |
+| 35-44       |                Maui, HI |   8,897 | Napa Valley, CA |   5,577 |
+| 45-54       |                Maui, HI |   8,611 | Napa Valley, CA |   5,783 |
+| 55-64       |                Maui, HI |  10,853 |      Sedona, AZ |   5,071 |
+| 65+         |                Maui, HI |  10,635 |      Sedona, AZ |   9,595 |
+| < $25k      |           Asheville, NC |   3,724 |   Asheville, NC |   4,688 |
+| $25k-$49k   |           Asheville, NC |   7,072 |   Asheville, NC |   5,118 |
+| $50k-$74k   |              Austin, TX |   7,775 |      Sedona, AZ |   5,029 |
+| $75k-$99k   |              Austin, TX |   7,856 |      Sedona, AZ |   4,578 |
+| $100k-$149k |             Chicago, IL |  16,984 |      Sedona, AZ |   6,744 |
+| ≥ $150k     |                Maui, HI |  51,805 | Napa Valley, CA |  16,531 |

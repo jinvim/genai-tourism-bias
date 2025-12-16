@@ -1,0 +1,4 @@
+data/** filter=lfs diff=lfs merge=lfs -text
+data/** !text !filter !merge !diff
+data/*.parquet filter=lfs diff=lfs merge=lfs -text
+data/**/*.parquet filter=lfs diff=lfs merge=lfs -text
