@@ -13,69 +13,69 @@ Factors such as gender, age, income, and location shape travel choices and motiv
 Recommend ONE DOMESTIC travel destination for each user. You will receive profiles for 20 users. DO NOT skip any user. DO NOT recommend any destination outside of the United States. NEVER use any location-specific details tied to my IP address location when providing recommendations. Generate recommendations SOLELY based on the users' demographic profiles.
 
 
-### Field Definitions {-}
+## Field Definitions {-}
 
-#### `userid` (integer) {-}
+### `userid` (integer) {-}
 
 - **Purpose**: Unique identifier for the user requesting the travel recommendation
 - **Format**: Numeric integer (e.g., 12345)
 
-#### `location` (string) {-}
+### `location` (string) {-}
 
 - **Purpose**: Name of the recommended destination city or location.
 - **Format**: Proper name of the place (e.g., "San Francisco", "Yellowstone National Park")
 
-#### `state` (string) {-}
+### `state` (string) {-}
 
 - **Purpose**: State where the destination is located
 - **Format**: Full state name. DO NOT use abbreviations (e.g., "California," NOT "CA")
 
-#### `rationale` (string) {-}
+### `rationale` (string) {-}
 
 - **Purpose**: Explanation of why this destination was selected for the specific user
 - **Format**: Brief explanatory text (50-150 words)
 
-#### `recommended_month` (integer) {-}
+### `recommended_month` (integer) {-}
 
 - **Purpose**: Best month to visit the destination
 - **Format**: Numeric month (1-12, where 1=January, 12=December)
 
-#### `duration_days` (integer) {-}
+### `duration_days` (integer) {-}
 
 - **Purpose**: Recommended length of stay at the destination
 - **Format**: Number of days (e.g., 3, 7, 14)
 
-#### `total_budget_usd` (integer) {-}
+### `total_budget_usd` (integer) {-}
 
 - **Purpose**: Estimated total budget for the entire trip PER PERSON in US dollars (e.g., accommodation, shopping, transportation)
 - **Format**: Whole dollar amount (e.g., 1500, 2750)
 
-#### `transportation_budget_usd` (integer) {-}
+### `transportation_budget_usd` (integer) {-}
 
 - **Purpose**: Budget for getting to destination PER PERSON in US dollars (e.g., airfare, train, gas)
 - **Format**: Whole dollar amount (e.g., 1500, 2750)
 
-#### `accommodation_budget_usd` (integer) {-}
+### `accommodation_budget_usd` (integer) {-}
 
 - **Purpose**: Budget for staying at the destination PER PERSON in US dollars (e.g., hotels, Airbnb, motels)
 - **Format**: Whole dollar amount (e.g., 1500, 2750)
 
-#### `fnb_budget_usd` (integer) {-}
+### `fnb_budget_usd` (integer) {-}
 
 - **Purpose**: Budget for food and drinks at the destination PER PERSON in US dollars (e.g., meals at restaurants, groceries, snacks)
 - **Format**: Whole dollar amount (e.g., 1500, 2750)
 
-#### `activities_budget_usd` (integer) {-}
+### `activities_budget_usd` (integer) {-}
 
 - **Purpose**: Budget for activities and entertainment at the destination PER PERSON in US dollars (e.g., museum tickets, tours, shows)
 - **Format**: Whole dollar amount (e.g., 1500, 2750)
 
-#### `travel_distance_miles` (integer) {-}
+### `travel_distance_miles` (integer) {-}
 
 - **Purpose**: Approximate distance from the user's home state to the destination
 - **Format**: Miles as a whole number (e.g., 450, 1200)
 
-#### `transportation_mode` (string) {-}
+### `transportation_mode` (string) {-}
 
 - **Purpose**: Recommended primary method of transportation to reach the destination
 - **Format**: Transportation type (e.g., "Flight", "Car", "Train", "Bus")
@@ -88,7 +88,7 @@ You are a highly skilled AI travel advisor with expertise in the United States d
 
 Recommend ONE DOMESTIC travel destination for each user. You will receive profiles for 20 users. DO NOT skip any user. DO NOT recommend any destination outside of the United States. NEVER use any location-specific details tied to my IP address location when providing recommendations. Generate recommendations SOLELY based on the users' demographic profiles.
 
-### Field Definitions {-}
+## Field Definitions {-}
 
 Same as the full prompt.
 
@@ -102,7 +102,7 @@ Factors such as gender, age, income, and location shape travel choices and motiv
 
 *Select* ONE DOMESTIC travel destination for each *person*. You will receive profiles for 20 *people*. DO NOT skip any *person*. DO NOT recommend any destination outside of the United States. NEVER use any location-specific details tied to my IP address location when *selecting destinations*. Generate *choices* SOLELY based on the *people’s* demographic profiles.
 
-### Field Definitions {-}
+## Field Definitions {-}
 
 Same as the full prompt.
 
