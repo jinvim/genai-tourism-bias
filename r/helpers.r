@@ -1,6 +1,9 @@
 # helper functions used in the paper
 library(dplyr)
 library(arrow)
+library(ineq)
+library(spatstat)
+library(broom)
 
 # this is for manual indentation of table rows in gt
 indent_row <- function(string, n = 2) {

@@ -211,18 +211,10 @@ $$ {#eq-instate}
 #| include: false
 library(tidyverse)
 library(arrow)
-library(sf)
 library(colorspace)
 library(gt)
-library(gtsummary)
 library(ggtext)
 library(glue)
-library(ineq)
-library(patchwork)
-library(spatstat)
-library(broom)
-
-options(tigris_use_cache = TRUE)
 ```
 
 ```{r} 
@@ -243,30 +235,9 @@ color.llama <- "#4c78a8"
 
 
 ```{r} 
-#| label: read-alt-betas
+#| label: read-data-robust
 #| include: false
-#| results: hide
-betas.alt <- read_parquet("data/reg/betas-alt.parquet") |>
-    mutate(
-        param = factor(
-            param,
-            levels = c("ln_d", "ln_m", "ln_asdm", "ln_asod"),
-            labels = c("Destination", "Month", "Destination-Month", "Origin-Destination")
-        ),
-        emp = factor(
-            emp,
-            levels = c("advan", "nhts"),
-            labels = c("ADVAN", "NHTS")
-        )
-    )
-betas.alt.sum <- betas.alt |>
-    group_by(sim, emp, param) |>
-    summarize(
-        median.coeff = median(coeff),
-        lower.ci = quantile(coeff, 0.025),
-        upper.ci = quantile(coeff, 0.975),
-    )
-betas.alt.sum
+source("r/data-robust.r")
 ```
 
 ```{r} 
@@ -417,33 +388,6 @@ betas.alt.sum |>
 ```
 
 {{< pagebreak >}}
-
-```{r} 
-#| label: calc-agg-betas
-agg.betas <- bind_rows(
-    fit_agg_ppml("data/reg/gemini-advan.parquet", "gemini", "advan"),
-    fit_agg_ppml("data/reg/gemini-nhts.parquet", "gemini", "nhts"),
-    fit_agg_ppml("data/reg/gpt-advan.parquet", "gpt", "advan"),
-    fit_agg_ppml("data/reg/gpt-nhts.parquet", "gpt", "nhts")
-) |> rename(param = term)
-
-# same as read-betas block
-agg.betas$param <- factor(
-    agg.betas$param,
-    levels = c("ln.d", "ln.m", "ln.asdm", "ln.asod"),
-    labels = c("Destination", "Month", "Destination-Month", "Origin-Destination")
-)
-agg.betas$sim <- factor(
-    agg.betas$sim,
-    levels = c("rand", "nhts", "advan", "gemini", "gpt"),
-    labels = c("Random", "NHTS", "ADVAN", "Gemini 2.5 Flash Lite", "GPT 4.1 Nano")
-)
-agg.betas$emp <- factor(
-    agg.betas$emp,
-    levels = c("advan", "nhts"),
-    labels = c("ADVAN", "NHTS")
-)
-```
 
 ```{r} 
 #| label: tbl-agg-betas

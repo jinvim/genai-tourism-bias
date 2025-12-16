@@ -1,0 +1,3 @@
+This folder contains `*.rda` files needed to generate figures and tables in the manuscript and appendix.
+If these files do not exists, the `manuscript.qmd` and `appendix.qmd` files will automatically run the corresponding R scripts in the `r/` folder to create them.
+Make sure to have files in `data/` folder (stored on GitHub LFS), as the source data in `data/` folder is needed to create these `*.rda` files.

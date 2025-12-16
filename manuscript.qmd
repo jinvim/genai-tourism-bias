@@ -9,12 +9,8 @@ library(gt)
 library(gtsummary)
 library(ggtext)
 library(glue)
-library(ineq)
 library(patchwork)
-library(spatstat)
 library(broom)
-
-options(tigris_use_cache = TRUE)
 ```
 
 ```{r} 
@@ -31,20 +27,10 @@ color.gemini <- "#214e7b"
 color.gpt <- "#ff7f05"
 ```
 
-```{r}
+```{r} 
 #| label: read-data
 #| include: false
-sf.states <- st_read("data/states.geojson")|>
-    rename_with(~ gsub("_", ".", .x)) |>
-    mutate(state.fips = as.integer(state.fips))
-
-sim.rand <- read_sim("data/reg/rand-advan.parquet")
-sim.advan <- read_sim("data/reg/advan-advan.parquet")
-sim.nhts <- read_sim("data/reg/nhts-nhts.parquet")
-sim.gemini <- read_sim("data/reg/gemini-advan.parquet")
-sim.gpt <- read_sim("data/reg/gpt-advan.parquet")
-emp.advan <- read_emp("data/reg/advan-advan.parquet")
-emp.nhts <- read_emp("data/reg/nhts-nhts.parquet")
+source("r/data.r")
 ```
 
 # Introduction
@@ -127,7 +113,7 @@ Works on AI biases in tourism and hospitality are often vague about what is mean
 This issue is not unique to tourism scholarship; broader AI bias literature have also been criticized for lacking explicit definition of bias [@ghosh2025].
 Such ambiguity in defining bias results in discrepancies between the concerns raised and the empirical evidence provided [@blodgett2020].
 Although, AI biases is often undefined or vauguly defined even outside of academia.
-For example, the EU's AI Act that mandates AI providers to assess and mitigate biases does not specify what constitutes bias [@@vanbekkum2025].
+For example, the EU's AI Act that mandates AI providers to assess and mitigate biases does not specify what constitutes bias [@vanbekkum2025].
 
 Definition of bias varies not only across disciplines but also by the purpose of examining bias.
 When the focus is on stereotyping, studies define bias as *act of* unjustified association between social groups and attributes [for example @bai2025].
@@ -216,27 +202,6 @@ The model isolate the biases toward specific combinations because $DM_{j,m}$ and
 Meaning, if we generate tourist flows with only the destination-month popularity bias ($\beta_3 \ne 0$), the resulting data would show no changes in overall destination or month popularity ($\beta_1 = 0, \beta_2 = 0$).
 
 ```{r} 
-#| label: calc-beta-demo
-df.beta.demo <- sim.nhts |>
-    calc_month_prop("nhts") |>
-    mutate(
-        p = median.sum.p / sum(median.sum.p),
-        p.pos1 = p ** (1+1),
-        p.pos2 = p ** (1+2),
-        p.neg1 = p ** (1-1),
-        p.neg2 = p ** (1-2),
-    ) |>
-    mutate(
-        p.pos1 = p.pos1 / sum(p.pos1),
-        p.pos2 = p.pos2 / sum(p.pos2),
-        p.neg1 = p.neg1 / sum(p.neg1),
-        p.neg2 = p.neg2 / sum(p.neg2)
-    ) |>
-    select(month, p, p.pos1, p.pos2, p.neg1, p.neg2) |>
-    pivot_longer(cols = -month, names_to = "case", values_to = "p")
-```
-
-```{r} 
 #| label: fig-beta-demo
 #| fig-cap: Example of how different $\beta_2$ values affect distribution of monthly tourist share
 #| fig-height: 5
@@ -316,13 +281,6 @@ One limitation is that generative AI models may also influence the decision to t
 ```{r} 
 #| label: tbl-demo
 #| tbl-cap: Age, sex, and household income proportions of the population
-df.demo <- read_parquet("data/demo.parquet")
-df.demo.prop <- bind_rows(
-    calc_demo_prop(df.demo, sex, "Sex"),
-    calc_demo_prop(df.demo, agegrp, "Age"),
-    calc_demo_prop(df.demo, incgrp, "Household income (in 2023 USD)")
-)
-
 df.demo.prop |>
     mutate(category = indent_row(category)) |>
     gt(groupname_col = "strat") |>
@@ -434,72 +392,6 @@ Then, we collect the estimated coefficients across iterations to assess their si
 ## Descriptive analysis
 
 ```{r}
-#| label: calc-desc
-df.sum <- bind_rows(
-    calc_summary(sim.advan, "sim.advan", flow, out),
-    calc_summary(sim.nhts, "sim.nhts", flow, out),
-    calc_summary(sim.gemini, "sim.gemini", flow, out),
-    calc_summary(sim.gpt, "sim.gpt", flow, out),
-    calc_summary(emp.advan, "emp.advan", pe, d, m, dm, od),
-    calc_summary(emp.nhts, "emp.nhts", pe, d, m, dm, od),
-)
-
-df.sum <- df.sum |>
-    mutate(
-        notation = factor(
-            variable,
-            levels = c("flow", "out", "pe", "d", "m", "dm", "od"),
-            labels = c(
-                "$Flow_{(i,j,m)}$",
-                "$\\sum_{j,m} Flow_{(i,j,m)}$",
-                "$S_{(j,m|i)}$",
-                "$D_{j}$",
-                "$M_{m}$",
-                "$DM_{j,m}$",
-                "$OD_{i,j}$"
-            ),
-        ),
-        variable = factor(
-            variable,
-            levels = c("flow", "out", "pe", "d", "m", "dm", "od"),
-            labels = md(
-                c(
-                    "Tourist flow",
-                    "Origin total outflow",
-                    "Empirical share",
-                    "Destination",
-                    "Month",
-                    "Destination-month",
-                    "Origin-destination"
-                )
-            ),
-            ordered = TRUE
-        ),
-        data.name = factor(
-            data.name,
-            levels = c(
-                "sim.advan",
-                "sim.nhts",
-                "sim.gemini",
-                "sim.gpt",
-                "emp.advan",
-                "emp.nhts"
-            ),
-            labels = c(
-                "Simulation: ADVAN Mobility Data",
-                "Simulation: National Household Travel Survey",
-                "Simulation: Gemini 2.5 Flash Lite",
-                "Simulation: GPT 4.1 Nano",
-                "Empirical: ADVAN Mobility Data",
-                "Empirical: National Household Travel Survey"
-            ),
-            ordered = TRUE
-        )
-    ) |>
-    relocate(notation, .after = variable)
-```
-
-```{r}
 #| label: intext-desc
 max.advan <- round(df.sum |> filter(data.name == "Simulation: ADVAN Mobility Data", variable == "Tourist flow") |> pull(max))
 max.nhts <- round(df.sum |> filter(data.name == "Simulation: National Household Travel Survey", variable == "Tourist flow") |> pull(max))
@@ -538,30 +430,6 @@ df.sum |>
     tab_footnote(
         md("Note: For *simulation* data, statistics are calculated over 1,000 iterations (N=31,212,000). Statistics for *empirical* data are based on a single destination-origin-month matrix (N=31,212).")
     )
-```
-
-```{r} 
-#| label: calc-any-prop
-df.any <- bind_rows(
-    calc_dv_desc(sim.advan, "advan"),
-    calc_dv_desc(sim.nhts, "nhts"),
-    calc_dv_desc(sim.gemini, "gemini"),
-    calc_dv_desc(sim.gpt, "gpt")
-    ) |>
-    mutate(
-        any = factor(
-            any,
-            levels = c(0, 1),
-            labels = c("No flow", "Any flow"),
-            ordered = TRUE
-        ),
-    ) |>
-    pivot_wider(
-        id_cols = c(dst, org, month),
-        names_from = data.name,
-        values_from = any
-    ) |>
-    ungroup()
 ```
 
 ```{r} 
@@ -664,28 +532,6 @@ Another consistent pattern is that large language models rarely suggest destinat
 Meaning, large language models typically *prune* a large portion of destination-origin-month combinations, but rarely generate new combinations that are absent in empirical data.
 
 ```{r}
-#| label: calc-dst-prop 
-df.dst <- bind_rows(
-    calc_dst_prop(sim.advan, "advan"),
-    calc_dst_prop(sim.nhts, "nhts"),
-    calc_dst_prop(sim.gemini, "gemini"),
-    calc_dst_prop(sim.gpt, "gpt")
-    ) |>
-    mutate(
-        data.name = factor(
-            data.name,
-            levels = c("advan", "nhts", "gemini", "gpt"),
-            ordered = TRUE
-        )
-    ) |>
-    left_join(
-        sf.states |>
-        rename(dst = state.fips),
-        by = "dst"
-    )
-```
-
-```{r}
 #| label: intext-dst
 dst.gini.advan <- df.dst |> filter(data.name == "advan") |> pull(median.gini) |> first() |> pval_format()
 dst.gini.nhts <- df.dst |> filter(data.name == "nhts") |> pull(median.gini) |> first() |> pval_format()
@@ -747,23 +593,6 @@ p.dst <- df.dst |>
         y = ""
     )
 p.dst
-```
-
-```{r} 
-#| label: calc-month-prop
-df.month <- bind_rows(
-    calc_month_prop(sim.advan, "advan"),
-    calc_month_prop(sim.nhts, "nhts"),
-    calc_month_prop(sim.gemini, "gemini"),
-    calc_month_prop(sim.gpt, "gpt")
-    ) |>
-    mutate(
-        data.name = factor(
-            data.name,
-            levels = c("advan", "nhts", "gemini", "gpt"),
-            ordered = TRUE
-        )
-    )
 ```
 
 ```{r} 
@@ -829,28 +658,6 @@ p.month
 ```
 
 ```{r} 
-#| label: calc-month-gini
-df.month.gini <- bind_rows(
-    calc_gini_by(sim.advan, month, "advan"),
-    calc_gini_by(sim.nhts, month, "nhts"),
-    calc_gini_by(sim.gemini, month, "gemini"),
-    calc_gini_by(sim.gpt, month, "gpt")
-    ) |>
-    mutate(
-        data.name = factor(
-            data.name,
-            levels = c("advan", "nhts", "gemini", "gpt"),
-            ordered = TRUE
-        )
-    ) |>
-    left_join(
-        sf.states |>
-        rename(dst = state.fips),
-        by = "dst"
-    )
-```
-
-```{r} 
 #| label: plot-month-gini
 #| include: false
 df.gini.label <- df.month.gini |>
@@ -903,28 +710,6 @@ p.month.gini <- df.month.gini |>
         y = ""
     )
 p.month.gini
-```
-
-```{r} 
-#| label: calc-org-entropy
-df.org.entropy <- bind_rows(
-    calc_entropy_by(sim.advan, org, "advan"),
-    calc_entropy_by(sim.nhts, org, "nhts"),
-    calc_entropy_by(sim.gemini, org, "gemini"),
-    calc_entropy_by(sim.gpt, org, "gpt"),
-    ) |>
-    mutate(
-        data.name = factor(
-            data.name,
-            levels = c("advan", "nhts", "gemini", "gpt"),
-            ordered = TRUE
-        )
-    ) |>
-    left_join(
-        sf.states |>
-        rename(dst = state.fips),
-        by = "dst"
-    )
 ```
 
 ```{r} 
@@ -1031,33 +816,12 @@ For the two AI-simulated tourist flows, the entropy indices are overall lower th
 We also observe that fewer states exhibit relatively high entropy values in the large language model simulations (for example, Colorado and Hawaii for Gemini 2.5 Flash Lite).
 
 ```{r} 
-#| label: calc-graph-stats
-df.graph <- bind_rows(
-    calc_graph_stats(sim.advan, "advan"),
-    calc_graph_stats(sim.nhts, "nhts"),
-    calc_graph_stats(sim.gemini, "gemini"),
-    calc_graph_stats(sim.gpt, "gpt"),
-    ) |>
-    mutate(
-        data.name = factor(
-            data.name,
-            levels = c("advan", "nhts", "gemini", "gpt"),
-            labels = c("ADVAN", "NHTS", "Gemini 2.5 Flash Lite", "GPT 4.1 Nano"),
-            ordered = TRUE
-        )
-    )
-df.graph.rand <- calc_graph_stats(sim.rand, "rand")
-
+#| label: intext-graph-stats
 df.graph.sum <- df.graph |>
     group_by(stat, data.name) |>
     summarize(
         median.value = median(value)
     )
-```
-
-
-```{r} 
-#| label: intext-graph-stats
 # reciprocity
 recip.advan <- df.graph.sum[1,3] |> pval_format()
 recip.nhts <- df.graph.sum[2,3] |> pval_format()
@@ -1154,39 +918,6 @@ Gemini 2.5 Flash Lite shows ratio of in-state trips comparable to the empirical 
 In contrast, GPT 4.1 Nano shows much stronger preference for recommending tourist to travel within their own state (Median = `r sl.gpt`).
 
 ## Model estimation results
-
-```{r} 
-#| label: read-betas
-#| include: false
-betas <- read_parquet("data/reg/betas.parquet") |>
-    mutate(
-        param = factor(
-            param,
-            levels = c("ln_d", "ln_m", "ln_asdm", "ln_asod"),
-            labels = c("Destination", "Month", "Destination-Month", "Origin-Destination")
-        ),
-        sim = factor(
-            sim,
-            levels = c("rand", "nhts", "advan", "gemini", "gpt"),
-            labels = c("Random", "NHTS", "ADVAN", "Gemini 2.5 Flash Lite", "GPT 4.1 Nano")
-        ),
-        emp = factor(
-            emp,
-            levels = c("advan", "nhts"),
-            labels = c("ADVAN", "NHTS")
-        )
-    )
-
-betas.sum <- betas |>
-    filter(sim %in% c("Gemini 2.5 Flash Lite", "GPT 4.1 Nano")) |>
-    group_by(sim, emp, param) |>
-    summarize(
-        median.coeff = median(coeff),
-        lower.ci = quantile(coeff, 0.025),
-        upper.ci = quantile(coeff, 0.975),
-    )
-betas.sum
-```
 
 ```{r} 
 #| label: intext-betas
