@@ -75,6 +75,80 @@ These findings show the need for tourism scholars and practitioners to assess an
 
 # Background
 
+## Generative AI and its impacts on tourism
+
+AI has become a catch-all term that encompasses various technologies aimed at simulating human intelligence. 
+Adding to the confusion, tourism literature often discusses AI alongside other technologies like robotics, augmented reality, and virtual reality [@gossling2025].
+This study specifically focuses on generative AI and its implications for tourism. Trained to recognize patterns in vast data, these models can produce content such as text, images, or videos [see @epstein2023].
+We avoid *chatbots* because they represent just one way generative AI is used.
+Likewise, we do not use brand-specific terms like *ChatGPT* when discussing generative AI in general.
+
+Despite widespread adoption of generative AI across industries, empirical studies on its impact on tourism are scarce [@hsu2024].
+Tourism and hospitality sector has seen rapid integration of generative AI tools, sparking scholarly interest.
+Studies primarily looked at who, when, and why tourists and practitioners adopt generative AI [see recent reviews by @gossling2025; @li2025].
+This gap calls for more research providing evidence for projecting how generative AI will shift tourism's trajectory [@law2025; @mellors2025].
+
+Preliminary works explore both positive and negative implications of generative AI in tourism. 
+One perspective is that generative AI brings benefits to tourists and businesses.
+For tourists, generative AI reduces cognitive load during travel planning, thereby increasing visit intentions and decision satisfaction [@shin2025].
+Businesses can also benefit by using generative AI to assist in marketing and content creation [@fan2025].
+However, generative AI adoption in tourism also raises concerns about its negative impacts.
+@lehto2025 warned against "algorithmic flattening" that erases destination uniqueness.
+Generative AI may undermine the sustainability of tourism by exacerbating over-tourism [@mellors2025].
+Some conceptual works have examined both positive and negative aspects of generative AI adoption in tourism, concerning value co-creation and co-destruction [e.g., @dogru2025; @grundner2021].
+
+## How AI biases shape tourism
+
+Regardless of whether the study focuses on positive or negative impacts, bias in generative AI is a common concern [refs].
+This mirrors previous discussions about biases in other technologies and their impacts on tourism, such as search engines, social media, or smart technologies [@gong2024a;@leung2013; @pan2021].
+Consequences of biases in AI is that they lead to behavioral shifts to users relying on AI for decision-making, which reproduce or amplify biases existing of humans [@kordzadeh2022; @vicente2023].
+
+Many studies on biases in algorithms focus on social biases, specifically racial and gender stereotypes [see @ghosh2025; @kordzadeh2022].
+Social biases in AI and their ethical implications are also implicit in tourism and hospitality research.
+For example, @law2025 highlight ethical challenges of AI adoption in tourism and hospitality sectors, urging inclusiveness of AI adoption with reduced "biased and discriminatory actions" (p.287).
+@hsu2024 suggests fine-tuning generative AI with tourism-specific data, noting that such models "could perpetuate stereotypes and result in discrimination" (p.2).
+@viglia2024a discuss using AI-generated data for tourism research, giving a specific example of bias against AI generating racist content.
+
+Beyond ethical concerns, AI biases could undermine the sustainability and resilience of tourism sector.
+Several schloars mention popularity biases in generative AI as a potential threat, where algorithms favor popular options while underrepresenting less popular ones [@law2024; @lehto2025; @mellors2025].
+This bias is of practical concern because it can exacerbate challenges like over-tourism for popular destinations, while less popular destinations struggle to sustain their tourism sector.
+
+Stiil, AI's social and popularity biases in tourism remain as concerns, with little empirical evidence.
+We can only speculate that generative AI produce such biases in tourism context.
+Generally, these models still exhibit stereotype biases like humans and show less diversity in outputs compared to human counterparts [see @abdollahpouri2020; @bai2025; @wu2024a].
+But such biases can have positive consequences.
+For example, reduced diversity in generative AI outputs are beneficial in programming task, as correct and efficient solutions are being favored.
+Without empirical evidence, we cannot know in what ways and to what extent biases would be benefical or harmful for the tourism sector.
+
+## Defining and measuring biases in generative AI
+
+First we need to define *bias* to understand generative AI's biases in tourism and their implications for the sector.
+Works on AI biases in tourism and hospitality are often vague about what is meant by these algorithms being *biased*.
+This issue is not unique to tourism scholarship; broader AI bias literature have also been criticized for lacking explicit definition of bias [@ghosh2025].
+Such ambiguity in defining bias results in discrepancies between the concerns raised and the empirical evidence provided [@blodgett2020].
+Although, AI biases is often undefined or vauguly defined even outside of academia.
+For example, the EU's AI Act that mandates AI providers to assess and mitigate biases does not specify what constitutes bias [@@vanbekkum2025].
+
+Definition of bias varies not only across disciplines but also by the purpose of examining bias.
+When the focus is on stereotyping, studies define bias as *act of* unjustified association between social groups and attributes [for example @bai2025].
+This definition is inhereted from social psychology literature on implicit asssociations [@greenwald1998].
+Studies examining ethical implications of AI biases often define bias in terms of *outcomes or treatment*: unequal allocation of resources or unfavorable representation of social groups [for example @blodgett2020; @gallegos2024; @kordzadeh2022].
+Such definitions are analogous to legal definition of discrimination, a behaviroal outcome of biases, as disparate impacts or treatement [@seiner2006].
+Some distinguish bias from harm, where bias is defined as having a particular inclination or deviation of model outputs from empirical data [for example @ghosh2025; @wu2024a].
+In this more netural definition of bias that are closely tied to statistical and computer science, bias is considered unavoidable for generalization and because data itself reflects biases of the real world [@chen2023d; @ghosh2025].
+
+Even with a clear definition of bias, measuring biases in generative AI is challenging.
+Major obstacle is proprietary and closed-source nature of these models
+@ali2025 proposes using tools such as IBM's AI Fairness 360 or Google’s What-If toolkits to asses biasses in AI generated data for tourism reseachers.
+These bias assesment tools assume that one has access to the data and internals of the AI models. 
+For commonly used generative AI models, however, neither the training data nor the model itself is accessible to end users and researchers [@gallegos2024].
+Even with access to the model, recent generative AI models go through value alignment and safety tuning stage to avoid explicit biases [@santurkar2023].
+Thus, generative AI models tend to show implicit biases that are harder to detect [@bai2025].
+Existing methods for aessing biases in AI are also designed to quantify one type of bias at a time [see review of bias metrics by @gallegos2024; @kordzadeh2022].
+For example, a tourism recommendation algorithm may exhibit racial stereotype bias and  popularity bias simultaneously.
+But current metrics do not allow for measuring multiple biases at once, which limits diagnoses as models become more complex and their biases become more subtle.
+
+# Baseline-Rescaling-Output Model for testing algorithmic biases in tourism
 
 # Study design
 
