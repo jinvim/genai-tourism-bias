@@ -65,7 +65,7 @@ These findings show the need for tourism scholars and practitioners to assess an
 
 AI has become a catch-all term that encompasses various technologies aimed at simulating human intelligence. 
 Adding to the confusion, tourism literature often discusses AI alongside other technologies like robotics, augmented reality, and virtual reality [@gossling2025].
-This study specifically focuses on generative AI and its implications for tourism. Trained to recognize patterns in vast data, these models can produce content such as text, images, or videos [see @epstein2023].
+This study focuses on generative AI and its implications for tourism. Trained to recognize patterns in vast data, these models can produce content such as text, images, or videos [see @epstein2023].
 We avoid *chatbots* because they represent just one way generative AI is used.
 Likewise, we do not use brand-specific terms like *ChatGPT* when discussing generative AI in general.
 
@@ -194,13 +194,26 @@ Our model can test for such biases as negative rescaling factors, allowing us to
 
 # Study design
 
-## Empirical framework for testing popularity biases in large language model travel suggestions
+## Empirical framework for testing popularity biases in generative AI travel suggestions
 
-This study proposes that LLMs have systematic biases in their suggestions, favoring popular tourism patterns while attenuating less popular ones.
-This study defines algorithmic bias as systematic deviation from expected real-world patterns.
-Our empirical testing framework builds on this definition.
-We test algorithmic bias in large language models' travel suggestions by modeling the divergence from the empirical baseline as a function of popularity factors.
+Using our Baseline-Rescaling-Outcome Model, we test whether generative AI exhibits biases in the tourism context.
+In particular, the focus is popularity biases in generative AI when used for travel recommendations.
+Popularity bias is defined as tendency where popular options "are recommended even more frequently than their popularity would warrant" [@abdollahpouri2020, p.1].
+As major online travel agencies are increasingly intergrating generative AI into their platforms, understanding popularity bias in tourism recommendation context is ideal for providing timely and practical insights.
+Popularity bias is not unique to algorithms.
+Humans also exhibit similar behaviors, such as popular people gaining even more friends over time [preferrential attachment; @barabasi1999] and tourists flocking to popular destinations [herding effect; @lee2025].
+Consequently, our model tests whether generative AI amplifies or attenuates such popularity biases beyond what is observed empirically.
 
+We also argue that examining pouplarity in tourism context is of theoretical significance, even though pouplarity bias is commonly observed in other recommendation algorithms [@chen2023d].
+Unlike recommending movies or music, tourism recommendations need to consider spatial and temporal dimmensions of travel choices.
+Decision to travel is not only about *whether* to travel, but also *from where*, *to where*, and *when*.
+Thus, we further extend popuarity bias into four types that are tourism-specific: destination popularity, month popularity, destination-month popularity, and origin-destination popularity biases.
+The first two measure whether popular destinations and peak months are favored by generative AI than what is expected empirically.
+While these two factors account for destination and month popularities independently, bias may also exist in specific combinations of destinations and months.
+Destination-month popularity bias caputure whether algorithms favor specific destinations during specific months.
+Similarly, origin-destination popularity bias capture tendency to excessively pair tourists from specific origins to specific destinations.
+
+Below are operationalizations of the four popularity biases and the empirical framework for testing them.
 Define number of tourist flow from origin $i$ to destination $j$ in month $m$ as $Flow_{(i,j,m)}$.
 Let $P_{(i,j,m)}$ be the share of tourists from origin $i$ to destination $j$ in month $m$ over all tourist flow ($Flow_{(i,j,m)} / \sum{Flow_{(i,j,m)}}$).
 Under the null condition that large language models produce "unbiased" travel suggestions, we expect:
@@ -211,9 +224,7 @@ where $P^{Empirical}_{(j,m|i)}$ is the share of tourists traveling to destinatio
 This share is multiplied by total number of LLM-simulated tourists from origin $i$, which scales the expected number of tourists based on total tourist outflow from origin $i$.
 Meaning, the right hand side of @eq-null is the baseline expectation when LLMs can perfectly replicate empirical tourism patterns ($Baseline_{(i,j,m)}$).
 
-The focus of this study is on *popularity bias*, a specific instance of algorithmic bias where popular options are excessively favored and less popular ones gets underrepresented [@chen2023d].
-We account for the following four types of popularity.
-The first two mesaure overall popularities of destinations and months independently:
+Destination and month popularities are defined as:
 $$
 \begin{aligned}
 D_{j} &= \sum_{i,m}{P^{Empirical}_{(i,j,m)}} \\
@@ -222,8 +233,7 @@ M_{m} &= \sum_{i,j}{P^{Empirical}_{(i,j,m)}}
 $$ {#eq-d-m}
 where $D_{j}$ is the popularity of destination $j$ across all origins and months, and $M_{m}$ is the popularity of month $m$ across all origins and destinations.
 
-While these two factors account for destination and month popularities independently, bias may also exist in specific combinations of destinations and months.
-We account for the popularity of specific destination-month pairs, as a joint probability of choosing destination $j$ in month $m$ beyond what can be expected from their independent popularities:
+We account for the popularity of specific destination-month pairs as a joint probability of choosing destination $j$ in month $m$ beyond what can be expected from their independent popularities:
 $$
 DM_{j,m} = \frac{\sum_{i}{P^{Empirical}_{(i,j,m)}}}{D_{j} \cdot M_{m}}
 $$ {#eq-dm}
