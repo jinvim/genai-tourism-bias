@@ -402,6 +402,9 @@ The difference is that large language models generate tourist flow networks, rat
 To establish the consistency of our findings across different large language models, we used two different models for simulations: Google's Gemini 2.5 Flash Lite (version June 2025) and OpenAI's GPT-4.1 Nano (version April 2025).
 They are among the leading large language models currently available in terms of their capabilities and market share.
 Because our simulations require a large number of responses, we chose their smallest variants optimized for speed and cost.
+We chose these two models also because they use different architectures.
+Gemini 2.5 family of models are build on mixture-of-experts architecture, while GPT-4.1 family are built on more traditional transformer architecture.
+As these two models are developed by different companies, they likely be trained on different datasets and tuning processes, which is ideal for assessing the generalizability of our findings.
 Although the two large language models are closed-source, they are comparable in pricing structures ($0.10 per million input tokens; $0.30 and $0.40 per million output tokens, respectively).
 
 All requests were made from the IP address of the university located in the southeastern US, using custom automation scripts.
@@ -1208,6 +1211,12 @@ The existing methods often required access to internal model parameters and coul
 Our approach goes further by testing multiple hypothesized mechanisms that could amplify or attenuate empirical patterns, thereby explaining why we observe certain divergence from empirical data.
 While these explanations are still correlational rather than causal, they allow us to understand systemic mechanisms behind the black-box algorithms.
 
+This study focused on measuring bias in genreative AI from supplier-side and its implications for destinations.
+However, bias and their consequences can also be studied from both demand-side, focusing on whether *tourists* are exposed to personalized and diverse travel options.
+For instance, recommendation algorithm with popularity biase from supply-side can also lead to users receiving less satisfying options [@abdollahpouri2020].
+Similarly, casues of these biases can also be spectulated from both demand- and supply-side.
+These biases may arises from learning to reflect popular tourist behvaviors (demand-side) or content from popular destinations with more marketing resources being more prevalent in training data (supply-side).
+
 Our large language model simulations are projections wherein *all* tourists’ decisions are made by generative AI.
 They are hypothetical scenarios, far from the current reality.
 However, we use these projections because they can illustrate how generative AI might reshape tourist flows, by isolating the patterns of generative AI-driven tourism and comparing them to empirical baselines.
@@ -1238,22 +1247,27 @@ Because our purpose is to examine the biases in generative AI, such divergences 
 However, if researchers use AI-generated synthetic data for a pilot study, the results may mislead future research directions.
 As these algorithms behave in more extreme and different ways than real-world tourists, we must caution synthetic data *limiting* tourism knowledge development rather than advancing it.
 
-## Practical suggestions
+## Practical implications
 
-The technology can solve problems that tourists and practitioners face, while also introducing new issues [@dogru2025].
-As society increasingly adopts generative AI, its influence will extend regardless of whether tourism sectors actively integrate these technologies.
+Our perspective is that generative AI has benefits for tourism sectors but we also need to weigh its potential risks.
+It can be used as a tool for tourists to efficiently seek travel information, practitionrs to guide their decisions, and destinations to get ideas for improving their tourism experiences [refs].
+Nevertheless, these benefits are not without costs; they also introducing new issues to tourism system [@dogru2025].
+
 Therefore, we urge tourism practitioners and regulators to monitor and prepare for generative AI’s potential impacts on tourist behavior and destination choice.
-Such preparedness will become crucial for both established and emerging destinations.
-For already-popular destinations, the expected challenges are managing the carrying capacity during the peak season and developing attractive off-season offerings.
-Lesser-known destinations confront more complex obstacles.
+Lesser-known destinations are particularly vulnurable.
 Generative AI models train on extensive cross-domain datasets, making their outputs difficult to alter.
-Instead, we recommend that lesser-known destinations diversify their marketing channels and explore partnerships with online influencers who can reach targeted audiences while bypassing algorithmic barriers.
+Addressing such challenges would require efforts from both regulators and tourism intermediaries to ensure equitable and diverse representation of destinations.
+For example, EU AI Act mandates bias testing for high-risk AI systems, such as credit scoring and employment screening [@vanbekkum2025].
+Tourism could also advocate for simliar legislation for auditing biases using methods like the one proposed in this study.
+Such bias audits would needed for both tourist- and employee-facing generative AI applications.
+We argue that already-popular destinations to take part in such effect, as they also are expected to exprience negative consequences from worsened seasonality and reduced demand diversity.
+More simple interventions include putting a disclosure that "AI-generated suggestions may overrepresent popular options" and stratifying options before producing AI-generated options.
 
-Generative AI has the potential to shift the trajectory of tourism.
-We thus recommend that national and international tourism organizations begin assessing implications of generative AI adoption, particularly related to the sustainability and resilience of tourism.
+We call for national and international tourism organizations begin assessing implications of generative AI adoption.
+Beyond sustainability and resilience issues discussed, potential ethical and social consequences should also be assesed.
 Organizations must recognize that tourism functions not merely as a "market offering" but as a societal force affecting people and communities [@higgins-desbiolles2006].
 For example, one social benefit of tourism is that it provides experiences and opportunities for socially excluded groups [@mccabe2020a].
-These benefits may diminish in imbalanced tourism systems, such as those seen in our generative AI-driven scenarios, where popular destinations continue to grow, smaller destinations are overshadowed, and tourist exchange between regions becomes increasingly unbalanced.
+These benefits may diminish if generative AI limits travel options for particular demographic groups.
 While we caution generative AI's potential consequences for tourism, the time is right to proactively shape the future of tourism before generative AI is further integrated into tourism industries.
 Our projected generative AI-driven tourism is still hypothetical; it is up to us whether such a future may never come to pass.
 
