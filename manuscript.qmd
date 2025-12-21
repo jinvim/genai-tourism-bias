@@ -56,12 +56,13 @@ We show how large language models generate travel patterns that deviate from emp
 These deviations are explained as systematic *biases* in generative AI, particularly biases that favor popular options and pairs of options.
 Because modeling process of generative AI is opaque, we develop the *Baseline-Rescaling-Outcome Model* that can test such biases using empirical expectations, model outputs, and hypothesized bias mechanisms.
 
-We show that compared to empirical-based simulations, large language models tend to concentrate visits during peak seasons and favor popular destinations.
-Large language models also produce tourism patterns where popular states primarily receive tourists while reciprocating fewer.
-However, these models show different tendencies regarding geographic patterns of tourist flows, like mean travel distance and preference for neighboring states and intra-state travel.
-We conclude that generative AI has the potential to undermine the sustainability and resilience of the tourism sector.
-While intuitive, this study offers valuable evidence quantifying how generative AI may reshape tourism patterns.
-These findings show the need for tourism scholars and practitioners to assess and prepare for generative AI's impact on the tourism system.
+We ran over 2 million simulations using two large language models: Google's Gemini 2.5 Flash Lite and OpenAI's GPT-4.1 Nano.
+The two large language models yield less diverse destination-origin-month combinations compared to empirical US domestic tourism patterns.
+They also produced more evenly distributed tourist flows where destinations rely on specific months and less diverse origins for tourism demand.
+Both models showed a strong destination-month popularity bias—a tendency to favor visiting destinations during their peak seasons.
+However, tested models differed in popularity biases toward popular destinations, months, and origin-destination pairs.
+The findings serve as early empirical evidence that generative AI poses significant potential to undermine the sustainability and resilience of the tourism sector.
+Thus, we call for tourism scholars and practitioners to assess and prepare for generative AI's impact on the tourism system.
 
 # Background
 
