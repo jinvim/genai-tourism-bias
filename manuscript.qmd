@@ -33,6 +33,14 @@ color.gpt <- "#ff7f05"
 source("r/data.r")
 ```
 
+# Highlights
+
+- Quantifies generative AI’s potential impact on US domestic tourist flows
+- Proposes a Baseline-Rescaling-Outcome Model for testing algorithmic biases in tourism
+- Large language models produce more seasonal and less diverse tourist flows
+- The models exhibit a popularity bias that favors popular destination-month pairs
+- Raises the need to assess the consequences of adopting generative AI in tourism
+
 # Introduction
 
 Generative AI has moved quickly from novelty to everyday tool, changing how we make decisions.
@@ -55,8 +63,10 @@ Our focus is on tourist destination choices and its implications for destination
 We show how large language models generate travel patterns that deviate from empirical US domestic tourism patterns.
 These deviations are explained as systematic *biases* in generative AI, particularly biases that favor popular options and pairs of options.
 Because modeling process of generative AI is opaque, we develop the *Baseline-Rescaling-Outcome Model* that can test such biases using empirical expectations, model outputs, and hypothesized bias mechanisms.
+Using demographic profiles from the US Census Bureau, we created a simulated sample of 1,000 US residents and provided their profiles to two LLMs: Gemini 2.5 Flash Lite and GPT 4.1 Nano.
+The models were instructed to act as travel agents and recommend one domestic travel destination for each individual.
+We repeated this process for 1,000 iterations, yielding one million simulated tourist visits for each large language model. 
 
-We ran over 2 million simulations using two large language models: Google's Gemini 2.5 Flash Lite and OpenAI's GPT-4.1 Nano.
 The two large language models yield less diverse destination-origin-month combinations compared to empirical US domestic tourism patterns.
 They also produced more evenly distributed tourist flows where destinations rely on specific months and less diverse origins for tourism demand.
 Both models showed a strong destination-month popularity bias—a tendency to favor visiting destinations during their peak seasons.
@@ -1303,6 +1313,11 @@ Future research could refine how popularity biases are measured.
 For example, popularity bias may be non-linear where destinations with popularity under certain threshold receive no recommendations at all.
 Fianally, we recommend applying our model to other types of biases and algorithms.
 As tourism and hospitality firms are adopting generative AI for consumer and employee-facing applications, examining socio-demographic biases would be crucial for ensuring ethical and fair integration of generative AI.
+
+# Data availability
+
+The data and code for reproducing the results are available at [https://github.com/jinvim/genai-tourism-bias](https://github.com/jinvim/genai-tourism-bias).
+
 
 ::: {#refs}
 :::

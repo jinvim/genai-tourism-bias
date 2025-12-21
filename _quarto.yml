@@ -18,21 +18,22 @@ author:
     affiliations:
       - ref: smartstate
 abstract:
-  This study quantifies the impact of generative AI on tourist flow using scenario-based projection models.
-  We simulate one million US domestic tourists using Gemini 2.5 Flash and GPT 4.1 Nano.
-  Their tourism patterns are compared to the null model and empirical-based simulations.
-  Large language models generate tourist flows that are more seasonal, more unequal, and less reciprocal than empirical-based simulations.
-  Geographic patterns, like mean travel distance and preference for neighboring states and intra-state destinations, vary by model.
+  While generative AI is increasingly affecting decisions in the tourism sector, we lack empirical evidence on its impact on tourism.
+  This study quantifies how large language models and empirical tourism patterns differ in destination choices.
+  The differences are explained using popularity biases in algorithms that favor popular options and pairs of options.
+  We propose the Baseline-Rescaling-Outcome Model that tests four types of popularity biases in tourism.
+  Large language models tend to produce more seasonal, more unequal, and less diversified tourist flows.
+  We also find evidence of large language models favoring popular destination-month pairs.
   Findings show that the widespread adoption of generative AI can undermine the sustainability and resilience of tourism systems.
   We urge tourism scholars and practitioners to proactively assess the consequences of adopting generative AI in tourism.
 keywords: 
-  - tourist flow network
-  - social network analysis
   - generative AI impact
+  - tourist flow network
+  - algorithmic bias
   - large language models
   - network simulation
-  - scenario-based projection models
-
+  - tourism sustainability
+  
 date: last-modified
 format:
   apaquarto-docx: 
