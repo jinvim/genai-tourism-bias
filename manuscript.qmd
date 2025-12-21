@@ -35,22 +35,26 @@ source("r/data.r")
 
 # Introduction
 
-A day would come when we no longer need to plan our trips.
-Or at least, that is what companies like OpenAI, Google, and Anthropic envision—easily "outsourcing” travel decisions to AI agents [@dawes2024].
-From writing code to composing music, generative AI is transforming how we do many things [@marr2023].
-Tourism is no exception in this regard.
-The majority of travelers are already using generative AI to plan their trips [@booking.com2025].
-In response, major online travel agencies like Expedia and TripAdvisor are integrating generative AI into their platforms [@tripadvisor2023;@expedia2023].
+Generative AI has moved quickly from novelty to everyday tool, changing how we make decisions.
+Such algorithmic collaborators are always available and can guide us in making mundane choices to critical business decisions.
+Or at least, that is what companies like OpenAI, Google, and Anthropic envision—"outsourcing” components of a human decision to generative AI [@marr2023].
+Tourism is no exception.
+Most travelers are already using generative AI to plan their trips [@booking.com2025].
+Major travel intermediaries like Expedia and TripAdvisor are integrating generative AI into their platforms [@tripadvisor2023;@expedia2023].
+Beyond travel planning, generative AI is also supporting core operations in tourism and hospitality firms, such as marketing, revenue management, and human resource management [@amadeus2024].
+At destinations, generative AI is expected to shape tourists' experiences during their visits [@dogru2025].
 
-As tourism researchers, we pose a critical question: *What consequences await destinations if more tourists rely on generative AI to guide their travel decisions?*
-Some tourism and hospitality experts warn that generative AI can suppress destinations’ uniqueness and undermine the sustainability of tourism [@dogru2025; @lehto2025].
-Yet, we lack evidence to substantiate such concerns [@gossling2025; @mellors2025].
-This knowledge gap leaves tourism destinations and businesses uncertain about how to prepare for generative AI's potential impacts, or to determine whether such preparation is even necessary.
+Despite widespread adoption of generative AI across the tourism system, empirical studies on its impact on tourism are scarce [@hsu2024; @gossling2025; @mellors2025]. 
+A particular concern is that these algorithms contain ethical and cultural biases [@ali2025; @law2025].
+As more tourists and practitioners rely on AI for decision-making, biases in generative AI consequently lead to behavioral shifts that can reproduce or amplify biases in tour society [@kordzadeh2022; @vicente2023].
+However, revealing these mechanisms is challenging, given that we lack access to the internal workings of generative AI models and what data they were trained on [@bai2025; @gallegos2024]. 
+Even if we had such access, the complexity and black-box nature of generative AI models make it difficult to interpret their decision-making processes.
 
-In this study, we provide empirical insights into how this rapid adoption of generative AI may reshape tourism patterns.
-We do so using scenario-based projections simulating decisions of one million US domestic tourists.
-Scenarios include tourists making random choices, adhering to current patterns, and relying exclusively on large language models.
-The last scenario offers a "worst-case" benchmark for assessing whether the concerns about generative AI's impacts are valid.
+This study offers empirical insights into how this rapid adoption of generative AI may reshape tourism.
+Our focus is on tourist destination choices and its implications for destination sustainability and resilience.
+We show how large language models generate travel patterns that deviate from empirical US domestic tourism patterns.
+These deviations are explained as systematic *biases* in generative AI, particularly biases that favor popular options and pairs of options.
+Because modeling process of generative AI is opaque, we develop the *Baseline-Rescaling-Outcome Model* that can test such biases using empirical expectations, model outputs, and hypothesized bias mechanisms.
 
 We show that compared to empirical-based simulations, large language models tend to concentrate visits during peak seasons and favor popular destinations.
 Large language models also produce tourism patterns where popular states primarily receive tourists while reciprocating fewer.
@@ -201,7 +205,7 @@ In particular, the focus is popularity biases in generative AI when used for tra
 Popularity bias is defined as tendency where popular options "are recommended even more frequently than their popularity would warrant" [@abdollahpouri2020, p.1].
 As major online travel agencies are already intergrating generative AI into their platforms, understanding popularity bias in tourism recommendation context is ideal for providing timely and practical insights.
 Popularity bias is not unique to algorithms.
-Humans also exhibit similar behaviors, such as popular people gaining even more friends over time [@barabasi1999] and tourists flocking to popular destinations [@lee2025].
+Humans also exhibit similar behaviors, such as popular people gaining even more friends over time [@barabasi1999] and tourists flocking to popular destinations [@lee2025a].
 Consequently, our model tests whether generative AI amplifies or attenuates such popularity biases beyond what is observed empirically.
 
 We also argue that examining pouplarity in tourism context is of theoretical significance, even though pouplarity bias is commonly observed in other recommendation algorithms [@chen2023d].
