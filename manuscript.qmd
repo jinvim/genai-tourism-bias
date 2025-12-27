@@ -39,7 +39,7 @@ source("r/data.r")
 - Proposes a Baseline-Rescaling-Outcome Model for testing algorithmic biases in tourism
 - Large language models produce more seasonal and less diverse tourist flows
 - The models exhibit a popularity bias that favors popular destination-month pairs
-- Calls for assessing the consequences of adopting generative AI in tourism
+- Calls for assessing generative AI biases and their consequences in tourism
 
 # Introduction
 
@@ -130,49 +130,49 @@ These definitional and measurement challenges collectively limit our ability to 
 
 # Baseline-Rescaling-Outcome Model for testing algorithmic biases in tourism
 
-We propose a Baseline-Rescaling-Outcome Model to test algorithmic biases in tourism.
-Bias in this model is defined as a *systematic deviation of algorithmic outputs from empirically grounded expectations of tourism phenomena.*
-This definition separates bias from harm [@ghosh2025], as what is considered harmful depends on who is being affected [@blodgett2020].
-Consider tourism as a system involving multiple stakeholders [@leiper1979].
-If an algorithm systematically favors one destination over another, such bias is benefical to the favored but harmful to the rest.
-Even for the destination being favored, the tourism sector in that destination could benefit while locals suffer from over-tourism.
+We define biase as a *systematic deviation of algorithmic outputs from empirically grounded expectations of phenomena*.
+Our definition separate bias from harm since what is considered harmful depends on who is affected [@blodgett2020; @ghosh2025]
+For example, if an algorithm systematically favors one destination over another, such bias is benefical to the favored but harmful to the rest.
+Even within the favored destination, the tourism sector may benefit while locals suffer from over-tourism.
+We therefore separate the detection of biases from the assessment of their consequences.
 
+To test for such biases, we propose the Baseline-Rescaling-Outcome model designed to address the challenges of measuring biases in proprietary and closed-source algorithms.
 Our model tests bias by modeling the divergence between algorithmic *outcome* and empirical *baseline* as a function of *rescaling* factors representing hypothesized bias mechanisms (@fig-model).
-Compared to existing methods for assessing biases in AI, our approach has three advantages.
-The model assume that the model and its modeling process are inaccessible, which allows testing biases in proprietary and closed-source models.
-This assumption is no different from how social scientists study human biases.
-We cannot directly observe the biases in cognitive processes, but we can infer countious or uncontious biases from behavioral outcomes such as speed of responses and error rates [@greenwald1998].
+This approach has three advantages compared to existing tests for algorithmic biases.
+First, the model can test biases without access to model internals or training data.
+We apply the same approach used in social sciences to study human biases that infer presence of biases from behavioral outcomes, such as speed of responses and error rates [@greenwald1998]
+Similar to how biases in cognitive processes are treated unboservable, the model assumes that  the algorithm and its modeling process are inaccessible.
+Instead, algorithm's output is used as the means to assess biases.
 Our approach is also flexible.
 As long as we can derive empirically grounded expectations, rescaling factors, and algorithmic outputs, we can test biases in algorithms beyond generative AI and outside of tourism context.
 Finally, the rescaling factors allows interpretable diagnosis of biases, ideal for translating findings into practical suggestions for mitigating biases.
-Although, we caution that the model is not, nor aiming to be, a theory of how biases arise in algorithms.
-Biases in algorithms are *caused by* complex socio-technical processes that includes biases in data generating processes, model architectures, and human feedback [@santurkar2023; @viglia2024a].
+Although, the model cannot provide *causal* explanations of how biases arise in algorithms.
+Biases in algorithms are caused by complex socio-technical processes that includes biases in data generating processes, model architectures, and human feedback [@santurkar2023; @viglia2024a].
 Because we often lack access to these processes and due to uninterpretable nature of some algorithms, we can only speculate on what causes biases [@bai2025].
 
 ![Baseline-Rescaling-Outcome Model](figures/model.svg){#fig-model}
 
 ## Outcome: Projected tourism patterns under complete reliance on the algorithm
 
-Given that we assume no access to the modeling process, output of the algorithm is the only means to assess the bias.
-Specifically, we use outcome of when *all* decisions are made by the algorithm under study.
-This follows the practice of scenario-based projection models that predict outcomes under specified conditions [@runge2024].
-Examples include Shared Socioeconomic Pathways for climate trajectories [@ipcc2021] and COVID-19 diffusion models [@adam2020].
+The first component of our model is the *outcome* when the phenomena are entirely driven by the algorithm.
+We follow the logic of scenario-based projection models to test algorithmic biases.
+Examples of such projections models include Shared Socioeconomic Pathways for climate trajectories and COVID-19 diffusion models [@adam2020; @ipcc2021].
 These models contain “worst-case” scenarios that project the most extreme outcomes: climate projections without emission reductions or infection rates without government interventions.
-Though unrealistic, these extreme scenarios serve as benchmarks for assessing whether action is necessary.
-We apply the same logic to studying algorithmic biases.
-For example, if we want to test whether generative AI for tourist recommendation system is biased, we project a scenario where all tourists rely on the generative AI.
-Simiarly, biases in hiring algorithms for tourism firm can be tested by projecting a scenario where all hiring decisions are made by the algorithm. 
+For example, we can test bias in generative AI tourism recommendatinos by projecting the outcome when generative AI makes all destination choices.
+Similarly, biases in hiring algorithms for tourism firms can be tested by projecting a scenario where all hiring decisions are made by the algorithm.
+Though unrealistic, these undilluted outcome of algorithms are necessary to reveal the full extent of their biases.
 
-## Baseline: Empirically grounded expectations of tourism phenomena
+## Baseline: Empirically grounded expectations of phenomena
 
-But without a baseline, we cannot know whether the outputs are biased.
+Empirical baseline is a foundational component of our model.
+Prior works have used similiar empirically-grounded approaches, comparing real-world distributions with algorithmic outputs to assess representation and popularity biases [@abdollahpouri2020; @santurkar2023].
 Consider a situation where an algorithm has a four-in-ten chance of suggesting US domestic tourists to visit San Francisco.
 Could we say that this algorithm has a systematic tendency to favor San Francisco as a tourism destination?
-We argue that to answer this question, one first need an empirical benchmark of what would "unbiased" suggestions look like.
 If four in ten Americans visit San Francisco, then the algorithm's tendency is simply reproducing what is expected in the real-world tourism patterns.
 However, if only one in ten US domestic tourists visit San Francisco, then the algorithm does favor San Francisco beyond the empirical expectation.
-@santurkar2023 implement a similar approach to assess representation biases in large language models by comparing empirical distribution of public opinions with model-generated opinions.
-@abdollahpouri2020 similarly used real-world music and movie ratings to assess popularity biases by comparing empirical and algorithm-produced distributions of popularities.
+We argue that to answer this question, one first need an empirical benchmark of what would "unbiased" suggestions look like.
+
+
 
 ## Rescaling: Testable factors for hypothesized bias mechanisms
 

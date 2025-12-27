@@ -1,4 +1,5 @@
 title: Large Language Models Yield Unsustainable Tourist Flows
+subtitle: Testing Algorithmic Biases Using the Baseline-Rescaling-Outcome Model
 author:
   - name: Seonjin Lee
     email: seonjin@sc.edu
@@ -18,14 +19,13 @@ author:
     affiliations:
       - ref: smartstate
 abstract:
-  While generative AI is increasingly affecting decisions in the tourism sector, we lack empirical evidence on its impact on tourism.
-  This study quantifies how large language models and empirical tourism patterns differ in destination choices.
-  The differences are explained using popularity biases in algorithms that favor popular options and pairs of options.
-  We propose the Baseline-Rescaling-Outcome Model that tests four types of popularity biases in tourism.
+  Despite widespread adoption of generative AI in tourism, empirical evidence on its impacts are scarce.
+  This study shows how large language models deviate from empirical tourism patterns, attributing the deviations to popularity biases.
+  We test four types of popularity biase in AI-generated tourism recommendations using the proposed  Baseline-Rescaling-Outcome Model.
   Large language models tend to produce more seasonal, more unequal, and less diversified tourist flows.
-  We also find evidence of large language models favoring popular destination-month pairs.
+  These models also favoring popular destination-month pairs, but show mixed results for other popularity biases.
   Findings show that the widespread adoption of generative AI can undermine the sustainability and resilience of tourism systems.
-  We urge tourism scholars and practitioners to proactively assess the consequences of adopting generative AI in tourism.
+  Thus, urge tourism scholars and practitioners to proactively assess generative AI biases and their consequences in tourism.
 keywords: 
   - generative AI impact
   - tourist flow network
@@ -52,6 +52,8 @@ format:
     header-includes: 
       - \usepackage{placeins}
       - \usepackage{float}
+      - \usepackage{setspace}
+      - \doublespacing
 fig-width: 12
 fig-height: 7
 execute:
