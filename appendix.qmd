@@ -269,9 +269,9 @@ betas.alt.sum |>
                 "Gemini 2.5 Flash Lite<br>(Default Prompt)",
                 "Gemini 2.5 Flash Lite<br>(Zero-shot)",
                 "Gemini 2.5 Flash Lite<br>(Tourist Persona)",
-                "GPT 4.1 Nano<br>(Default Prompt)",
-                "GPT 4.1 Nano<br>(Zero-shot)",
-                "GPT 4.1 Nano<br>(Tourist Persona)"
+                "GPT-4.1 Nano<br>(Default Prompt)",
+                "GPT-4.1 Nano<br>(Zero-shot)",
+                "GPT-4.1 Nano<br>(Tourist Persona)"
             )
         )
     ) |>
@@ -316,8 +316,8 @@ betas.alt.sum |>
                 "Gemini 2.5 Flash Lite<br>(Temperature=1.0; Default)",
                 "Gemini 2.5 Flash Lite<br>(Temperature=0.5)",
                 "Gemini 2.5 Flash Lite<br>(Temperature=1.5)",
-                "GPT 4.1 Nano<br>(Temperature=1.0; Default)",
-                "GPT 4.1 Nano<br>(Temperature=0.5)"
+                "GPT-4.1 Nano<br>(Temperature=1.0; Default)",
+                "GPT-4.1 Nano<br>(Temperature=0.5)"
             )
         )
     ) |>
@@ -331,7 +331,7 @@ betas.alt.sum |>
     labs(
         title = "Adjusting Temperature Parameter Does Not Change Key Findings",
         subtitle = "Using more or less deterministic temperature settings does not substantially change results",
-        caption = "Note: Summary of Poisson model results over 100 iterations. Error bars represent 95% credible intervals for the estimates.\nLower temperature value (0.5) makes the output more deterministic, whereas higher temperature (1.5) yields less deterministic results.\nGPT 4.1 Nano with Temperature=1.5 failed to generate responses in the given structure and is thus excluded.",
+        caption = "Note: Summary of Poisson model results over 100 iterations. Error bars represent 95% credible intervals for the estimates.\nLower temperature value (0.5) makes the output more deterministic, whereas higher temperature (1.5) yields less deterministic results.\nGPT-4.1 Nano with Temperature=1.5 failed to generate responses in the given structure and is thus excluded.",
     )
 ```
 
@@ -363,8 +363,8 @@ betas.alt.sum |>
             labels = c(
                 "Gemini 2.5 Flash Lite",
                 "Gemini 2.5 Flash",
-                "GPT 4.1 Nano",
-                "GPT 4.1 Mini",
+                "GPT-4.1 Nano",
+                "GPT-4.1 Mini",
                 "Grok 3 Mini",
                 "Llama 4 Scout"
             )

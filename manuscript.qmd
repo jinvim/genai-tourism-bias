@@ -39,115 +39,94 @@ source("r/data.r")
 - Proposes a Baseline-Rescaling-Outcome Model for testing algorithmic biases in tourism
 - Large language models produce more seasonal and less diverse tourist flows
 - The models exhibit a popularity bias that favors popular destination-month pairs
-- Raises the need to assess the consequences of adopting generative AI in tourism
+- Calls for assessing the consequences of adopting generative AI in tourism
 
 # Introduction
 
-Generative AI has moved quickly from novelty to everyday tool, changing how we make decisions.
-Such algorithmic collaborators are always available and can guide us in making mundane choices to critical business decisions.
-Or at least, that is what companies like OpenAI, Google, and Anthropic envision—"outsourcing” components of a human decision to generative AI [@marr2023].
+Generative AI has moved quickly from novelty to everyday tool.
+Pepole use these algorithms as always-ready collaborators that can assist in making mundane choices to critical business decisions [@marr2023]
 Tourism is no exception.
-Most travelers are already using generative AI to plan their trips [@booking.com2025].
-Major travel intermediaries like Expedia and TripAdvisor are integrating generative AI into their platforms [@tripadvisor2023;@expedia2023].
-Beyond travel planning, generative AI is also supporting core operations in tourism and hospitality firms, such as marketing, revenue management, and human resource management [@amadeus2024].
-At destinations, generative AI is expected to shape tourists' experiences during their visits [@dogru2025].
+With most travelers already using generative AI to plan their trips, major travel intermediaries like Expedia and TripAdvisor are integrating generative AI into their platforms [@booking.com2025; @tripadvisor2023;@expedia2023].
+Beyond travel planning, generative AI is also supporting core operations of tourism industry and destination management, such as marketing, human resource management, and tourism experience design [@amadeus2024; @dogru2025].
 
-Despite widespread adoption of generative AI across the tourism system, empirical studies on its impact on tourism are scarce [@hsu2024; @gossling2025; @mellors2025]. 
-A particular concern is that these algorithms contain ethical and cultural biases [@ali2025; @law2025].
-As more tourists and practitioners rely on AI for decision-making, biases in generative AI consequently lead to behavioral shifts that can reproduce or amplify biases in tour society [@kordzadeh2022; @vicente2023].
-However, revealing these mechanisms is challenging, given that we lack access to the internal workings of generative AI models and what data they were trained on [@bai2025; @gallegos2024]. 
-Even if we had such access, the complexity and black-box nature of generative AI models make it difficult to interpret their decision-making processes.
+Despite widespread adoption of generative AI in tourism, empirical evidence on its impacts are scarce [@hsu2024; @gossling2025; @mellors2025]. 
+Ethical and cultural biases in these algorithms are key concerns [@ali2025; @law2025].
+As more tourists and practitioners rely on generative AI, algorithmic biases can lead to behavioral shifts that reproduce or amplify biases in our society [@kordzadeh2022; @vicente2023].
+Revealing these biases is difficult sinece we have limited access to generative AI models' internals or their training data [@bai2025; @gallegos2024]. 
+Even if we had such access, the complexity and black-box nature of generative AI models make it difficult to interpret the process behind generated outputs.
+This knowledge gap leaves tourism destinations and businesses uncertain about how to prepare for generative AI’s potential impacts, or to determine whether such preparation is even necessary.
 
-This study offers empirical insights into how this rapid adoption of generative AI may reshape tourism.
-Our focus is on tourist destination choices and its implications for destination sustainability and resilience.
-We show how large language models generate travel patterns that deviate from empirical US domestic tourism patterns.
+This empirical study assess how the rapid adoption of generative AI and its algorithmic biases can reshape tourist destination choices.
+We develop the *Baseline-Rescaling-Outcome Model* that can test algorithmic biases using empirical expectations, algorithmic outcomes, and hypothesized bias mechanisms.
+Using demographic profiles from the US Census Bureau, we created a simulated sample of one million US residents.
+Two large language models, Gemini 2.5 Flash Lite and GPT-4.1 Nano, acted as travel agents who recommend one domestic travel destination for each individual.
+We show that large language models generate travel patterns that deviate from empirical US domestic tourism.
 These deviations are explained as systematic *biases* in generative AI, particularly biases that favor popular options and pairs of options.
-Because modeling process of generative AI is opaque, we develop the *Baseline-Rescaling-Outcome Model* that can test such biases using empirical expectations, model outputs, and hypothesized bias mechanisms.
-Using demographic profiles from the US Census Bureau, we created a simulated sample of 1,000 US residents and provided their profiles to two LLMs: Gemini 2.5 Flash Lite and GPT 4.1 Nano.
-The models were instructed to act as travel agents and recommend one domestic travel destination for each individual.
-We repeated this process for 1,000 iterations, yielding one million simulated tourist visits for each large language model. 
 
-The two large language models yield less diverse destination-origin-month combinations compared to empirical US domestic tourism patterns.
-They also produced more evenly distributed tourist flows where destinations rely on specific months and less diverse origins for tourism demand.
-Both models showed a strong destination-month popularity bias—a tendency to favor visiting destinations during their peak seasons.
+Compared to empirical tourism patterns, large language models yield less diverse tourist flows that are more concentrated on specific combinations of destination, origin, and month.
+They also produced more unevenly distributed tourist flows where destinations have more seasonal and less diversified tourism demand.
+The models showed a strong tendency to favor visiting destinations during their peak seasons, indicating amplification of destination-month popularity.
 However, tested models differed in popularity biases toward popular destinations, months, and origin-destination pairs.
 The findings serve as early empirical evidence that generative AI poses significant potential to undermine the sustainability and resilience of the tourism sector.
-Thus, we call for tourism scholars and practitioners to assess and prepare for generative AI's impact on the tourism system.
+Given these risks, we urge tourism scholars and practitioners to assess and prepare for generative AI's impact on the tourism system.
 
 # Background
 
 ## Generative AI and its impacts on tourism
 
+This study focuses on generative AI and its implications for tourism.
 AI has become a catch-all term that encompasses various technologies aimed at simulating human intelligence. 
 Adding to the confusion, tourism literature often discusses AI alongside other technologies like robotics, augmented reality, and virtual reality [@gossling2025].
-This study focuses on generative AI and its implications for tourism. Trained to recognize patterns in vast data, these models can produce content such as text, images, or videos [see @epstein2023].
-We avoid *chatbots* because they represent just one way generative AI is used.
+Generative AI specifically refers to a class of AI mdoels that are trained to recognize patterns in vast data and generate content such as text, images, or videos [see @epstein2023].
+We avoid *chatbots* because they represent just one application of generative AI.
 Likewise, we do not use brand-specific terms like *ChatGPT* when discussing generative AI in general.
 
-Despite widespread adoption of generative AI across industries, empirical studies on its impact on tourism are scarce [@hsu2024].
-Tourism and hospitality sector has seen rapid integration of generative AI tools, sparking scholarly interest.
-Studies primarily looked at who, when, and why tourists and practitioners adopt generative AI [see recent reviews by @gossling2025; @li2025].
-This gap calls for more research providing evidence for projecting how generative AI will shift tourism's trajectory [@law2025; @mellors2025].
-
-Preliminary works explore both positive and negative implications of generative AI in tourism. 
-One perspective is that generative AI brings benefits to tourists and businesses.
+We currently lack empiricial evidence on how and to what extent generative AI will affect tourism [@hsu2024; @mellors2025].
+Although tourism and hospitality literature on generative AI is growing, their primary focus is on adoption behaviors: who, when, and why tourists and practitioners adopt generative AI [see recent reviews by @gossling2025; @li2025].
+Some preliminary works underscore benefits that generative AI brings to businesses and tourists.
+Businesses who announced generative AI integration saw competitive advantages in market value [@jung2026].
+Additionally, counterfactual analysis shows that underperforming businesses can improve their revenue by using generative AI for product marketing [@fan2025].
 For tourists, generative AI reduces cognitive load during travel planning, thereby increasing visit intentions and decision satisfaction [@shin2025].
-Businesses can also benefit by using generative AI to assist in marketing and content creation [@fan2025].
-However, generative AI adoption in tourism also raises concerns about its negative impacts.
-@lehto2025 warned against "algorithmic flattening" that erases destination uniqueness.
-Generative AI may undermine the sustainability of tourism by exacerbating over-tourism [@mellors2025].
-Some conceptual works have examined both positive and negative aspects of generative AI adoption in tourism, concerning value co-creation and co-destruction [e.g., @dogru2025; @grundner2021].
+However, others also caution that generative AI could undermine ethical, sustainable, and resilient tourism [@law2025; @lehto2025].
+A few studies investigate how generative AI have biases that favor mainstream tourism patterns [@andreev2025; @mellors2025].
+Such biases are concerning because they can affect behaviors of users relying on generative AI, leading to real-world impacts that reproduce or amplify existing biases in society [@kordzadeh2022; @vicente2023].
+These preliminary findings echo standing debates about how technologies---from search engines to social media---have both benefited and harmed tourism [@gong2024a; @leung2013; @pan2021].
 
-## How AI biases shape tourism
+## Challenges of defining and measuring biases in generative AI
 
-Regardless of whether the study focuses on positive or negative impacts, bias in generative AI is a common concern [refs].
-This mirrors previous discussions about biases in other technologies and their impacts on tourism, such as search engines, social media, or smart technologies [@gong2024a;@leung2013; @pan2021].
-Consequences of biases in AI is that they lead to behavioral shifts to users relying on AI for decision-making, which reproduce or amplify biases existing of humans [@kordzadeh2022; @vicente2023].
-
-Many studies on biases in algorithms focus on social biases, specifically racial and gender stereotypes [see @ghosh2025; @kordzadeh2022].
-Social biases in AI and their ethical implications are also implicit in tourism and hospitality research.
+Both conceptual and empirical works on generative AI in tourism commonly raise concerns about *biases* in these algorithms.
+In particular, social biases in AI and their ethical implications are prominent focus of tourism and hospitality research.
+This trend aligns with broader literature on algorithmic biases that emphasize ethical challenges of such biases, specifically racial and stereotypes [see @ghosh2025; @kordzadeh2022].
 For example, @law2025 highlight ethical challenges of AI adoption in tourism and hospitality sectors, urging inclusiveness of AI adoption with reduced "biased and discriminatory actions" (p.287).
 @hsu2024 suggests fine-tuning generative AI with tourism-specific data, noting that such models "could perpetuate stereotypes and result in discrimination" (p.2).
 @viglia2024a discuss using AI-generated data for tourism research, giving a specific example of bias against AI generating racist content.
+Beyond ethical concerns, several schloars mention popularity biases in generative AI as a potential threat, where algorithms favor popular options while underrepresenting less popular ones [@law2024; @lehto2025].
+This bias poses practical concerns for the tourim sector, as it can exacerbate challenges like over-tourism for popular destinations, while less popular destinations struggle to sustain their tourism sector [@mellors2025].
 
-Beyond ethical concerns, AI biases could undermine the sustainability and resilience of tourism sector.
-Several schloars mention popularity biases in generative AI as a potential threat, where algorithms favor popular options while underrepresenting less popular ones [@law2024; @lehto2025; @mellors2025].
-This bias is of practical concern because it can exacerbate challenges like over-tourism for popular destinations, while less popular destinations struggle to sustain their tourism sector.
-
-Stiil, AI's social and popularity biases in tourism remain as concerns, with little empirical evidence.
-We can only speculate that generative AI produce such biases in tourism context.
-Generally, these models still exhibit stereotype biases like humans and show less diversity in outputs compared to human counterparts [see @abdollahpouri2020; @bai2025; @wu2024a].
-But such biases can have positive consequences.
-For example, reduced diversity in generative AI outputs are beneficial in programming task, as correct and efficient solutions are being favored.
-Without empirical evidence, we cannot know in what ways and to what extent biases would be benefical or harmful for the tourism sector.
-
-## Defining and measuring biases in generative AI
-
-First we need to define *bias* to understand generative AI's biases in tourism and their implications for the sector.
-Works on AI biases in tourism and hospitality are often vague about what is meant by these algorithms being *biased*.
+We note two key challenges in examining biases in generative AI: defining and measuring biases.
+First, works on AI biases in tourism and hospitality are often vague about what is meant by these algorithms being *biased*.
 This issue is not unique to tourism scholarship; broader AI bias literature have also been criticized for lacking explicit definition of bias [@ghosh2025].
+Even in AI policy documents, like EU AI Act that mandates AI providers to assess and mitigate biases, what constitutes bias is often unspecified [@vanbekkum2025].
 Such ambiguity in defining bias results in discrepancies between the concerns raised and the empirical evidence provided [@blodgett2020].
-Although, AI biases is often undefined or vauguly defined even outside of academia.
-For example, the EU's AI Act that mandates AI providers to assess and mitigate biases does not specify what constitutes bias [@vanbekkum2025].
 
-Definition of bias varies not only across disciplines but also by the purpose of examining bias.
+Algorithmic bias has no single definition.
 When the focus is on stereotyping, studies define bias as *act of* unjustified association between social groups and attributes [for example @bai2025].
-This definition is inhereted from social psychology literature on implicit asssociations [@greenwald1998].
-Studies examining ethical implications of AI biases often define bias in terms of *outcomes or treatment*: unequal allocation of resources or unfavorable representation of social groups [for example @blodgett2020; @gallegos2024; @kordzadeh2022].
-Such definitions are analogous to legal definition of discrimination, a behaviroal outcome of biases, as disparate impacts or treatement [@seiner2006].
-Others distinguish bias from harm, where bias is defined as having a particular inclination or deviation of model outputs from empirical data [for example @ghosh2025; @wu2024a].
-In this more netural definition of bias that are closely tied to statistical and computer science, bias is considered unavoidable for generalization and because data itself reflects biases of the real world [@chen2023d; @ghosh2025].
+This definition follows social psychology literature on implicit asssociations [@greenwald1998].
+Studies examining ethical implications of algorithmic biases often define bias in terms of *outcomes or treatment*: unequal allocation of resources or unfavorable representation of social groups [for example @blodgett2020; @gallegos2024; @kordzadeh2022].
+Such definitions are analogous to how laws require proof of disparate impacts or treatement as the behavioral outcome of biases, because bias is seen as individual beliefs that are unactionable [@seiner2006] 
+Others distinguish bias from harm, where bias is defined as a model having a particular inclination or deviation of model outputs from empirical data [for example @ghosh2025; @wu2024a].
+This is more netural definition of bias that are closely tied to statistical and computer science, where bias is considered unavoidable for generalization [@chen2023d; @ghosh2025].
+Thus, definition of algorithmic bias varies not only across disciplines but also by specific bias being examined.
 
-Even with a clear definition of bias, measuring biases in generative AI is challenging.
-Major obstacle is proprietary and closed-source nature of these models
-@ali2025 proposes using tools such as IBM's AI Fairness 360 or Google’s What-If toolkits to asses biasses in AI generated data for tourism reseachers.
-These bias assesment tools assume that one has access to the data and internals of the AI models. 
-For commonly used generative AI models, however, neither the training data nor the model itself is accessible to end users and researchers [@gallegos2024].
-Even with access to the model, recent generative AI models go through value alignment and safety tuning stage to avoid explicit biases [@santurkar2023].
-Thus, generative AI models tend to show implicit biases that are harder to detect [@bai2025].
-Existing methods for aessing biases in AI are also designed to quantify one type of bias at a time [see review of bias metrics by @gallegos2024; @kordzadeh2022].
-For example, a tourism recommendation algorithm may exhibit racial stereotype bias and  popularity bias simultaneously.
-But current metrics do not allow for measuring multiple biases at once, which limits diagnoses as models become more complex and their biases become more subtle.
+Even with clear definitions, measuring biases in generative AI is challenging.
+A major obstacle is that these models are often proprietary and closed-source.
+@ali2025 proposes using tools such as IBM's AI Fairness 360 or Google’s What-If toolkits to assess biases in AI generated data for tourism research.
+However, these tools assume access to data and model internals, neither of which is available for commonly used generative AI models like ChatGPT [@gallegos2024].
+Detecting biases is further complicated because recent generative AI models undergo safety tunings to avoid explicit biases, making biases implicit and harder to detect [@bai2025; @santurkar2023].
+Moreover, most existing AI bias metrics are designed to quantify disparate outcomes, not to explain how such disparities arise [see review of bias metrics by @gallegos2024; @kordzadeh2022].
+For example, existing metrics can identify that generative AI disproportionately suggest resort destinations to certain racial groups.
+But they cannot explain whether such disparities arise due to favoring popular destinations, peak seasons, racial stereotypes, or a combination of these mechanisms.
+These definitional and measurement challenges collectively limit our ability to effectively assess biases in generative AI models and their implications for tourism.
 
 # Baseline-Rescaling-Outcome Model for testing algorithmic biases in tourism
 
@@ -211,13 +190,11 @@ Our model can test for such biases as negative rescaling factors, allowing us to
 
 ## Empirical framework for testing popularity biases in generative AI travel suggestions
 
-Using our Baseline-Rescaling-Outcome Model, we test whether generative AI exhibits biases in the tourism context.
-In particular, the focus is popularity biases in generative AI when used for travel recommendations.
+We demonstrate the application of our Baseline-Rescaling-Outcome Model by testing for popularity biases in generative AI travel recommendations.
 Popularity bias is defined as tendency where popular options "are recommended even more frequently than their popularity would warrant" [@abdollahpouri2020, p.1].
-As major online travel agencies are already intergrating generative AI into their platforms, understanding popularity bias in tourism recommendation context is ideal for providing timely and practical insights.
-Popularity bias is not unique to algorithms.
-Humans also exhibit similar behaviors, such as popular people gaining even more friends over time [@barabasi1999] and tourists flocking to popular destinations [@lee2025a].
-Consequently, our model tests whether generative AI amplifies or attenuates such popularity biases beyond what is observed empirically.
+Understanding this bias in tourism is particularly timely and practical, as major online travel agencies are already integrating generative AI into their platforms.
+However, popularity bias is not unique to algorithms---Humans also exhibit similar behaviors, such as popular people gaining even more friends over time and tourists flocking to popular destinations [@barabasi1999; @lee2025a].
+Our study therefore tests whether generative AI amplifies or attenuates such popularity biases beyond what is observed empirically.
 
 We also argue that examining pouplarity in tourism context is of theoretical significance, even though pouplarity bias is commonly observed in other recommendation algorithms [@chen2023d].
 Unlike recommending movies or music, tourism recommendations need to consider spatial and temporal dimmensions of travel choices.
@@ -228,16 +205,16 @@ While these two factors account for destination and month popularities independe
 Destination-month popularity bias caputure whether algorithms favor specific destinations during specific months.
 Similarly, origin-destination popularity bias capture tendency to excessively pair tourists from specific origins to specific destinations.
 
-Below are operationalizations of the four popularity biases and the empirical framework for testing them.
+Below is the empirical model for testing four popularity biases.
 Define number of tourist flow from origin $i$ to destination $j$ in month $m$ as $Flow_{(i,j,m)}$.
 Let $P_{(i,j,m)}$ be the share of tourists from origin $i$ to destination $j$ in month $m$ over all tourist flow ($Flow_{(i,j,m)} / \sum{Flow_{(i,j,m)}}$).
 Under the null condition that large language models produce "unbiased" travel suggestions, we expect:
 $$
 Flow^{LLM}_{(i,j,m)} \sim \sum_{j,m}{Flow^{LLM}_{(i,j,m)}} \cdot P^{Empirical}_{(j,m|i)} = Baseline_{(i,j,m)}
 $$ {#eq-null}
-where $P^{Empirical}_{(j,m|i)}$ is the share of tourists traveling to destination $j$ in month $m$ given origin $i$ observed empirically ($P_{(i,j,m)} / \sum_{j,m}{P_{(i,j,m)}}$).
-This share is multiplied by total number of LLM-simulated tourists from origin $i$, which scales the expected number of tourists based on total tourist outflow from origin $i$.
-Meaning, the right hand side of @eq-null is the baseline expectation when LLMs can perfectly replicate empirical tourism patterns ($Baseline_{(i,j,m)}$).
+where $P^{Empirical}_{(j,m|i)}$ is the share of tourists traveling to destination $j$ in month $m$ given origin $i$, observed empirically ($P_{(i,j,m)} / \sum_{j,m}{P_{(i,j,m)}}$).
+This share is multiplied by total number of large language model-produced tourists from origin $i$, which scales the expected number of tourists based on total tourist outflow from origin $i$.
+Meaning, the right hand side of @eq-null is the baseline expectation when generative AI can perfectly replicate empirical tourism patterns ($Baseline_{(i,j,m)}$).
 
 Destination and month popularities are defined as:
 $$
@@ -271,9 +248,9 @@ $$
 $$ {#eq-model}
 Under the null hypotheses of no systematic bias, we expect all $\beta=0$. If $\beta>0$ for a factor, it positively rescales that factor's popularity in their suggestions; if $\beta<0$, it negatively rescales that factor's popularity.
 
-@fig-beta-demo illustrate how different $\beta_2$ values (month popularity rescaling) affect the distribution of monthly tourist share.
+@fig-beta-demo illustrate how different $\beta_2$ values (month popularity bias) rescales the distribution of monthly tourist share.
 For example, if $\beta_2 = 1$, seasonal variation in tourist flow is amplified, whereas $\beta_2 = -1$ produces a uniform distribution across months.
-The model isolate the biases toward specific combinations because $DM_{j,m}$ and $OD_{i,j}$ measure popularities beyond independent popularities of a single factor.
+This test is independet of destination-month popularity bias ($\beta_3 \ne 0$) because $DM_{j,m}$ measure popularities beyond independent popularities of destination and month.
 Meaning, if we generate tourist flows with only the destination-month popularity bias ($\beta_3 \ne 0$), the resulting data would show no changes in overall destination or month popularity ($\beta_1 = 0, \beta_2 = 0$).
 
 ```{r} 
@@ -330,9 +307,8 @@ $$ {#eq-log-model}
 ## Data collection and analysis
 
 @fig-steps summarizes our data collection and analysis process.
-The simulation process involves generating tourist flow under the scenario where all tourists rely on generative AI for travel suggestions.
-Using empirically grounded demographic profiles, we created simulated tourists and provided their information to two large language models.
-Separately from the simulation, two data sources were used to estimate real-world tourism patterns.
+The large language model simulation involves generating tourist flow using empirically grounded demographic profiles.
+Separately from the AI-driven simulation, two data sources were used to estimate real-world tourism patterns.
 This empirical data is then used to derive baseline expectations and popularity factors.
 Finally, we combine simulation and empirical data to test four hypothesized popularity biases by fitting the regression model in @eq-log-model.
 
@@ -387,61 +363,54 @@ df.demo.prop |>
 ### Large language model simulations
 
 Social science researchers are increasingly using generative AI models for generating synthetic data.
-Examples include using large language models to simulate social interactions [@liu2023b] and human decision-making under game theory [@akata2025]. 
-Tourism scholars have also began noting the benefits and challenges of using AI-generated synthetic data [see @ali2025; @viglia2024a].
-
-We propose an approach that differs from prior studies in four ways.
-We assume that large language models do not accurately replicate real-world tourism and contain biases.
-Hence, these synthetic datare used to measure such biases, rather than using AI-generated data to *mimic* tourist behavior [for example @viglia2024a; @xiong2024].
+We highlight four key differences between our approach and prior studies.
+First, we use AI-generated data because they provide means to show how these AI models *do not* replicate human behavior.
+Our focus is thus fundamentally different from previous suggestions to use AI-generated data to *mimic* tourist behavior [for example @ali2025; @viglia2024a; @xiong2024].
 Next, we base our simulations on empirically derived demographic profiles.
 This modification is to ensure that any divergence from empirical tourism patterns is attributable to algorithmic biases, instead of using arbitrary or non-representative profiles that would confound the results [for example, @andreev2025].
-Third, unlike studies that relied on a few handpicked responses or a single simulation run [for example @andreev2025; @mellors2025; @xiong2024], we ran multiple iterations of simulations to sufficiently capture the uncertainty in large language model outputs.
+Third, unlike studies that relied on a few handpicked responses or a single simulation run [for example @mellors2025; @xiong2024], we ran multiple iterations of simulations to sufficiently capture the uncertainty in large language model outputs.
 Finally, our approach recognizes the network and temporal nature of tourism.
-Beyond looking at the propensity of large language models to suggest specific destinations, our simulation captures the entire tourist flow network across origins, destinations, and months.
+Beyong looking at destination choice alone, we simulate the complete network of tourist flows between all origin-destination pairs across months.
 
 The simulation starts with a system prompt containing the simulation context, response structure, and examples (available in @apx-prompt).
 To simplify the simulation, we assume that each person chooses one domestic destination within the US (50 US states and the District of Columbia).
-The large language models were instructed to act as travel agents recommending one domestic travel destination based on the provided demographic profile.
-The system prompt was followed by a user prompt that included demographic characteristics of each simulated individual.
+We instructed large language models to act as travel agents recommending one domestic travel destination based on the provided demographic profile.
+Subsequently, the models received demographic characteristics of each simulated individual.
 Twenty people were processed at a time to improve the efficiency of the simulation. 
 This process is similar to agent-based modeling using large language models [@gao2024].
 But the key difference is that we prompt large language models to act as travel agents, rather than as tourists.
-The rationale for this choice is that our goal is to project how generative AI would influence tourist flows if widely adopted, rather than using it to substitute for human travelers as research subjects.
+The rationale for this choice is that our goal is to project how generative AI would influence tourist flows if widely adopted, rather than using it to substitute for human travelers.
+We captured the probablistic nature of large language model outputs by repeting simulation with 1,000 individuals for 1,000 iterations.
+This process produces a distribution of simulated tourist visits for assessing whether the differences between AI-simulated and empirical tourism patterns are not result of stochastic variations.
 
-Because outputs of large language models are probabilistic, we took an iterative approach to capture the uncertainty in their recommendations.
-The large language models generated recommendations for 1,000 simulated individuals across 1,000 samples.
-This process produces a distribution of simulated tourist visits given the demographic profile, helpful in assessing whether the differences in network characteristics between scenarios are meaningful.
-Studies have used similar approaches for assessing structural properties of social networks [e.g., @bearman2004].
-The difference is that large language models generate tourist flow networks, rather than defining a model with explicit rules about the formulation of the network.
-
-To establish the consistency of our findings across different large language models, we used two different models for simulations: Google's Gemini 2.5 Flash Lite (version June 2025) and OpenAI's GPT-4.1 Nano (version April 2025).
+Two different large language models were used to establish the consistency of our findings across different models: Google's Gemini 2.5 Flash Lite (version June 2025) and OpenAI's GPT-4.1 Nano (version April 2025).
 They are among the leading large language models currently available in terms of their capabilities and market share.
 Because our simulations require a large number of responses, we chose their smallest variants optimized for speed and cost.
-We chose these two models also because they use different architectures.
-Gemini 2.5 family of models are build on mixture-of-experts architecture, while GPT-4.1 family are built on more traditional transformer architecture.
-As these two models are developed by different companies, they likely be trained on different datasets and tuning processes, which is ideal for assessing the generalizability of our findings.
 Although the two large language models are closed-source, they are comparable in pricing structures ($0.10 per million input tokens; $0.30 and $0.40 per million output tokens, respectively).
+We also chose these two models also because they use different architectures.
+Gemini 2.5 family of models are build on mixture-of-experts architecture, while GPT-4.1 family are built on more traditional transformer architecture.
+As these two models are developed by different companies, they are likely be trained on different datasets and tuning processes, which is ideal for assessing the generalizability of our findings.
 
 All requests were made from the IP address of the university located in the southeastern US, using custom automation scripts.
-We explicitly instructed large language models not to use IP-specific details when generating recommendations to avoid potential bias.
+We explicitly instructed large language models not to use IP-specific details when generating recommendations.
 Data collection continued until we achieved a complete dataset.
 The collected data were then aggregated to create destination-origin-month matrices for each iteration and model, where each cell represents the number of tourists from the origin. $i$ to destination $j$ in a month $m$.
 
 ### Empirical baseline data and simulations
 
-The empirical data serves two purposes in this study.
-It provides the baseline for real-world tourism patterns against which we compare the characteristics of AI-simulated tourist flows.
+The empirical data serve two purposes in this study.
+It provides the baseline for descriptively comparing characteristics of AI-simulated tourist flows against real-world tourism patterns.
 Additionally, we use the empirically derived baseline and popularity factors to explain the discrepancies between AI-simulated and empirical tourist flows.
 Because biases also exist in the empirical mobility data [see @huang2021a; @li2024b], we rely on two different data sources to ensure the robustness of our findings.
-Our primary data source is the @advan Mobility Data, which estimates movements across US census block groups based on mobile device panels.
-This dataset is our primary data source due to its high spatial and temporal resolution, and availability of longitudinal data.
+Our primary data source is the @advan Mobility Data, which estimates movements between US census block groups based on mobile device panels.
+This dataset is our primary data source due to its high spatial and temporal resolution.
 The supplementary data source is the Department of Transportation's 2022 National Household Travel Survey (NHTS).
 National Household Travel Survey is the only official national travel survey in the US, which collects travel behavior data such as trip purpose, modes, and distances [@nhts2022].
 
-For both datasets, we used monthly data from January through December 2022 (the latest available for NHTS). 
+For both datasets, we used monthly data from January through December 2022 (the latest available for National Household Travel Survey). 
 Following pre-processing steps were employed to filter out non-tourism mobility flows.
 We first excluded visits to home and work locations, and movements within the county of residence [@lee2025c].
-Additionally, trips under 50 miles one-way and trips within NHTS designated commuting zones were considered non-tourism. 
+Additionally, trips under 50 miles one-way and trips within National Household Travel Survey designated commuting zones were considered non-tourism. 
 This offers more conservative estimates of tourist visits by filtering out short-distance and commuting trips that are less likely to be tourism-related.
 These estimates were then used to compute the empirical shares and the four popularity factors in the @eq-model.
 
@@ -451,7 +420,7 @@ Using empirical estimates as weights, we simulated tourist flows by randomly ass
 Due to data anonymization, demographic factors could not be incorporated in the empirical-based simulations.
 Therefore, we assume that the probability of traveling to another state in a given month is equal for all individuals in a given origin state. 
 For instance, if 10% of Illinois residents visited Florida in January 2024, all Illinois residents were given a 0.1 probability to travel to Florida in January (irrespective of other demographic factors).
-Same as the large language model simulations, the empirical-based simulation was repeated 1,000 times to generate a distribution of tourist flows.
+Same as the large language model simulations, the empirical-based simulation was repeated 1,000 times.
 Subsequently, the results were aggregated to create destination-origin-month matrices for each iteration and two data sources.
 
 ## Hypotheses testing
@@ -462,8 +431,7 @@ Essentially, the model explains variations in large language model-simulated tou
 We chose the Poisson pseudo-maximum likelihood estimatior, which is widely used in estimating gravity models of trade and migration.
 The Poisson pseudo-maximum likelihood estimator only requires the conditional mean to be correctly specified, without requiring a specific distributional assumption.
 This estimator is robust to heteroskedasticity and having many zeros in the dependent variable, making the estimator suitable for our analysis [@silva2006; @silva2011].
-Because we ran 1,000 iterations of simulations, the model is fitted separately for each iteration and model.
-Then, we collect the estimated coefficients across iterations to assess their significance.
+Because we ran 1,000 iterations of simulations, we fit the model for each iteration then collect the result across iterations to assess the uncertainty in the effect estimates.
 
 # Results
 
@@ -474,7 +442,7 @@ Then, we collect the estimated coefficients across iterations to assess their si
 max.advan <- round(df.sum |> filter(data.name == "Simulation: ADVAN Mobility Data", variable == "Tourist flow") |> pull(max))
 max.nhts <- round(df.sum |> filter(data.name == "Simulation: National Household Travel Survey", variable == "Tourist flow") |> pull(max))
 max.gemini <- round(df.sum |> filter(data.name == "Simulation: Gemini 2.5 Flash Lite", variable == "Tourist flow") |> pull(max))
-max.gpt <- round(df.sum |> filter(data.name == "Simulation: GPT 4.1 Nano", variable == "Tourist flow") |> pull(max))
+max.gpt <- round(df.sum |> filter(data.name == "Simulation: GPT-4.1 Nano", variable == "Tourist flow") |> pull(max))
 ```
 
 ```{r}
@@ -518,6 +486,7 @@ t.any.gemini.advan <- df.any |>
         row = gemini,
         col = advan,
         percent = "cell",
+        digits = c(0, 1),
         margin = NULL
     ) |>
     remove_row_type(type = "header")
@@ -527,6 +496,7 @@ t.any.gemini.nhts <- df.any |>
         row = gemini,
         col = nhts,
         percent = "cell",
+        digits = c(0, 1),
         margin = NULL
     ) |>
     remove_row_type(type = "header")
@@ -536,6 +506,7 @@ t.any.gpt.advan <- df.any |>
         row = gpt,
         col = advan,
         percent = "cell",
+        digits = c(0, 1),
         margin = NULL
     ) |>
     remove_row_type(type = "header")
@@ -545,6 +516,7 @@ t.any.gpt.nhts <- df.any |>
         row = gpt,
         col = nhts,
         percent = "cell",
+        digits = c(0, 1),
         margin = NULL
     ) |>
     remove_row_type(type = "header")
@@ -560,7 +532,7 @@ t.any.gpt <- tbl_merge(list(t.any.gpt.advan, t.any.gpt.nhts ))
 
 tbl_stack(
     list( t.any.gemini, t.any.gpt),
-    group_header = c("Simulation: Gemini 2.5 Flash Lite", "Simulation: GPT 4.1 Nano"),
+    group_header = c("Simulation: Gemini 2.5 Flash Lite", "Simulation: GPT-4.1 Nano"),
     ) |> 
     as_gt() |>
     tab_style(
@@ -598,16 +570,16 @@ This sparsity is expected, given that each iteration assigns 1,000 tourists acro
 Thus, even if we randomly assign each of simulated tourists, only about 3.2% of destination-origin-month cells would have at least one tourist flow.
 But the head of the distribution differs across simulations.
 Large language model simulations show higher concentration of tourist flows in the most popular destination-origin-month combination.
-The maximum tourist flow across all cells and iterations is `{r} max.gemini` for Gemini 2.5 Flash Lite and `{r} max.gpt` for GPT 4.1 Nano, which are higher than the two empirical-based simulations (`{r} max.advan` for ADVAN Mobility Data and `{r} max.nhts` for National Household Travel Survey).
+The maximum tourist flow across all cells and iterations is `{r} max.gemini` for Gemini 2.5 Flash Lite and `{r} max.gpt` for GPT-4.1 Nano, which are high compared to two empirical-based simulations (`{r} max.advan` for ADVAN Mobility Data and `{r} max.nhts` for National Household Travel Survey).
 
-Similar patterns are observed when considering presence of *any* tourist flow, without accounting for differences in number of tourists.
-@tbl-any presents the agreement between large language model and empirical-based simulations in the precense of any tourist flow across destination-origin-month combinations.
-We aggregated the simulated visits across all 1,000 iterations, to reduce the sparsity arising from having only 1,000 tourists per iteration.
-Hence, the results indicate whether any of one million simulated tourists were assigned to a given destination-origin-month combination.
+Similar patterns emerge when examining presence of *any* tourist flow, without accounting for differences in number of tourists.
+@tbl-any compares which destination-origin-month combinations receive any tourist visits in large language model simulations versus empirical patterns. 
+We aggregated the simulated visits across all 1,000 iterations to reduce the sparsity.
 In all four comparisons, large language models exclude specific destination-origin-month combinations even though they are present in empirical-based simulations.
-For example, `{r} intext.any$only.advan.gemini` of 31,212 combinations are observable in simulation based on empirical ADVAN Mobility Data but not in flows generated by Gemini 2.5 Flash Lite.
-Another consistent pattern is that large language models rarely suggest destination-origin-month combinations that are absent in empirical-based simulations. 
-Meaning, large language models typically *prune* a large portion of destination-origin-month combinations, but rarely generate new combinations that are absent in empirical data.
+About `{r} intext.any$only.nhts.gpt` to `{r} intext.any$only.advan.gemini` of combinations never appeared in the large language model simulations, even though they were observed in the empirical data.
+In contrast, large language models rarely suggest destination-origin-month combinations that are absent in empirical-based simulations. 
+For example, `{r} intext.any$only.advan.gemini` of 31,212 combinations are observable in simulation based on ADVAN Mobility Data but not in flows generated by Gemini 2.5 Flash Lite.
+Meaning, large language models prune many empirically observed destination-origin-month combinations but rarely generate new ones.
 
 ```{r}
 #| label: intext-dst
@@ -626,7 +598,7 @@ data_labeller <- as_labeller(
                 "advan" = "ADVAN Mobility Data",
                 "nhts" = "National Household Travel Survey",
                 "gemini" = "Gemini 2.5 Flash Lite",
-                "gpt" = "GPT 4.1 Nano"
+                "gpt" = "GPT-4.1 Nano"
             )
         )
 
@@ -867,31 +839,25 @@ Mathematical definitions of the metrics are available in @apx-eq.
 First, we examine distribution of tourist share by destination states ($D_j$) and months ($M_m$).
 We use the Gini index to quantify the inequality in these distributions, where a higher Gini index indicates greater concentration of tourist share among fewer states or months.
 In all four simulations, tourist visits concentrate in a few popular states, such as California, Florida, and Texas (@fig-prop[a]()).
-However, large language model simulations show higher Gini indices than empirical-based simulations, indicating greater inequality in tourist arrivals across states (ADVAN Mobility Data=`r dst.gini.advan` and National Household Travel Survey=`r dst.gini.nhts`; Gemini 2.5 Flash Lite=`r dst.gini.gemini` and GPT 4.1 Nano=`r dst.gini.gpt`).
+Large language model simulations show higher Gini indices than empirical-based simulations, indicating greater inequality in tourist arrivals across states (ADVAN Mobility Data=`r dst.gini.advan` and National Household Travel Survey=`r dst.gini.nhts`; Gemini 2.5 Flash Lite=`r dst.gini.gemini` and GPT-4.1 Nano=`r dst.gini.gpt`).
 
-Seasonal patterns are also more pronounced in the large language model outputs than in the empirical-based scenarios (@fig-prop[b]()).
-The two large language model-generated networks also have substantially high Gini indices across months (Median = `r month.gini.gemini` and `r month.gini.gpt` for Gemini 2.5 Flash Lite and GPT-4.1 Nano).
-This level of seasonality exceeds that of the two empirical-based scenarios (Median = `r month.gini.advan` and `r month.gini.nhts` for ADVAN Mobility Data and National Household Travel Survey).
-Although, the two large language models are different in which months are most popular.
+Seasonal patterns are also more pronounced in the large language model outputs than in the empirical-based simulations with substantially high Gini indices across months (@fig-prop[b]()).
+This level of seasonality exceeds that of the two empirical-based simulations (Median = `r month.gini.gemini` and `r month.gini.gpt` for Gemini 2.5 Flash Lite and GPT-4.1 Nano; Median = `r month.gini.advan` and `r month.gini.nhts` for ADVAN Mobility Data and National Household Travel Survey).
+Although, the two large language models differ in peak tourism months.
 Gemini 2.5 Flash Lite shows a clear peak during September and October, with more than half of all simulated tourist arrivals concentrated in these two months.
 GPT-4.1 Nano shows peaks in April, May, and September.
-Further, large language models worsen the seasonality of tourism demand at the destination level.
+Large language models worsen the seasonality of tourism demand even at the destination level.
 In @fig-prop[c](), we calculated Gini index of monthly tourist share for each destination state and took the median over 1,000 iterations.
 Few states show relatively high seasonality in the empirical-based simulations, such as Alaska and Hawaii.
-However, most states exhibit high seasonality in the large language model simulations.
-This tendency leads to overall higher level Gini indices accross all destinations (Median of medians = `r dst.month.gini.advan` and `r dst.month.gini.nhts` for ADVAN Mobility Data and National Household Travel Survey; `r dst.month.gini.gemini` and `r dst.month.gini.gpt` for Gemini 2.5 Flash Lite and GPT 4.1 Nano).
-
-Examining patterns in origin-destination pairs require a different approach.
-Although Gini index can be used, it does not effectively capture whether destination states receive tourists from a diverse set of origin states or rely on a few.
-Such demand characteristics are of importance for tourism sector, as less diversity of tourist origins and higher reliance on a few origin markets undermines resilience to shocks [see @lee2025c].
-We use entropy index for measuring how diversified and balanced the demand for destinations is.
-A higher entropy value indicates that a destination receives tourists from wide range of origins (diversified demand) and that each origin have similar contribution to the total tourist arrivals (balanced demand).
-We calculate the entropy index for each destination and summarize the results over 1,000 iterations by taking the median.
+Contrarily, most states exhibit high seasonality in the large language model simulation, indicated by overall higher level Gini indices accross all destinations (Median of medians = `r dst.month.gini.advan` and `r dst.month.gini.nhts` for ADVAN Mobility Data and National Household Travel Survey; `r dst.month.gini.gemini` and `r dst.month.gini.gpt` for Gemini 2.5 Flash Lite and GPT-4.1 Nano).
 
 @fig-prop[d]() shows that large language models have tendency to generate travel suggestions that destinations rely on a few origins.
+We use entropy index for measuring how diversified and balanced the demand for destinations is.
+Although Gini index can be used, it does not effectively capture whether destination states receive tourists from a diverse set of origin states or rely on a few.
 The empirical simulations show that states such as Florida, Illinois, and North Carolina tend to have diversified and balanced demand (higher entropy).
-For the two AI-simulated tourist flows, the entropy indices are overall lower than those of empirical-based simulations (Median of medians = `r dst.entropy.advan` and `r dst.entropy.nhts` for ADVAN Mobility Data and National Household Travel Survey; `r dst.entropy.gemini` and `r dst.entropy.gpt` for Gemini 2.5 Flash Lite and GPT 4.1 Nano).
+For the two AI-simulated tourist flows, the entropy indices are overall lower than those of empirical-based simulations (Median of medians = `r dst.entropy.advan` and `r dst.entropy.nhts` for ADVAN Mobility Data and National Household Travel Survey; `r dst.entropy.gemini` and `r dst.entropy.gpt` for Gemini 2.5 Flash Lite and GPT-4.1 Nano).
 We also observe that fewer states exhibit relatively high entropy values in the large language model simulations (for example, Colorado and Hawaii for Gemini 2.5 Flash Lite).
+Such demand characteristics indicate that large language model simulations produce a less resilient tourism sector, as less diversity of tourist origins and higher reliance on a few origin markets undermines resilience to shocks [@lee2025c].
 
 ```{r} 
 #| label: intext-graph-stats
@@ -948,10 +914,10 @@ df.graph |>
     ) +
     scale_fill_manual(
         values = c(
-            "ADVAN" = color.advan,
-            "NHTS" = color.nhts,
+            "ADVAN Mobility Data" = color.advan,
+            "National Household Travel Survey" = color.nhts,
             "Gemini 2.5 Flash Lite" = color.gemini,
-            "GPT 4.1 Nano" = color.gpt
+            "GPT-4.1 Nano" = color.gpt
         )
     ) +
     facet_wrap( ~ stat, ncol = 1, scales = "free_x", strip.position = "bottom") +
@@ -976,24 +942,25 @@ df.graph |>
     )
 ```
 
-In addition to analyzing individual popularity factors, we analyze the overall structure of tourist flows.
+Additionally, we analyze the overall structure of tourist flows.
 We constructed an origin-destination matrix by aggregating tourist numbers at the year level.
 Then we computed four statistics capturing how the global structure of tourist flows differ across simulations.
 Box-plots in @fig-graph-stats present the distribution of the four network-level statistics across 1,000 iterations, colored by simulation scenario.
 The dotted red line indicates what can be expected by chance alone, if there is no structure in tourist flow.
 This expectation under complete randomness is calculated by assuming that each individual have equal probability of choosing a destination (a probability of $1/51$).
 
+Large language models produce tourist flows with a clear separation between states that send tourists and those that receive them, as indicated by lower reciprocity of the origin-destination network.
 Reciprocity refers to the tendency to form mutual relationships—in our case, two states exchanging a similar number of tourists.
 Empirical-based simulations show higher levels of reciprocity compared to the random expectation (Median = `r recip.advan` and `r recip.nhts` for ADVAN Mobility Data and National Household Travel Survey).
-However, large language model simulations show lower levels of reciprocity than expected by chance (Median = `r recip.gemini` and `r recip.gpt` for Gemini 2.5 Flash Lite and GPT 4.1 Nano).
-Simply put, the large language models produce tourist flows with a clear separation between states that send tourists and those that receive them.
+However, large language model simulations show lower levels of reciprocity than expected by chance (Median = `r recip.gemini` and `r recip.gpt` for Gemini 2.5 Flash Lite and GPT-4.1 Nano).
 
-Gemini 2.5 Flash Lite and GPT 4.1 Nano tend to suggest farther destinations compared to empirical data, when looking at median travel distance excluding in-state trips (Median of medians = `r mdist.gemini` and `r mdist.gpt`).
-Similarly, Gemini 2.5 Flash Lite has lower ratio of tourist flows between bordering states compared to the empirical models (Median = `r br.gemini`).
-GPT-4.1 Nano shows even lower tendency to suggest bordering states, lower that what would be expected under randomness (Median = `r br.gpt`). 
-The two models show different propensity to suggest in-state tourism.
+Gemini 2.5 Flash Lite and GPT-4.1 Nano tend to suggest farther destinations compared to empirical data, when looking at median travel distance excluding in-state trips (Median of medians = `r mdist.gemini` and `r mdist.gpt`).
+This tendency is partially due to large language models' lower propensity to suggest trips to bordering states.
+Gemini 2.5 Flash Lite has lower ratio of tourist flows between bordering states compared to the empirical models (Median = `r br.gemini`).
+GPT-4.1 Nano shows even lower tendency to suggest bordering states, lower that what would be expected under randomness (Median = `r br.gpt`).
+But the two models exhibit substantial difference in tendency to suggest in-state tourism.
 Gemini 2.5 Flash Lite shows ratio of in-state trips comparable to the empirical models (Median = `r sl.gemini`).
-In contrast, GPT 4.1 Nano shows much stronger preference for recommending tourist to travel within their own state (Median = `r sl.gpt`).
+In contrast, GPT-4.1 Nano shows much stronger preference for recommending tourist to travel within their own state (Median = `r sl.gpt`).
 
 ## Model estimation results
 
@@ -1024,24 +991,23 @@ b.od.gpt.advan <- betas.sum[12, 4] |> sprintf(fmt = "%4.3f")
 b.od.gpt.nhts <- betas.sum[16, 4] |> sprintf(fmt = "%4.3f")
 ```
 
-@tbl-betas and @fig-betas summarizes how the four popularity factors can explain deviation between large language model-simulated tourist flows and the empirical expectations (@eq-log-model).
+@tbl-betas and @fig-betas summarizes the estimated effects of the four popularity biases on large language model-simulated tourist flows (@eq-log-model).
 Across two large language models and two empirical baselines, destination-month popularity consistently has the largest positive coefficient.
 Meaning, large language models show a tendency to favor popular destination-month combinations when generating travel recommendations.
-Although, lower bounds of 95% credible intervals for Gemini 2.5 Flash Lite crosses zero with ADVAN Mobility Data baseline and is very wide with National Household Travel Survey baseline, indicating unncertainty around the estimate.
+Although,95% credible intervals indicates high uncertaintay around the estimates for Gemini 2.5 Flash Lite with both empirical baselines. 
+One way to interpret the coefficient for destination-month popularity bias is to consider it as an elasticity.
+For example, GPT-4.1 Nano with ADVAN Mobility Data baseline had a median coefficient of `r b.dm.gpt.advan` for destination-month popularity.
+If real-world data shows that a particular destination-month combination is twice as popular than what is expected under independence of destination and month popularity ($DM_{(j,m)} = 2$), then the expected tourist flow generated by GPT-4.1 Nano for that combination is approximately `r round(2 ** as.numeric(b.dm.gpt.advan), 1)` times higher ($2^{1.771}$), holding other factors constant.
 
-One way to interpret the coefficient for destination-month popularity is to consider it as an elasticity.
-For example, GPT 4.1 Nano with ADVAN Mobility Data baseline had a median coefficient of `r b.dm.gpt.advan` for destination-month popularity.
-If real-world data shows that a particular destination-month combination is twice as popular than what is expected under independence of destination and month popularity ($DM_{(j,m)} = 2$), then the expected tourist flow generated by GPT 4.1 Nano for that combination is approximately `r round(2 ** as.numeric(b.dm.gpt.advan), 1)` times higher ($2^{1.771}$), holding other factors constant.
-
-We find mixed results for the rest of the popularity factors.
+We find mixed results for the rest of the popularity biases.
 Some effects are specific to the large language model.
 For example, Gemini 2.5 Flash Lite consistently shows negative coefficients for destination popularity, indicating that it tends to negatively rescale popular destinations (Median $\beta_{1}$ = `r b.d.gemini.advan` and `r b.d.gemini.nhts` with ADVAN Mobility Data and National Household Travel Survey baselines).
-The same pattern is only observed for GPT 4.1 Nano with National Household Travel Survey baseline (Median $\beta_{1}$ = `r b.d.gpt.nhts`) but not with ADVAN Mobility Data baseline (Median $\beta_{1}$ = `r b.d.gpt.advan`).
-GPT 4.1 Nano with shows positive rescaling for origin-destination popularity (Median $\beta_{4}$ = `r b.od.gpt.advan` and `r b.od.gpt.nhts` with ADVAN Mobility Data and National Household Travel Survey baselines), while Gemini 2.5 Flash Lite shows mixed findings (Median $\beta_{4}$ = `r b.od.gemini.advan` and `r b.od.gemini.nhts` with ADVAN Mobility Data and National Household Travel Survey baselines).
+The same pattern is only observed for GPT-4.1 Nano with National Household Travel Survey baseline (Median $\beta_{1}$ = `r b.d.gpt.nhts`) but not with ADVAN Mobility Data baseline (Median $\beta_{1}$ = `r b.d.gpt.advan`).
+GPT-4.1 Nano with shows positive rescaling for origin-destination popularity (Median $\beta_{4}$ = `r b.od.gpt.advan` and `r b.od.gpt.nhts` with ADVAN Mobility Data and National Household Travel Survey baselines), while Gemini 2.5 Flash Lite shows mixed findings (Median $\beta_{4}$ = `r b.od.gemini.advan` and `r b.od.gemini.nhts` with ADVAN Mobility Data and National Household Travel Survey baselines).
 
-Finally, we note that the month popularity coefficients are negative for GPT 4.1 Nano (Median $\beta_{2}$ = `r b.m.gpt.advan` and `r b.m.gpt.nhts` with ADVAN Mobility Data and National Household Travel Survey baselines).
-This is contradictory, given prior descriptive analysis indicated GPT 4.1 Nano having greater seasonality.
-One possible explanation is that peak months in GPT 4.1 Nano simulations do not align with those in empirical data (see @fig-prop[b]()).
+Finally, we note that the month popularity coefficients are negative for GPT-4.1 Nano (Median $\beta_{2}$ = `r b.m.gpt.advan` and `r b.m.gpt.nhts` with ADVAN Mobility Data and National Household Travel Survey baselines).
+This is contradictory, given prior descriptive analysis indicated GPT-4.1 Nano having greater seasonality.
+One possible explanation is that peak months in GPT-4.1 Nano simulations poorly align with those in empirical data (see @fig-prop[b]()).
 Therefore, the model attempts to fit the month popularity factor by flattening the empirical month popularity distribution.
 
 ```{r}
@@ -1066,7 +1032,7 @@ betas.sum |>
         sim = paste("Simulation:", sim)
     ) |>
     mutate(param = indent_row(param)) |>
-    gt() |>
+    gt(groupname_col = "sim") |>
     tab_spanner(
         label = html("Empirical: ADVAN"),
         columns = ends_with("_ADVAN")
@@ -1108,16 +1074,16 @@ text.beta <- data.frame(
     median.coeff = c(0, 0),
     param = c(4, 4),
     emp = c("ADVAN", "ADVAN"),
-    sim = c("GPT 4.1 Nano", "GPT 4.1 Nano"),
+    sim = c("GPT-4.1 Nano", "GPT-4.1 Nano"),
     label = c("***Negative rescaling*** ←", "→ ***Positive rescaling***")
 )
 
 p.betas <- draw_beta_fig(betas.sum) +
     scale_shape_manual(
-        values = c("Gemini 2.5 Flash Lite" = 20, "GPT 4.1 Nano" = 18)
+        values = c("Gemini 2.5 Flash Lite" = 20, "GPT-4.1 Nano" = 18)
     ) +
     scale_color_manual(
-        values = c("Gemini 2.5 Flash Lite" = color.gemini, "GPT 4.1 Nano" = color.gpt)
+        values = c("Gemini 2.5 Flash Lite" = color.gemini, "GPT-4.1 Nano" = color.gpt)
     ) +
     # annotate attenuation (B<0) and amplification (B>0)
     geom_richtext(
@@ -1145,48 +1111,43 @@ First, using alternative prompts does not substantially change the main findings
 Large language model outputs are sensitive to the specific prompts used.
 Hence, we collected additional simulation data using slightly modified prompts (see @apx-prompt).
 One version excluded explicit instruction that demographic factors influence tourist choices ("reduced instruction" prompt).
-Another version instructed the models to act as *tourists* choosing destinations instead of travel agents giving suggestions ("tourist persona" prompt)
+Another version instructed the models to act as *tourists* choosing destinations instead of travel agents giving suggestions ("tourist persona" prompt).
 None of these alterations substantially changed the main findings (@fig-prompt-betas).
 One notable exception is that Gemini 2.5 Flash Lite with reduced instruction prompt showed negative coefficients for month popularity.
-However, this case also showed stronger effects for destination-month and origin -destination popularity.
+However, this case also showed stronger effects for destination-month and origin-destination popularity compared to using the original prompt.
 
 Changing the temperature parameter also does not alter the results.
 The temperature parameter controls randomness in large language model outputs.
 Higher temperature setting produce more diverse outputs, while lower temperature setting generate more deterministic outputs.
 The default temperature setting used in our main analysis is 1.0.
 We collected additional data using temepratures of 0.5 and 1.5 (@fig-temp-betas).
-GPT 4.1 Nano with temperature of 1.5 could not generate valid outputs and hence was excluded.
+GPT-4.1 Nano with temperature of 1.5 could not generate valid outputs and hence was excluded.
 Similiar to @bai2025, we find that temperature setting has minimal impact on the popularity bias of large language models.
 
-Larger models in the Gemini 2.5 and GPT 4.1 series, as well as models from other providers, still show amplified destination-month popularity.
+Larger models in the Gemini 2.5 and GPT-4.1 series, as well as models from other providers, still show positive destination-month popularity bias.
 We repeated the main analysis with larger variants of Gemini 2.5 and GPT-4.1 series models (Gemini 2.5 Flash and GPT-4.1 Mini).
 Additionally, we collected data using xAI's Grok 3 Mini and Meta's Llama 4 Scout to examine whether the findings are generalizable beyond OpenAI and Google models.
 Across all models tested, destination-month popularity shows strongest positive effects (@fig-model-betas).
 Compared to the models used in our main analysis, larger models show stronger destination-month popularity bias, not weaker.
 
-Finally, we examined robustness of our findings to alternative approach for fitting Poisson regression model to our iterative simulation data.
-Our results are robust to using aggregated data instead of fitting Poisson regression models for each iteration separately.
+Finally, the results are unchanged when aggregating data across all iterations instead of fitting Poisson regression models for each iteration separately.
 We conducted alternative hypothesis tests by aggregating the simulation data across all 1,000 iterations and fitting a single Poisson regression model for each large language model simulation.
 This approach significantly reduces the number of destination-origin-month cells with zero tourist counts.
 We can also obtain significance levels for the estimated coefficients using  traditional frequentist tests.
-Coefficient estimates using aggregated data are nearly identical to median estimates from our main approach (see @tbl-agg-betas).
+Still, coefficient estimates using aggregated data are nearly identical to median estimates from our main approach (see @tbl-agg-betas).
 
 # Discussions
 
-Despite the rapid adoption of generative AI in tourism, there exists little empirical evidence on how these algorithms operate.
-Understanding these mechanisms is crucial, as downstream of these algoritms are real-world decisions made by tourists and practitioners.
-Our focus is in what way generative AI diverges from empricial tourism patterns and what underlying mechanisms drive such differences.
-However, revealing these mechanisms is challenging, given we lack access to the internal workings of generative AI models and what data they were trained on.
-Even we had such access, the complexity and black-box nature of generative AI models make it difficult to intepret their decision-making processes.
+Despite the rapid adoption of generative AI in tourism, there exists little empirical evidence on how these algorithms operate and what impacts will have.
+This study focuses on in what way generative AI diverges from empricial tourism patterns and what underlying mechanisms drive such differences.
+Such generative AI models are complex and opaque.
 But so are humans—tourists are complex decision-makers influenced by myriad factors, many of which are not fully understood.
-Same as how social scientists study human cognitive bases based on their behaviors, we propose a model for testing biases in algorithms based on their outcomes.
-Our framework models the difference between algorithm outcomes and emprically-grounded baselines using hypothsized mechanisms, producing interpretable results on what factors drive such differences.
+Same as how social scientists study human cognitive bases based on their behaviors, we proposed a model for testing hypothesized mechanisms behind generative AI biases.
+Beyond quantifying the difference between algorithm outcomes and emprically-grounded baselines, our model allowed us to obtain interpretable results on what factors drive such differences.
 
 ## Key findings
 
 The models generate less diverse and more unevenly distributed tourist flows compared to empirical US domestic tourism patterns.
-Of 31,212 possible combinations of destination-origin-month, less than 10% are "new" combinations that were not observed in the empirical data (@tbl-any).
-In contrast, about `{r} intext.any$only.nhts.gpt` to `{r} intext.any$only.advan.gemini` of combinations never appeared in the large language model simulations, even though they were observed in the empirical data.
 States show slightly more unequal levels of tourist arrivals, with popular states continuing to be popular in large language model simulations (@fig-prop[a]()).
 More concerning issue is that both models produce highly seasonal tourism patterns.
 While seasonality is common feature of tourism [@butler1994; @duro2016], these algorithms show much sharper peaks and troughs than empirical data (@fig-prop[b]()).
@@ -1194,20 +1155,23 @@ This finding is alarming for *all* US destinations, as both popular and less pop
 Destinations also become more reliant on a few tourist origins in large language model simulations (@fig-prop[d]()).
 
 Large language models also produce structurally different tourist flows (@fig-graph-stats).
-These models produce less reciprocal tourist flows to farther states.
-Meaning popular destinations would receive more tourists but send fewer to others, leading to a more "one-way" tourism system.
-Other spatial patterns differ between the two large language models.
-GPT 4.1 Nano shows much stronger avoidance for bordering states and favors in-state tourism.
+These models produce less reciprocal tourist flows where popular destinations would receive more tourists but send fewer to others, leading to a more "one-way" tourism system.
+While these models also tend to recommend traveling to farther destinations, other spatial patterns differ between the two large language models.
+GPT-4.1 Nano shows much stronger avoidance for bordering states and favors in-state tourism.
 Tendency to avoid bordering states is not as severe in Gemini 2.5 Flash Lite, while showing prevalence of in-state tourism similar to empirical baseline.
+Biases in spatial perception of these models is one possible explanation, such as overestimating inter-regional distance while underestimating intra-regional distance [@fulman2024].
+Given that these algorithms are *language* models, they may also reflect linguistic and cultural representations of what is meant by tourism [see @resnik2025; @tao2024].
 
 Large language models favor visiting destinations during their peak months (@fig-betas).
-We find consistent evidence of this destination-month popularity bias, across three different prompts, three temperature settings, and six large language models (@apx-robust).
-Findings are mixed for the other three popularity factors.
-The results mostly vary by large language model used, rather than alternative settings for simulations or empirical baselines.
-For example, the models other than GPT 4.1 family attenuate empirically popular destinations, while the two GPT 4.1 family mdoels also show bias toward popular origin-destination pairs.
+We find consistent evidence of this positive destination-month popularity bias, across three different prompts, three temperature settings, and six large language models (@apx-robust).
+Findings are mixed for the other three popularity biases.
+For example, the two GPT-4.1 family of models also show bias toward popular origin-destination pairs, while aother models attenuate empirically popular destinations.
+The results mostly vary by large language model used, rather than alternative specifications for simulations or empirical baselines.
+
 Unfortenately, this study could not identify why the models show different types and degree of popularity biases.
-Because process of building these models remain opaque, we can only speculate that the differences arise from variations in training data, model architectures, and human feedback [@chen2023d; @santurkar2023].
-Given that these algorithms are *language* models, they may also reflect linguistic and cultural representations of what is meant by tourism or to travel [see @resnik2025; @tao2024].
+Because process of building these models remain opaque, we can only speculate that the differences arise from variations in training data, model architectures, and human feedback [@santurkar2023].
+These biases also arise from feedback loops where human biases seep into training data, producing biased models that in turn influence human behavior [@chen2023d].
+Understanding and mitigating these biases will therefore require greater transparency from developers of generative AI about training processes and data sources.
 
 ## Theoretical implications
 
@@ -1215,15 +1179,15 @@ This study provides early empirical evidence that generative AI poses significan
 While we are seeing generative AI increasingly affecting decisions of tourists and pracitioners, what this entails for stakeholders in the tourism system reamined unclear.
 Hence, understanding the downstream consequences of generative AI adoption is urgent real-world issue that tourism research could impact society [@li2026].
 
-Our findings substantiate prior concerns that these algorithms could introduce bises that exacerbate ethical and social issues in tourism [@law2025; @lehto2025; @mellors2025].
-We show that such biases not only have ethical implications but also practical consequences for economic sustainability of tourism industries.
-Generative AI models provide travel suggestions that worsen seasonality of tourism for destinations, reduce diversity of demand origins, and reduce bi-directional exchange of tourists among regions.
-All these patterns go against conditions for fostering sustainable tourism development and resilient tourism sector [for example, @cisneros-martinez2018; @lee2025c; @wttc2022].
-Thus, we echo the previous cautions that technology adoptions in tourism should not be seen as *progress* or *advancements*; rather, they are *changes* that we must navigate to assess their implications for all tourism stakeholders [@tribe2017].
+Our findings substantiate prior concerns that these algorithms could introduce biases that exacerbate ethical and social issues in tourism [@law2025; @lehto2025; @mellors2025].
+We show that such biases not only have ethical implications but also practical consequences destinations that rely on tourism.
+Generative AI models provide travel suggestions that worsen seasonality of tourism, reduce diversity of demand origins, and reduce bi-directional exchange of tourists among regions.
+All these patterns go against conditions for fostering sustainable and resilient tourism sector [for example, @cisneros-martinez2018; @lee2025c; @wttc2022].
+Thus, we echo the previous cautions that technology adoptions in tourism should not be seen as *progress* or *advancements*; rather, they are *changes* that we must carelly assess their broad implications [@tribe2017].
 
 The proposed Baseline-Rescaling-Outcome Model contribute to existing literature on AI bias metrics by offering an interpretable framework for testing algorithmic bises.
 The existing methods often required access to internal model parameters and could mainly tell whether biases exists [@bai2025; @chen2023d].
-Our approach goes further by testing multiple hypothesized mechanisms that could amplify or attenuate empirical patterns, thereby explaining why we observe certain divergence from empirical data.
+Our approach further allows testing multiple hypothesized mechanisms that could amplify or attenuate empirical patterns, thereby explaining why we observed divergence from empirical data.
 While these explanations are still correlational rather than causal, they allow us to understand systemic mechanisms behind the black-box algorithms.
 
 This study focused on measuring bias in genreative AI from supplier-side and its implications for destinations.
@@ -1242,10 +1206,6 @@ Such guiding knowledge will prove crucial for tourism scholarship and practition
 
 ## Methodological contributions
 
-We pioneer a large-scale simulation using generative AI for projecting their potential impacts on tourism and testing biases in these algorithms.
-We provide all code and synthetic data from the simulations, for replicating and extending our analyses.
-This includes the full dataset of two millon individual-level travel suggestions from two main large language models and additional one million obtaind for robustness checks.
-
 Our methodological contributions are twofold.
 One is providing empirically-grounded profiles of simulated tourists to ensure representativeness of the simulations.
 This approach contrasts with prior tourism studies that used synthetic data from generative AI, which either assumed hypothetical tourist segments or bludly instructed to simulate tourist behavior without first providing what touirists the model needs to simulate [for example @andreev2025; @xiong2024].
@@ -1254,10 +1214,12 @@ Another difference is that we account for stochasticity in simulations by runnin
 Tourism is a complex system, where the outcomes are probabilistic rather than deterministic [@faulkner2003].
 As such, our approach acknowledges that even the empirical data is one of many possible outcomes.
 By creating simulated realizations of the tourism patterns under empirical-driven and AI-driven scenarios, we can better project the range of possible outcomes and identify which observed patterns constitute robust features versus artifacts of stochastic variation.
+We provide all code and synthetic data from the simulations, for replicating and extending our analyses.
+This includes the full dataset of two millon individual-level travel suggestions from two main large language models and additional one million obtaind for robustness checks.
 
 Based on the findings, we question relability of using AI-generated synthetic data even for exploratory and early-stage research purposes [suggested by @ali2025; @viglia2024a].
 Despite our efforts to ensure representativeness and robustness of simulations, large language models still produced tourism patterns that diverge substantially from empirical data.
-@santurkar2023 also found that generative AI poorly represent the general public nor particular subpopulation even when steered to do so.
+@santurkar2023 also show that generative AI poorly represent both general public and particular subpopulation even when steered to do so.
 Because our purpose is to examine the biases in generative AI, such divergences are informative.
 However, if researchers use AI-generated synthetic data for a pilot study, the results may mislead future research directions.
 As these algorithms behave in more extreme and different ways than real-world tourists, we must caution synthetic data *limiting* tourism knowledge development rather than advancing it.
@@ -1265,21 +1227,19 @@ As these algorithms behave in more extreme and different ways than real-world to
 ## Practical implications
 
 Our perspective is that generative AI has benefits for tourism sectors but we also need to weigh its potential risks.
-It can be used as a tool for tourists to efficiently seek travel information, practitionrs to guide their decisions, and destinations to get ideas for improving their tourism experiences [refs].
-Nevertheless, these benefits are not without costs; they also introducing new issues to tourism system [@dogru2025].
-
+It can be used as a tool for tourists to efficiently seek travel information, practitionrs to guide their decisions, and destinations to get ideas for improving their tourism experiences [@dogru2025].
+Nevertheless, these benefits are not without costs; they also introducing new issues to tourism system.
 Therefore, we urge tourism practitioners and regulators to monitor and prepare for generative AI’s potential impacts on tourist behavior and destination choice.
 Lesser-known destinations are particularly vulnurable.
 Generative AI models train on extensive cross-domain datasets, making their outputs difficult to alter.
 Addressing such challenges would require efforts from both regulators and tourism intermediaries to ensure equitable and diverse representation of destinations.
 For example, EU AI Act mandates bias testing for high-risk AI systems, such as credit scoring and employment screening [@vanbekkum2025].
-Tourism could also advocate for simliar legislation for auditing biases using methods like the one proposed in this study.
+Tourism sector could also advocate for simliar legislation for auditing biases.
 Such bias audits would needed for both tourist- and employee-facing generative AI applications.
-We argue that already-popular destinations to take part in such effect, as they also are expected to exprience negative consequences from worsened seasonality and reduced demand diversity.
-More simple interventions include putting a disclosure that "AI-generated suggestions may overrepresent popular options" and stratifying options before producing AI-generated options.
+We urge already-popular destinations to advocate such policy, negative comsequences like worsend seasonality and reduced demand diversity equally affect them.
+More simple interventions could be implemented by tourism intermediaries, such as putting a disclosure that "AI-generated suggestions may overrepresent popular options" and stratifying options before producing AI-generated options.
 
-We call for national and international tourism organizations begin assessing implications of generative AI adoption.
-Beyond sustainability and resilience issues discussed, potential ethical and social consequences should also be assesed.
+We call for national and international tourism organizations begin assessing implications of generative AI adoption, including potential ethical and social consequences that were not examined in this study.
 Organizations must recognize that tourism functions not merely as a "market offering" but as a societal force affecting people and communities [@higgins-desbiolles2006].
 For example, one social benefit of tourism is that it provides experiences and opportunities for socially excluded groups [@mccabe2020a].
 These benefits may diminish if generative AI limits travel options for particular demographic groups.
@@ -1289,28 +1249,33 @@ Our projected generative AI-driven tourism is still hypothetical; it is up to us
 ## Limitations and future research
 
 Consider the following key limitations when interpreting our findings.
-First, our large language model simulations rely solely on demographic factors and exclude psychological, behavioral, and social variables that shape tourist decisions.
+The results are subject to the modifiable areal unit problem  [@fotheringham1991].
+Large language models recommended destinations in varying geographic units, which we aggregated to the state level for analyses.
+This aggregation masks variations at finer geographic scales, thus likely underestimates the differences between the empirical and generative AI-driven simulations.
+
+Our large language model simulations rely solely on demographic factors and exclude psychological, behavioral, and social factors that shape tourist decisions.
 One of which is tourist motivation.
 Even if two individuals with an identical demographic profile visited the same destination, they could have entirely different motivations for visiting.
-Consequently, our findings only provide a general view of tourist flows generated by generative AI.
 Future research could consider specifying preferences and motivations for each simulated tourist [see @gao2024].
 In addition, simulations could incorporate different rates of accepting AI-generated recommendations for more realistic projections.
 For instance, younger individuals are generally more inclined to accept generative AI recommendations compared to older individuals [@seyfi2025], which could result in different travel patterns than those observed in our "extreme-case" scenarios.
 
-The results are subject to the modifiable areal unit problem, as the choice of geographic unit affects the results [@fotheringham1991].
-Large language models recommended destinations in varying geographic units, which we aggregated to the state level for analyses.
-This aggregation masks variations at finer geographic scales, thus likely underestimates the differences between the empirical and generative AI-driven scenarios.
-
-Our simulations assume that everyone travels and selects a single destination.
-But we must consider that there are non-travelers who choose not to travel [@haukeland1990] and tourists visiting multiple destinations during a single trip [@yang2013].
+The simulations assumed that everyone travels and selects a single destination.
+But we must consider that there are non-travelers who choose not to travel and tourists visiting multiple destinations during a single trip [@haukeland1990; @yang2013].
 One tourist's decision can also influence the decisions of others [@lee2025a], although our simulations do not account for interactions between simulated individuals.
+Our simulation also assumed scenario where *all* destination choices are made by generative AI.
+Future research could explore scenarios where acceptance rates of generative AI recommendations vary across different demographic groups.
+Such analysis would reveal whether outcomes of generative AI biases scale linearly or require a critical mass of adoption for substantial impacts.
+
 Further, studies show that generative AI exhibits stonger bias when decisions are relative rather than absolute [@bai2025].
 Since we instructed the model to recommend a single destination instead of chosing one among given options, the degree of popularity bias shown in this study may be conservative.
 However, decisions of real-world tourists also are significantly affected by how and what choices are presented [@kim2025c].
-For future research examining generative AI models' biases in relative decision-making, we recommend both empricial expriments and AI-driven simulations.
+For future research examining generative AI models' biases in relative decision-making, we recommend conducting both empricial expriments and AI-driven simulations.
 
 Future research could refine how popularity biases are measured.
 For example, popularity bias may be non-linear where destinations with popularity under certain threshold receive no recommendations at all.
+We also note that our biase estimates are less reliable when the peaks of empirical and generative AI-driven tourism patterns poorly align.
+Further extensions could consider including alternative model terms that account for such shifts in rank orders of options.
 Fianally, we recommend applying our model to other types of biases and algorithms.
 As tourism and hospitality firms are adopting generative AI for consumer and employee-facing applications, examining socio-demographic biases would be crucial for ensuring ethical and fair integration of generative AI.
 

@@ -13,31 +13,31 @@ source("r/helpers.r")
 # load simulation and empirical data if needed
 lazy_load_data <- function() {
     if(!exists("sim.rand")) {
-        sim.rand <- read_sim("data/reg/rand-advan.parquet")
+        sim.rand <<- read_sim("data/reg/rand-advan.parquet")
     }
     
     if(!exists("sim.advan")) {
-        sim.advan <- read_sim("data/reg/advan-advan.parquet")
+        sim.advan <<- read_sim("data/reg/advan-advan.parquet")
     }
 
     if(!exists("sim.nhts")) {
-        sim.nhts <- read_sim("data/reg/nhts-nhts.parquet")
+        sim.nhts <<- read_sim("data/reg/nhts-nhts.parquet")
     }
 
     if(!exists("sim.gemini")) {
-        sim.gemini <- read_sim("data/reg/gemini-advan.parquet")
+        sim.gemini <<- read_sim("data/reg/gemini-advan.parquet")
     }
 
     if(!exists("sim.gpt")) {
-        sim.gpt <- read_sim("data/reg/gpt-advan.parquet")
+        sim.gpt <<- read_sim("data/reg/gpt-advan.parquet")
     }
     
     if(!exists("emp.advan")) {
-        emp.advan <- read_emp("data/reg/advan-advan.parquet")
+        emp.advan <<- read_emp("data/reg/advan-advan.parquet")
     }
 
     if(!exists("emp.nhts")) {
-        emp.nhts <- read_emp("data/reg/nhts-nhts.parquet")
+        emp.nhts <<- read_emp("data/reg/nhts-nhts.parquet")
     }
 }
 
@@ -147,7 +147,7 @@ if (file.exists("rda/df.sum.rda")) {
                     "Simulation: ADVAN Mobility Data",
                     "Simulation: National Household Travel Survey",
                     "Simulation: Gemini 2.5 Flash Lite",
-                    "Simulation: GPT 4.1 Nano",
+                    "Simulation: GPT-4.1 Nano",
                     "Empirical: ADVAN Mobility Data",
                     "Empirical: National Household Travel Survey"
                 ),
@@ -305,7 +305,12 @@ if (
             data.name = factor(
                 data.name,
                 levels = c("advan", "nhts", "gemini", "gpt"),
-                labels = c("ADVAN", "NHTS", "Gemini 2.5 Flash Lite", "GPT 4.1 Nano"),
+                labels = c(
+                    "ADVAN Mobility Data",
+                    "National Household Travel Survey",
+                    "Gemini 2.5 Flash Lite",
+                    "GPT-4.1 Nano"
+                ),
                 ordered = TRUE
             )
         )
@@ -329,7 +334,7 @@ if (file.exists("rda/betas.sum.rda")) {
             sim = factor(
                 sim,
                 levels = c("rand", "nhts", "advan", "gemini", "gpt"),
-                labels = c("Random", "NHTS", "ADVAN", "Gemini 2.5 Flash Lite", "GPT 4.1 Nano")
+                labels = c("Random", "NHTS", "ADVAN", "Gemini 2.5 Flash Lite", "GPT-4.1 Nano")
             ),
             emp = factor(
                 emp,
@@ -339,7 +344,7 @@ if (file.exists("rda/betas.sum.rda")) {
         ) |>
         filter(sim %in% c(
             "Gemini 2.5 Flash Lite",
-            "GPT 4.1 Nano"
+            "GPT-4.1 Nano"
         )) |>
         group_by(sim, emp, param) |>
         summarize(

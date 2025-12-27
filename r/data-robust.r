@@ -56,7 +56,7 @@ if (file.exists("rda/agg.betas.rda")) {
         sim = factor(
             sim,
             levels = c("rand", "nhts", "advan", "gemini", "gpt"),
-            labels = c("Random", "NHTS", "ADVAN", "Gemini 2.5 Flash Lite", "GPT 4.1 Nano")
+            labels = c("Random", "NHTS", "ADVAN", "Gemini 2.5 Flash Lite", "GPT-4.1 Nano")
         ),
         emp = factor(
             emp,
