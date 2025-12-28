@@ -21,7 +21,7 @@ author:
 abstract:
   Despite widespread adoption of generative AI in tourism, empirical evidence on its impacts are scarce.
   This study shows how large language models deviate from empirical tourism patterns, attributing the deviations to popularity biases.
-  We test four types of popularity biase in AI-generated tourism recommendations using the proposed  Baseline-Rescaling-Outcome Model.
+  We propose Baseline-Rescaling-Outcome Model to test four types of popularity biases in AI-generated tourism recommendations.
   Large language models tend to produce more seasonal, more unequal, and less diversified tourist flows.
   These models also favoring popular destination-month pairs, but show mixed results for other popularity biases.
   Findings show that the widespread adoption of generative AI can undermine the sustainability and resilience of tourism systems.
@@ -30,21 +30,20 @@ keywords:
   - generative AI impact
   - tourist flow network
   - algorithmic bias
-  - large language models
-  - network simulation
+  - large language model simulation
   - tourism sustainability
+  - tourism resilience
   
 date: last-modified
 format:
   apaquarto-docx: 
     floatsintext: true
     header-includes: 
-      - \usepackage{setspace}
       - \usepackage{placeins}
       - \usepackage{float}
-      - \doublespacing
     fig-format: svg
     fig-dpi: 300
+    reference-doc: resources/custom.docx
   apaquarto-pdf:
     documentmode: doc
     journal: SocArXiv
