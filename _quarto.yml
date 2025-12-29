@@ -19,11 +19,11 @@ author:
     affiliations:
       - ref: smartstate
 abstract:
-  Despite widespread adoption of generative AI in tourism, empirical evidence on its impacts are scarce.
+  Despite widespread adoption of generative AI in tourism, empirical evidence on its impacts is scarce.
   This study shows how large language models deviate from empirical tourism patterns, attributing the deviations to popularity biases.
-  We propose Baseline-Rescaling-Outcome Model to test four types of popularity biases in AI-generated tourism recommendations.
+  We propose the Baseline-Rescaling-Outcome Model to test four types of popularity biases in AI-generated tourism recommendations.
   Large language models tend to produce more seasonal, more unequal, and less diversified tourist flows.
-  These models also favoring popular destination-month pairs, but show mixed results for other popularity biases.
+  These models also favor popular destination-month pairs but show mixed results for other popularity biases.
   Findings show that the widespread adoption of generative AI can undermine the sustainability and resilience of tourism systems.
   Thus, we urge tourism scholars and practitioners to proactively assess generative AI biases and their consequences in tourism.
 keywords: 
@@ -51,8 +51,8 @@ format:
     header-includes: 
       - \usepackage{placeins}
       - \usepackage{float}
-      - \usepackage{setspace}
-      - \doublespacing
+      # - \usepackage{setspace}
+      # - \doublespacing
 fig-width: 12
 fig-height: 7
 execute:
