@@ -75,20 +75,6 @@ if (file.exists("rda/df.beta.demo.rda")) {
     save(df.beta.demo, file = "rda/df.beta.demo.rda")
 }
 
-# demografic info for US population (based on census PUMS)
-if (file.exists("rda/df.demo.prop.rda")) {
-    load("rda/df.demo.prop.rda")
-} else {
-    df.demo <- read_parquet("data/demo.parquet")
-    df.demo.prop <- bind_rows(
-        calc_demo_prop(df.demo, sex, "Sex"),
-        calc_demo_prop(df.demo, agegrp, "Age"),
-        calc_demo_prop(df.demo, incgrp, "Household income (in 2023 USD)")
-    )
-    save(df.demo.prop, file = "rda/df.demo.prop.rda")
-}
-
-
 # data for descriptive analysis & visualizations
 ## for descriptive statistics table
 if (file.exists("rda/df.sum.rda")) {

@@ -1,3 +1,69 @@
+```{r} 
+#| label: setup-robust
+#| include: false
+library(tidyverse)
+library(arrow)
+library(colorspace)
+library(gt)
+library(ggtext)
+library(glue)
+```
+
+```{r} 
+#| label: load-functions-robust
+# load custom functions and theme
+source("r/helpers.r")
+source("r/theme.r")
+theme_set(theme_myriad())
+
+color.rand <- "#777777"
+color.nhts <- "#af9da6"
+color.advan <- "#c4b4a1"
+color.gemini <- "#214e7b"
+color.gpt <- "#ff7f05"
+color.grok <- "#e45756"
+color.llama <- "#4c78a8"
+```
+
+```{r} 
+#| label: read-data-robust
+#| include: false
+source("r/data-robust.r")
+```
+
+# Demographic profile of the simulation population {#apx-demo}
+
+```{r}
+#| label: tbl-demo
+#| tbl-cap: Age, sex, and household income proportions of the population
+df.demo.prop |>
+    mutate(category = indent_row(category)) |>
+    gt(groupname_col = "strat") |>
+    fmt_number(
+        columns = p,
+        decimals = 3
+    ) |>
+    cols_label(
+        category = "",
+        p = "Proportion"
+    ) |>
+    cols_align(
+        align = "left",
+        columns = category
+    ) |>
+    tab_style(
+        style = cell_text(style = "italic"),
+        locations = cells_row_groups()
+    ) |>
+    tab_style(
+        style = cell_text(whitespace = "nowrap"),
+        locations = cells_body(columns = category)
+    ) |>
+    tab_footnote(
+        "Note: Based on 2019-2023 American Community Survey 5-Year Public Use Microdata Sample."
+    )
+```
+
 # System prompts for large language model simulations {#apx-prompt}
 
 We used the following prompts to generate simulated tourist flows using large language models.
@@ -205,40 +271,6 @@ $$ {#eq-instate}
 {{< pagebreak >}}
 
 # Robustness checks {#apx-robust}
-
-```{r} 
-#| label: setup-robust
-#| include: false
-library(tidyverse)
-library(arrow)
-library(colorspace)
-library(gt)
-library(ggtext)
-library(glue)
-```
-
-```{r} 
-#| label: load-functions-robust
-# load custom functions and theme
-source("r/helpers.r")
-source("r/theme.r")
-theme_set(theme_myriad())
-
-color.rand <- "#777777"
-color.nhts <- "#af9da6"
-color.advan <- "#c4b4a1"
-color.gemini <- "#214e7b"
-color.gpt <- "#ff7f05"
-color.grok <- "#e45756"
-color.llama <- "#4c78a8"
-```
-
-
-```{r} 
-#| label: read-data-robust
-#| include: false
-source("r/data-robust.r")
-```
 
 ```{r} 
 #| label: fig-prompt-betas
