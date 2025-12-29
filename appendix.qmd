@@ -220,7 +220,7 @@ where $\overline{P_{(j,m)}}$ is the mean of monthly tourist shares for destinati
 
 ## Diversity of tourist origins per destination
 
-Following @lee2025c, we measure the diversity of tourist orgins for each destination $j$ using the entropy index.
+Following @lee2025c, we measure the diversity of tourist origins for each destination $j$ using the entropy index.
 We define the share of tourist flow from origin $i$ to destination $j$ across all months as:
 
 $$

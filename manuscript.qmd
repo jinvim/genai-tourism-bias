@@ -38,7 +38,7 @@ source("r/data.r")
 # Highlights
 
 - Quantifies generative AI’s potential impact on US domestic tourist flows
-- Proposes the Baseline-Rescaling-Outcome Model for testing algorithmic biases in tourism
+- Proposes the Baseline-Rescaling-Outcome Model for testing algorithmic biases
 - Large language models produce more seasonal and unequally distributed tourist flows
 - The models exhibit a popularity bias that favors popular destination-month pairs
 - Calls for assessing generative AI biases and their consequences in tourism
@@ -59,7 +59,7 @@ As more tourists and practitioners rely on generative AI, algorithmic biases may
 Limited access to model internals and training data, combined with the black-box nature of generative AI, impedes revealing such biases [@bai2025; @gallegos2024]. 
 
 This study investigates how the rapid adoption of generative AI and its algorithmic biases can reshape tourism patterns.
-We develop the *Baseline-Rescaling-Outcome Model* that can test algorithmic biases using empirical expectations, hypothesized bias mechanismsm and algorithmic outcomes.
+We develop the *Baseline-Rescaling-Outcome Model* that can test algorithmic biases using empirical expectations, hypothesized bias mechanisms and algorithmic outcomes.
 Using demographic profiles from the US Census Bureau, we created a simulated sample of one million US residents.
 Large language models (LLMs) then recommended one domestic travel destination per individual.
 We explain deviations between AI-generated and empirical US domestic tourism patterns as systematic *biases* favoring popular options and pairs of options.
@@ -113,7 +113,7 @@ When the focus is on stereotyping, studies define bias as the *act of* unjustifi
 This definition follows social psychology literature on implicit associations [@greenwald1998].
 Studies examining ethical implications of algorithmic biases define bias based on *outcomes or treatment*: unequal allocation of resources or unfavorable representation of social groups [@blodgett2020; @gallegos2024; @kordzadeh2022].
 This use of bias parallels discrimination laws that require proof of disparate outcomes, which treat biases as individual beliefs that are unactionable [@seiner2006].
-Others distinguish bias from harm, defining bias as a inclination of an algorithm or a deviation from data [@ghosh2025; @wu2024a].
+Others distinguish bias from harm, defining bias as an inclination of an algorithm or a deviation from data [@ghosh2025; @wu2024a].
 This neutral definition of bias is closely tied to statistics and computer science that view bias as inherent and unavoidable [@chen2023d; @ghosh2025].
 Taken together, the definition of algorithmic bias varies not only across disciplines but also by the specific bias being examined.
 
@@ -181,7 +181,7 @@ Our model captures such biases as negative rescaling factors, explaining algorit
 We apply the Baseline-Rescaling-Outcome Model to test popularity biases in generative AI travel recommendations.
 Popularity bias is defined as the tendency where popular options "are recommended even more frequently than their popularity would warrant" [@abdollahpouri2020, p.1].
 Understanding this bias in tourism is particularly timely and practical, as major online travel agencies are already integrating generative AI into their platforms.
-Humans also exhibit similar behaviors, such as tourists flocking to popular destinations [@barabasi1999; @lee2025a].
+Humans also exhibit similar behaviors, such as tourists flocking to popular destinations [@lee2025a].
 This study therefore tests whether generative AI amplifies or attenuates such popularity biases beyond what is observed empirically.
 
 Examining popularity in the tourism context is also of theoretical significance.
@@ -325,7 +325,7 @@ Under the null hypotheses of no systematic bias, we expect all $\beta=0$. If $\b
 @fig-beta-demo illustrates how different $\beta_2$ values (month popularity bias) rescale the distribution of the monthly tourist share.
 For example, if $\beta_2 = 1$, seasonal variation in tourist flow is amplified, whereas $\beta_2 = -1$ produces a uniform distribution across months.
 This test is independent of destination-month popularity bias ($\beta_3 \ne 0$) because $DM_{j,m}$ measure the popularity beyond destination and month popularity can predict.
-Meaning, if we generate tourist flows with only the destination-month popularity bias ($\beta_3 \ne 0$), the resulting data would show no changes in overall destination or month popularity ($\beta_1 = 0, \beta_2 = 0$).
+Meaning, if we generate tourist flows with only the destination-month popularity bias ($\beta_3 \ne 0$), the resulting data will show no changes in overall destination or month popularity ($\beta_1 = 0, \beta_2 = 0$).
 
 ```{r} 
 #| label: fig-beta-demo
@@ -1096,7 +1096,7 @@ Such generative AI models are complex and opaque.
 But so are humans.
 Tourists are complex decision-makers influenced by myriad factors, many of which are not fully understood.
 Same as how social scientists study human cognitive bases based on their behaviors, we proposed a model for testing hypothesized mechanisms behind generative AI biases.
-Beyond quantifying the difference between algorithm outcomes and emprically grounded baselines, our model allowed us to obtain interpretable results on what factors drive such differences.
+Beyond quantifying the difference between algorithm outcomes and empirically grounded baselines, our model allowed us to obtain interpretable results on what factors drive such differences.
 
 ## Key findings
 
@@ -1118,7 +1118,7 @@ LLMs favor visiting destinations during their peak months (@fig-betas).
 We find robust evidence of this positive destination-month popularity bias  across prompts, temperature settings, and additional LLMs (@apx-robust).
 Findings are mixed for the other three popularity biases.
 Results vary primarily by LLM used, rather than by simulation settings or empirical baselines.
-For example, two GPT-4.1 models also show bias toward popular origin-destination pairs, while other LLMs attenuate empirically popular destinations.
+For example, two GPT-4.1 models amplify origin-destination popularity bias, while other LLMs attenuate destination popularity bias.
 Unfortunately, this study could not identify why LLMs show different types and degrees of popularity biases.
 The differences are likely due to variations in training data, model architectures, and human feedback [@santurkar2023].
 Biases also arise from feedback loops where human biases seep into training data, producing biased models that in turn influence human behavior [@chen2023d].
