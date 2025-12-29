@@ -33,6 +33,8 @@ color.gpt <- "#ff7f05"
 source("r/data.r")
 ```
 
+::: {.content-visible when-format="docx"}
+
 # Highlights
 
 - Quantifies generative AI’s potential impact on US domestic tourist flows
@@ -41,7 +43,7 @@ source("r/data.r")
 - The models exhibit a popularity bias that favors popular destination-month pairs
 - Calls for assessing generative AI biases and their consequences in tourism
 
-{{< pagebreak >}}
+:::
 
 # Introduction
 
@@ -329,6 +331,7 @@ Meaning, if we generate tourist flows with only the destination-month popularity
 #| label: fig-beta-demo
 #| fig-cap: Example of how different $\beta_2$ values affect the distribution of the monthly tourist share
 #| fig-height: 5
+#| column: page
 df.beta.demo |> 
     mutate(
         case = factor(
@@ -397,6 +400,42 @@ max.nhts <- round(df.sum |> filter(data.name == "Simulation: National Household 
 max.gemini <- round(df.sum |> filter(data.name == "Simulation: Gemini 2.5 Flash Lite", variable == "Tourist flow") |> pull(max))
 max.gpt <- round(df.sum |> filter(data.name == "Simulation: GPT-4.1 Nano", variable == "Tourist flow") |> pull(max))
 ```
+
+```{r}
+#| label: intext-any-prop
+intext.any <- df.any |>
+    mutate(
+        only.gemini.advan = (gemini == "Any flow" & advan == "No flow"),
+        only.gemini.nhts = (gemini == "Any flow" & nhts == "No flow"),
+        only.gpt.advan = (gpt == "Any flow" & advan == "No flow"),
+        only.gpt.nhts = (gpt == "Any flow" & nhts == "No flow"),
+        only.advan.gemini = (advan == "Any flow" & gemini == "No flow"),
+        only.nhts.gemini = (nhts == "Any flow" & gemini == "No flow"),
+        only.advan.gpt = (advan == "Any flow" & gpt == "No flow"),
+        only.nhts.gpt = (nhts == "Any flow" & gpt == "No flow")
+    ) |>
+    summarize(across(
+        starts_with("only."),
+        sum 
+    )) / 31212
+intext.any <- lapply(intext.any * 100, sprintf, fmt = "%.1f%%")
+```
+
+@tbl-desc presents descriptive statistics of simulation and empirical data.
+Origin total outflows are consistent across simulations because the simulated tourists are stratified by state population size.
+The median tourist flow per destination-origin-month cell is 0 in all simulations, indicating high sparsity.
+This sparsity is expected, as each iteration assigns 1,000 tourists across 31,212 possible combinations (51 origins×51 destinations×12 months).
+By design, only about 3.2% (=1,000/31,212) of cells would have any tourist visits even under complete random assignment.
+But the upper tail of the distribution differs across simulations.
+LLM simulations show a stronger concentration of tourists in the most popular destination-origin-month combination than empirical-based ones (Max=`{r} max.gemini` for Gemini 2.5 Flash Lite and `{r} max.gpt` for GPT-4.1 Nano; `{r} max.advan` for ADVAN Mobility Data and `{r} max.nhts` for National Household Travel Survey).
+
+Similar patterns emerge when examining the presence and absence of tourist flow.
+@tbl-any compares which destination-origin-month combinations are present or absent in LLM versus empirical simulations.
+We aggregated the simulated visits across all 1,000 iterations to reduce sparsity.
+LLMs exclude many destination-origin-month combinations.
+About `{r} intext.any$only.nhts.gpt` to `{r} intext.any$only.advan.gemini` of empirically observed combinations never appearing in LLM simulations.
+By contrast, LLMs rarely suggest destination-origin-month combinations that are absent from empirical data, with fewer than 10% of combinations only appear in LLM simulations.
+Meaning, LLMs prune empirical tourism patterns but rarely generate new ones.
 
 ```{r}
 #| label: tbl-desc
@@ -494,43 +533,6 @@ tbl_stack(
     ) |>
     tab_footnote("Note: ADVAN=ADVAN Mobility Data, NHTS=National Household Travel Survey. Counts and percentages of destination-origin-month cells with no tourist flow in both simulations, any flow in either simulation, or any flow in both simulations. Percentages are calculated based on the number of possible destination-origin-month combinations (N=31,212). Based on one million simulated visits aggregated across all 1,000 iterations.")
 ```
-
-```{r}
-#| label: intext-any-prop
-intext.any <- df.any |>
-    mutate(
-        only.gemini.advan = (gemini == "Any flow" & advan == "No flow"),
-        only.gemini.nhts = (gemini == "Any flow" & nhts == "No flow"),
-        only.gpt.advan = (gpt == "Any flow" & advan == "No flow"),
-        only.gpt.nhts = (gpt == "Any flow" & nhts == "No flow"),
-        only.advan.gemini = (advan == "Any flow" & gemini == "No flow"),
-        only.nhts.gemini = (nhts == "Any flow" & gemini == "No flow"),
-        only.advan.gpt = (advan == "Any flow" & gpt == "No flow"),
-        only.nhts.gpt = (nhts == "Any flow" & gpt == "No flow")
-    ) |>
-    summarize(across(
-        starts_with("only."),
-        sum 
-    )) / 31212
-intext.any <- lapply(intext.any * 100, sprintf, fmt = "%.1f%%")
-```
-
-
-@tbl-desc presents descriptive statistics of simulation and empirical data.
-Origin total outflows are consistent across simulations because the simulated tourists are stratified by state population size.
-The median tourist flow per destination-origin-month cell is 0 in all simulations, indicating high sparsity.
-This sparsity is expected, as each iteration assigns 1,000 tourists across 31,212 possible combinations (51 origins×51 destinations×12 months).
-By design, only about 3.2% (=1,000/31,212) of cells would have any tourist visits even under complete random assignment.
-But the upper tail of the distribution differs across simulations.
-LLM simulations show a stronger concentration of tourists in the most popular destination-origin-month combination than empirical-based ones (Max=`{r} max.gemini` for Gemini 2.5 Flash Lite and `{r} max.gpt` for GPT-4.1 Nano; `{r} max.advan` for ADVAN Mobility Data and `{r} max.nhts` for National Household Travel Survey).
-
-Similar patterns emerge when examining the presence and absence of tourist flow.
-@tbl-any compares which destination-origin-month combinations are present or absent in LLM versus empirical simulations.
-We aggregated the simulated visits across all 1,000 iterations to reduce sparsity.
-LLMs exclude many destination-origin-month combinations.
-About `{r} intext.any$only.nhts.gpt` to `{r} intext.any$only.advan.gemini` of empirically observed combinations never appearing in LLM simulations.
-By contrast, LLMs rarely suggest destination-origin-month combinations that are absent from empirical data, with fewer than 10% of combinations only appear in LLM simulations.
-Meaning, LLMs prune empirical tourism patterns but rarely generate new ones.
 
 ```{r}
 #| label: intext-dst

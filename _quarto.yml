@@ -51,6 +51,7 @@ format:
     header-includes: 
       - \usepackage{placeins}
       - \usepackage{float}
+      - \floatplacement{table}{h}
       # - \usepackage{setspace}
       # - \doublespacing
 fig-width: 12

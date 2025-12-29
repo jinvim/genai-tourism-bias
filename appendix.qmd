@@ -1,3 +1,5 @@
+# Demographic profile of the simulation population {#apx-demo}
+
 ```{r} 
 #| label: setup-robust
 #| include: false
@@ -30,9 +32,7 @@ color.llama <- "#4c78a8"
 #| include: false
 source("r/data-robust.r")
 ```
-
-# Demographic profile of the simulation population {#apx-demo}
-
+ 
 ```{r}
 #| label: tbl-demo
 #| tbl-cap: Age, sex, and household income proportions of the population
@@ -63,6 +63,8 @@ df.demo.prop |>
         "Note: Based on 2019-2023 American Community Survey 5-Year Public Use Microdata Sample."
     )
 ```
+
+{{< pagebreak >}}
 
 # System prompts for large language model simulations {#apx-prompt}
 
@@ -175,6 +177,7 @@ Same as the full prompt.
 ---
 
 {{< pagebreak >}}
+
 
 # Mathematical formulation of descriptive metrics {#apx-eq}
 
