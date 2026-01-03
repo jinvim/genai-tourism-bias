@@ -331,7 +331,6 @@ Meaning, if we generate tourist flows with only the destination-month popularity
 #| label: fig-beta-demo
 #| fig-cap: Example of how different $\beta_2$ values affect the distribution of the monthly tourist share
 #| fig-height: 5
-#| column: page
 df.beta.demo |> 
     mutate(
         case = factor(
