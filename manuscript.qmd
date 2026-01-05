@@ -61,10 +61,10 @@ However, these algorithms are often proprietary and lack interpretability, imped
 This study investigates how the rapid adoption of generative AI and its algorithmic biases can reshape tourism patterns.
 We develop the *Baseline-Rescaling-Outcome Model* that can test algorithmic biases using empirical expectations, hypothesized bias mechanisms, and algorithmic outcomes.
 Using demographic profiles from the US Census Bureau, we created a simulated sample of one million US residents.
-Large language models (LLMs) then recommended one domestic travel destination per individual.
+Large language models then recommended one domestic travel destination per individual.
 We explain deviations between AI-generated and empirical US domestic tourism patterns as systematic *biases* favoring popular options and pairs of options.
 
-Compared to empirical tourism patterns, LLMs yield less diverse tourist flows concentrated in specific combinations of destination, origin, and month.
+Compared to empirical tourism patterns, large language models yield less diverse tourist flows concentrated in specific combinations of destination, origin, and month.
 They also produce more unevenly distributed tourist flows with stronger seasonality and less diversified demand.
 The models favor visiting destinations during their peak seasons, indicating amplification of destination-month popularity.
 However, tested models vary in the strength and direction of other popularity biases.
@@ -194,7 +194,7 @@ Destination-month popularity bias captures whether algorithms favor specific des
 Similarly, origin-destination popularity bias captures the tendency to excessively pair tourists from specific origins to specific destinations.
 
 @fig-steps summarizes our data collection and analysis process.
-The LLM simulation involves generating tourist flow using empirically grounded demographic profiles.
+The large language model simulation involves generating tourist flow using empirically grounded demographic profiles.
 Separately from the AI-driven simulation, two data sources were used to estimate real-world tourism patterns.
 This empirical data is then used to derive baseline expectations and popularity factors.
 Finally, we combine simulation and empirical data to test four hypothesized popularity biases by fitting the Poisson model.
@@ -224,29 +224,29 @@ Social science researchers are increasingly using synthetic data from generative
 We highlight four key differences between our approach and prior studies.
 First, we use AI-generated data to show how these AI models *do not* replicate human behavior, contrary to claims that generative AI can mimic real-world tourists [for example, @ali2025; @viglia2024a; @xiong2024].
 Next, our simulations rely on empirically derived demographic profiles, instead of using arbitrary or non-representative profiles that confound the results [for example, @andreev2025].
-Third, we repeat the simulation for 1,000 iterations to sufficiently capture the uncertainty in LLM outputs, unlike studies that relied on a few handpicked responses or a single simulation run [for example, @mellors2025; @xiong2024], 
+Third, we repeat the simulation for 1,000 iterations to sufficiently capture the uncertainty in large language model outputs, unlike studies that relied on a few handpicked responses or a single simulation run [for example, @mellors2025; @xiong2024], 
 Finally, our approach recognizes the network and temporal nature of tourism.
 Beyond looking at destination choice alone, we simulate the complete network of tourist flows between all origin-destination pairs across months.
 
 The simulation starts with a system prompt containing the simulation context, response structure, and examples (available in @apx-prompt).
 To simplify the simulation, we assume that each person chooses one domestic destination within the US (50 US states and the District of Columbia).
-We instructed LLMs to act as travel agents recommending one domestic travel destination based on the provided demographic profile.
+We instructed large language models to act as travel agents recommending one domestic travel destination based on the provided demographic profile.
 Twenty simulated tourists are processed at a time to improve the efficiency of the simulation.
-Our process resembles agent-based modeling using LLMs but differs in that we prompt LLMs to act as travel agents, not tourists [@gao2024].
+Our process resembles agent-based modeling using large language models but differs in that we prompt the models to act as travel agents, not tourists [@gao2024].
 This choice reflects our objective to project how generative AI would influence tourist flows if widely adopted, rather than using it to substitute for human travelers.
-We captured the probabilistic nature of LLM outputs by repeating the simulation with 1,000 individuals for 1,000 iterations.
-This process produces a distribution of simulated tourist visits that accounts for stochastic variations in LLM outputs.
+We captured the probabilistic nature of large language model outputs by repeating the simulation with 1,000 individuals for 1,000 iterations.
+This process produces a distribution of simulated tourist visits that accounts for stochastic variations in large language model outputs.
 
-We establish the consistency of our findings across two different LLMs: Google's Gemini 2.5 Flash Lite (version June 2025) and OpenAI's GPT-4.1 Nano (version April 2025).
-They are among the leading commercial LLMs in capabilities and market share.
+We establish the consistency of our findings across two different large language models: Google's Gemini 2.5 Flash Lite (version June 2025) and OpenAI's GPT-4.1 Nano (version April 2025).
+They are among the leading commercial large language models in capabilities and market share.
 Given the scale of our simulations, we chose their smallest variants optimized for speed and cost.
-Although the two LLMs are closed-source, they have comparable pricing structures ($0.10 per million input tokens; $0.30 and $0.40 per million output tokens, respectively).
+Although the two large language models are closed-source, they have comparable pricing structures ($0.10 per million input tokens; $0.30 and $0.40 per million output tokens, respectively).
 We also chose these two models also because they use different architectures.
 Gemini 2.5 family uses a mixture-of-experts architecture, while GPT-4.1 family relies on traditional transformer architecture.
 Because the two models are developed by different companies, they are likely to be trained on different datasets and tuning processes, which is ideal for assessing the generalizability of our findings.
 
 All requests were made from the IP address of the university located in the southeastern US, using custom automation scripts.
-We explicitly instructed LLMs not to use IP-specific details when generating recommendations.
+We explicitly instructed large language models not to use IP-specific details when generating recommendations.
 Data collection continued until we achieved a complete dataset.
 We then aggregated the data to create destination-origin-month matrices for each iteration and model, where each cell represents the number of tourists from the origin. $i$ to destination $j$ in a month $m$.
 
@@ -268,13 +268,13 @@ Additionally, trips under 50 miles one-way or within the same commuting zones we
 This offers more conservative estimates of tourist visits by filtering out short-distance and commuting trips that are less likely to be tourism-related.
 These estimates were then used to compute the empirical shares and the four popularity factors.
 
-Since we employed an iterative approach for the LLM simulations, direct comparison with empirical data is inappropriate.
+Since we employed an iterative approach for the large language model simulations, direct comparison with empirical data is inappropriate.
 Therefore, we also conducted empirical-based simulations for descriptive comparison between AI-simulated and empirical tourist flows.
 Using empirical estimates as weights, we simulated tourist flows by randomly assigning destinations and months to each individual in the simulated sample.
 Due to data anonymization, demographic factors could not be incorporated in the empirical-based simulations.
 Therefore, we assume that the probability of traveling to another state in a given month is equal for all individuals in a given origin state. 
 For instance, if 10% of Illinois residents visited Florida in January 2024, all Illinois residents were given a 0.1 probability to travel to Florida in January (irrespective of other demographic factors).
-Same as the LLM simulations, the empirical-based simulation was repeated 1,000 times.
+Same as the large language model simulations, the empirical-based simulation was repeated 1,000 times.
 Subsequently, the results were aggregated to destination-origin-month matrices.
 
 ## Operationalizing the Baseline-Rescaling-Outcome Model
@@ -282,12 +282,12 @@ Subsequently, the results were aggregated to destination-origin-month matrices.
 Below is the empirical model for testing four popularity biases.
 Define the number of tourist flow from origin $i$ to destination $j$ in month $m$ as $Flow_{(i,j,m)}$.
 Let $P_{(i,j,m)}$ be the share of tourists from origin $i$ to destination $j$ in month $m$ over all tourist flow ($Flow_{(i,j,m)} / \sum{Flow_{(i,j,m)}}$).
-Under the null condition that LLMs produce "unbiased" travel suggestions, we expect:
+Under the null condition that large language models produce "unbiased" travel suggestions, we expect:
 $$
 Flow^{LLM}_{(i,j,m)} \sim \sum_{j,m}{Flow^{LLM}_{(i,j,m)}} \cdot P^{Empirical}_{(j,m|i)} = Baseline_{(i,j,m)}
 $$ {#eq-null}
 where $P^{Empirical}_{(j,m|i)}$ is the share of tourists traveling to destination $j$ in month $m$ given origin $i$, observed empirically ($P_{(i,j,m)} / \sum_{j,m}{P_{(i,j,m)}}$).
-This share is multiplied by the total number of LLM-produced tourists from origin $i$, which scales the expected number of tourists based on total tourist outflow from origin $i$.
+This share is multiplied by the total number of large language model-produced tourists from origin $i$, which scales the expected number of tourists based on total tourist outflow from origin $i$.
 Meaning, the right-hand side of @eq-null is the baseline expectation when generative AI can perfectly replicate empirical tourism patterns ($Baseline_{(i,j,m)}$).
 
 Destination and month popularity are defined as:
@@ -382,7 +382,7 @@ $$ {#eq-log-model}
 
 The last step of the analysis is to combine simulation and empirical data to test hypothesized popularity biases.
 We achieve this goal by fitting @eq-log-model using the Poisson count model. 
-Essentially, the model explains variations in LLM-simulated tourist flows ($Flow_{(i,j,m)}^{LLM}$) beyond what can be expected by empirical data ($Baseline_{(i,j,m)}$), using the four popularity factors as predictors.
+Essentially, the model explains variations in large language model-simulated tourist flows ($Flow_{(i,j,m)}^{LLM}$) beyond what can be expected by empirical data ($Baseline_{(i,j,m)}$), using the four popularity factors as predictors.
 We chose the Poisson pseudo-maximum likelihood estimator, which is widely used in estimating gravity models of trade and migration.
 The Poisson pseudo-maximum likelihood estimator only requires the conditional mean to be correctly specified, without requiring a specific distributional assumption.
 This estimator is robust to heteroskedasticity and having many zeros in the dependent variable, making the estimator suitable for our analysis [@silva2011].
@@ -426,15 +426,15 @@ The median tourist flow per destination-origin-month cell is 0 in all simulation
 This sparsity is expected, as each iteration assigns 1,000 tourists across 31,212 possible combinations (51 origins×51 destinations×12 months).
 By design, only about 3.1% (=1,000/31,212) of cells would have any tourist visits even under complete random assignment.
 But the upper tail of the distribution differs across simulations.
-LLM simulations show a stronger concentration of tourists in the most popular destination-origin-month combination than empirical-based ones (Max=`{r} max.gemini` for Gemini 2.5 Flash Lite and `{r} max.gpt` for GPT-4.1 Nano; `{r} max.advan` for ADVAN Mobility Data and `{r} max.nhts` for National Household Travel Survey).
+Large language model simulations show a stronger concentration of tourists in the most popular destination-origin-month combination than empirical-based ones (Max=`{r} max.gemini` for Gemini 2.5 Flash Lite and `{r} max.gpt` for GPT-4.1 Nano; `{r} max.advan` for ADVAN Mobility Data and `{r} max.nhts` for National Household Travel Survey).
 
 Similar patterns emerge when examining the presence and absence of tourist flow.
-@tbl-any compares presence and absence of destination-origin-month combinations between LLM and empirical simulations.
+@tbl-any compares presence and absence of destination-origin-month combinations between large language model and empirical simulations.
 We aggregated the simulated visits across all 1,000 iterations to reduce sparsity.
-LLMs exclude many destination-origin-month combinations.
-About `{r} intext.any$only.nhts.gpt` to `{r} intext.any$only.advan.gemini` of empirically observed combinations never appearing in LLM simulations.
-By contrast, LLMs rarely suggest destination-origin-month combinations that are absent from empirical data, with fewer than 10% of combinations appearing only in LLM simulations.
-Meaning, LLMs prune empirical tourism patterns but rarely generate new ones.
+Large language models exclude many destination-origin-month combinations.
+About `{r} intext.any$only.nhts.gpt` to `{r} intext.any$only.advan.gemini` of empirically observed combinations never appearing in large language model simulations.
+By contrast, large language models rarely suggest destination-origin-month combinations that are absent from empirical data, with fewer than 10% of combinations appearing only in large language model simulations.
+Meaning, large language models prune empirical tourism patterns but rarely generate new ones.
 
 ```{r}
 #| label: tbl-desc
@@ -794,23 +794,23 @@ Mathematical definitions of used metrics are available in @apx-eq.
 First, we examine the distribution of tourist share by destination states ($D_j$) and months ($M_m$).
 Inequality is measured using the Gini index, where higher values indicate greater concentration of tourists across states or months.
 In all simulations, tourist visits concentrate in popular states such as California, Florida, and Texas (@fig-prop[a]()).
-LLM simulations show higher Gini indices than empirical-based simulations, indicating greater inequality in tourist arrivals across states (ADVAN Mobility Data=`r dst.gini.advan` and National Household Travel Survey=`r dst.gini.nhts`; Gemini 2.5 Flash Lite=`r dst.gini.gemini` and GPT-4.1 Nano=`r dst.gini.gpt`).
+Large language model simulations show higher Gini indices than empirical-based simulations, indicating greater inequality in tourist arrivals across states (ADVAN Mobility Data=`r dst.gini.advan` and National Household Travel Survey=`r dst.gini.nhts`; Gemini 2.5 Flash Lite=`r dst.gini.gemini` and GPT-4.1 Nano=`r dst.gini.gpt`).
 
-Seasonality is substantially stronger in LLM simulations (@fig-prop[b]()).
-Gini indices of monthly tourist share for LLM simulations far exceed empirical levels (Gemini 2.5 Flash Lite=`r month.gini.gemini` and GPT-4.1 Nano=`r month.gini.gpt`; ADVAN Mobility Data=`r month.gini.advan` and National Household Travel Survey=`r month.gini.nhts`).
-Although, the two LLMs differ in peak tourism months.
+Seasonality is substantially stronger in large language model simulations (@fig-prop[b]()).
+Gini indices of monthly tourist share for large language model simulations far exceed empirical levels (Gemini 2.5 Flash Lite=`r month.gini.gemini` and GPT-4.1 Nano=`r month.gini.gpt`; ADVAN Mobility Data=`r month.gini.advan` and National Household Travel Survey=`r month.gini.nhts`).
+Although, the two large language models differ in peak tourism months.
 Gemini 2.5 Flash Lite tends to recommend traveling in September and October, whereas GPT-4.1 Nano shows peaks in April, May, and September.
-LLMs worsen the seasonality of tourism demand for most destinations.
+Large language models worsen the seasonality of tourism demand for most destinations.
 For @fig-prop[c](), we calculated the Gini index of monthly tourist share for each destination state and took the median over 1,000 iterations.
 In empirical-based simulations, a few states show relatively high seasonality, such as Alaska and Hawaii.
-By contrast, most states exhibit high seasonality in LLM simulations, indicated by higher Gini indices across states (Median of medians=`r dst.month.gini.advan` and `r dst.month.gini.nhts` for ADVAN Mobility Data and National Household Travel Survey; `r dst.month.gini.gemini` and `r dst.month.gini.gpt` for Gemini 2.5 Flash Lite and GPT-4.1 Nano).
+By contrast, most states exhibit high seasonality in large language model simulations, indicated by higher Gini indices across states (Median of medians=`r dst.month.gini.advan` and `r dst.month.gini.nhts` for ADVAN Mobility Data and National Household Travel Survey; `r dst.month.gini.gemini` and `r dst.month.gini.gpt` for Gemini 2.5 Flash Lite and GPT-4.1 Nano).
 
-LLMs generate tourist flows that destinations rely on a few origins (@fig-prop[d]()).
+Large language models generate tourist flows that destinations rely on a few origins (@fig-prop[d]()).
 We use entropy index instead of Gini index because entropy is more suitable for 
 measuring whether a destination has diversified and balanced tourism demand, which are characteristics of resilient destinations [@lee2025c].
 Empirical simulations show that states such as Florida, Illinois, and North Carolina have diversified and balanced demand (higher entropy).
-In LLM simulations, entropy indices are overall lower with much fewer states with relatively high entropy values (Median of medians=`r dst.entropy.advan` and `r dst.entropy.nhts` for ADVAN Mobility Data and National Household Travel Survey; `r dst.entropy.gemini` and `r dst.entropy.gpt` for Gemini 2.5 Flash Lite and GPT-4.1 Nano).
-These patterns suggest that LLMs produce less diversified and balanced origin-destination flows that are vulnerable to shocks.
+In large language model simulations, entropy indices are overall lower with much fewer states with relatively high entropy values (Median of medians=`r dst.entropy.advan` and `r dst.entropy.nhts` for ADVAN Mobility Data and National Household Travel Survey; `r dst.entropy.gemini` and `r dst.entropy.gpt` for Gemini 2.5 Flash Lite and GPT-4.1 Nano).
+These patterns suggest that large language models produce less diversified and balanced origin-destination flows that are vulnerable to shocks.
 
 ```{r} 
 #| label: intext-graph-stats
@@ -901,13 +901,13 @@ Then we computed four statistics capturing how the structure of tourist flows di
 Box plots in @fig-graph-stats summarize the distribution of the four network-level statistics across 1,000 iterations, colored by simulation scenario.
 The dotted red line indicates the expected value under complete randomness, which assumes equal probability of choosing any destination (a probability of $1/51$).
 
-LLMs produce tourist flows with clear separation between tourist sending and receiving states, as indicated by weaker reciprocity.
+Large language models produce tourist flows with clear separation between tourist sending and receiving states, as indicated by weaker reciprocity.
 Reciprocity measures the tendency of two states to exchange a similar number of tourists.
 Empirical-based simulations show stronger reciprocity than the random expectation (Median=`r recip.advan` and `r recip.nhts` for ADVAN Mobility Data and National Household Travel Survey).
-However, LLM simulations show weaker reciprocity than expected by chance (Median=`r recip.gemini` and `r recip.gpt` for Gemini 2.5 Flash Lite and GPT-4.1 Nano).
+However, large language model simulations show weaker reciprocity than expected by chance (Median=`r recip.gemini` and `r recip.gpt` for Gemini 2.5 Flash Lite and GPT-4.1 Nano).
 
 Both Gemini 2.5 Flash Lite and GPT-4.1 Nano suggest farther destinations than empirical data, based on median travel distance excluding in-state trips (Median of medians=`r mdist.gemini` and `r mdist.gpt`).
-This tendency is partially due to LLMs' lower propensity to suggest trips to bordering states.
+This tendency is partially due to large language models' lower propensity to suggest trips to bordering states.
 Gemini 2.5 Flash Lite has a lower ratio of tourist flows between bordering states than the empirical models (Median=`r br.gemini`).
 GPT-4.1 Nano shows even lower tendency to suggest bordering states, lower than what would be expected under randomness (Median=`r br.gpt`).
 But the two models differ in their tendency to suggest in-state tourism.
@@ -943,16 +943,16 @@ b.od.gpt.advan <- betas.sum[12, 4] |> sprintf(fmt = "%4.3f")
 b.od.gpt.nhts <- betas.sum[16, 4] |> sprintf(fmt = "%4.3f")
 ```
 
-@tbl-betas and @fig-betas summarize the estimated effects of the four popularity biases on LLM-simulated tourist flows (@eq-log-model).
-Across two LLMs and two empirical baselines, destination-month popularity consistently has the largest positive coefficient.
-Meaning, LLMs show a tendency to favor popular destination-month combinations when generating travel recommendations.
+@tbl-betas and @fig-betas summarize the estimated effects of the four popularity biases on large language model-simulated tourist flows (@eq-log-model).
+Across two large language models and two empirical baselines, destination-month popularity consistently has the largest positive coefficient.
+Meaning, large language models show a tendency to favor popular destination-month combinations when generating travel recommendations.
 Although, 95% credible intervals indicate high uncertainty around the estimates for Gemini 2.5 Flash Lite with both empirical baselines. 
 The coefficients can be interpreted as elasticity.
 For example, GPT-4.1 Nano with ADVAN Mobility Data baseline had a median coefficient of `r b.dm.gpt.advan` for destination-month popularity.
 If real-world data shows that a particular destination-month combination is twice as popular than what is expected under independence of destination and month popularity ($DM_{(j,m)} = 2$), then the expected tourist flow generated by GPT-4.1 Nano for that combination is approximately `r round(2 ** as.numeric(b.dm.gpt.advan), 1)` times higher ($2^{1.771}$), holding other factors constant.
 
 We find mixed results for the rest of the popularity biases.
-Some effects are specific to the LLM.
+Some effects are specific to the large language model.
 For example, Gemini 2.5 Flash Lite consistently shows negative coefficients for destination popularity, indicating that it tends to negatively rescale popular destinations (Median $\beta_{1}$ = `r b.d.gemini.advan` and `r b.d.gemini.nhts` with ADVAN Mobility Data and National Household Travel Survey baselines).
 The same pattern is only observed for GPT-4.1 Nano with National Household Travel Survey baseline (Median $\beta_{1}$ = `r b.d.gpt.nhts`) but not with the ADVAN Mobility Data baseline (Median $\beta_{1}$ = `r b.d.gpt.advan`).
 GPT-4.1 Nano with shows positive rescaling for origin-destination popularity (Median $\beta_{4}$ = `r b.od.gpt.advan` and `r b.od.gpt.nhts` with ADVAN Mobility Data and National Household Travel Survey baselines), while Gemini 2.5 Flash Lite shows mixed findings (Median $\beta_{4}$ = `r b.od.gemini.advan` and `r b.od.gemini.nhts` with ADVAN Mobility Data and National Household Travel Survey baselines).
@@ -1069,12 +1069,12 @@ One notable exception is that Gemini 2.5 Flash Lite with reduced instruction pro
 However, this case also showed stronger effects for destination-month and origin-destination popularity than the original prompt did.
 
 Changing the temperature parameter also does not alter the results.
-The temperature parameter controls randomness in LLM outputs.
+The temperature parameter controls randomness in large language model outputs.
 Higher temperature settings produce more diverse outputs, while lower temperature settings generate more deterministic outputs.
 The default temperature setting used in our main analysis is 1.0.
 We collected additional data using temperatures of 0.5 and 1.5 (@fig-temp-betas).
 GPT-4.1 Nano with a temperature of 1.5 could not generate valid outputs and hence was excluded.
-Similar to @bai2025, we find that temperature setting has minimal impact on the popularity bias of LLMs.
+Similar to @bai2025, we find that temperature setting has minimal impact on the popularity bias of large language models.
 
 Larger models in the Gemini 2.5 and GPT-4.1 series, as well as models from other providers, still show positive destination-month popularity bias.
 We repeated the main analysis with larger variants of Gemini 2.5 and GPT-4.1 series models (Gemini 2.5 Flash and GPT-4.1 Mini).
@@ -1083,7 +1083,7 @@ Across all models tested, destination-month popularity shows the strongest posit
 Compared to the models used in our main analysis, larger models show stronger destination-month popularity bias, not weaker.
 
 Finally, the results are unchanged when aggregating data across all iterations instead of fitting Poisson regression models for each iteration separately.
-We conducted alternative hypothesis tests by aggregating the simulation data across all 1,000 iterations and fitting a single Poisson regression model for each LLM simulation.
+We conducted alternative hypothesis tests by aggregating the simulation data across all 1,000 iterations and fitting a single Poisson regression model for each large language model simulation.
 This approach significantly reduces the number of destination-origin-month cells with zero tourist counts.
 We can also obtain significance levels for the estimated coefficients using  traditional frequentist tests.
 Still, coefficient estimates using aggregated data are nearly identical to median estimates from our main approach (see @tbl-agg-betas).
@@ -1099,26 +1099,26 @@ Beyond quantifying the difference between algorithm outcomes and empirically gro
 
 ## Key findings
 
-LLMs generate less diverse and more unevenly distributed tourist flows than empirical US domestic tourism patterns.
-States show slightly more unequal levels of tourist arrivals, with popular states continuing to be popular in LLM simulations (@fig-prop[a]()).
+Large language models generate less diverse and more unevenly distributed tourist flows than empirical US domestic tourism patterns.
+States show slightly more unequal levels of tourist arrivals, with popular states continuing to be popular in large language model simulations (@fig-prop[a]()).
 More critically, both models produce highly seasonal tourism patterns.
-While seasonality is a common feature of tourism [@butler1994; @duro2016], LLMs yield much sharper peaks and troughs than empirical data (@fig-prop[b]()).
+While seasonality is a common feature of tourism [@butler1994; @duro2016], large language models yield much sharper peaks and troughs than empirical data (@fig-prop[b]()).
 This finding is alarming for *all* US destinations, as both popular and less popular states show more seasonal tourism demand (@fig-prop[c]()).
-Destinations also become more reliant on fewer tourist origins in LLM simulations (@fig-prop[d]()).
+Destinations also become more reliant on fewer tourist origins in large language model simulations (@fig-prop[d]()).
 
 The models also produce structurally different tourist flows (@fig-graph-stats).
-In LLM simulations, destinations would receive more tourists but send fewer to others, leading to a more "one-way" tourism system.
-Although two models also tend to recommend farther destinations, other spatial patterns differ between two LLMs.
+In large language model simulations, destinations would receive more tourists but send fewer to others, leading to a more "one-way" tourism system.
+Although two models also tend to recommend farther destinations, other spatial patterns differ between two large language models.
 GPT-4.1 Nano strongly avoids bordering states and favors in-state tourism, whereas Gemini 2.5 Flash Lite behaves more similarly to empirical patterns in these aspects.
 Bias in the spatial perception of these models is one possible explanation, such as overestimation of inter-regional distance [@fulman2024].
 Given that these algorithms are *language* models, the outputs also reflect how linguistic and cultural representations of tourism in training data [see @resnik2025; @tao2024].
 
-LLMs favor visiting destinations during their peak months (@fig-betas).
-We find robust evidence of this positive destination-month popularity bias  across prompts, temperature settings, and additional LLMs (@apx-robust).
+Large language models favor visiting destinations during their peak months (@fig-betas).
+We find robust evidence of this positive destination-month popularity bias across prompts, temperature settings, and additional models (@apx-robust).
 Findings are mixed for the other three popularity biases.
-Results vary primarily by LLM used, rather than by simulation settings or empirical baselines.
-For example, two GPT-4.1 models amplify origin-destination popularity bias, while other LLMs attenuate destination popularity bias.
-Unfortunately, this study could not identify why LLMs show different types and degrees of popularity biases.
+Results vary primarily by large language model used, rather than by simulation settings or empirical baselines.
+For example, two GPT-4.1 models amplify origin-destination popularity bias, while other large language models attenuate destination popularity bias.
+Unfortunately, this study could not identify why large language models show different types and degrees of popularity biases.
 The differences are likely due to variations in training data, model architectures, and human feedback [@santurkar2023].
 Biases also arise from feedback loops where human biases seep into training data, producing biased models that in turn influence human behavior [@chen2023d].
 More transparency from developers about training processes and data sources of generative AI will help us to better understand the causes of such biases.
@@ -1142,7 +1142,7 @@ For instance, a recommendation algorithm with supplier-side popularity bias can 
 Similarly, causes of these biases can also be speculated from both demand- and supply-side.
 Biases may also arise from both learning demand-side popularities and supply-side imbalances visibility of destinations in training data.
 
-Our LLM simulations are projections wherein all tourists’ decisions are made by generative AI.
+Our large language model simulations are projections wherein all tourists’ decisions are made by generative AI.
 This hypothetical scenario allowed us to anticipate consequences of generative AI adoption rather than document them *a posteriori*.
 Currently, empirical phenomena of generative AI adoption outpace tourism knowledge production, due to generative AI's rapid evolution and academic publication delays.
 We thus need an alternative route: *a priori* knowledge production by tourism scholars that informs decision-making in tourism practice.
@@ -1158,10 +1158,10 @@ Tourism is a complex system, where the outcomes are probabilistic rather than de
 As such, our approach acknowledges that even the empirical data is one of many possible outcomes.
 By creating simulated realizations of the tourism patterns under empirical-driven and AI-driven scenarios, we can better project the range of possible outcomes and identify which observed patterns constitute robust features versus artifacts of stochastic variation.
 We provide all code and synthetic data from the simulations for replicating and extending our analyses.
-This includes the full dataset of two million individual-level travel suggestions from two main LLMs and an additional one million obtained for robustness checks.
+This includes the full dataset of two million individual-level travel suggestions from two main large language models and an additional one million obtained for robustness checks.
 
 Based on the findings, we question the validity of using AI-generated synthetic data even for exploratory and early-stage research purposes [suggested by @ali2025; @viglia2024a].
-Despite our efforts to ensure representativeness and robustness of simulations, LLMs still produced tourism patterns that diverge substantially from empirical data.
+Despite our efforts to ensure representativeness and robustness of simulations, large language models still produced tourism patterns that diverge substantially from empirical data.
 @santurkar2023 also show that generative AI poorly represent both the general public and particular subpopulations even when steered to do so.
 Because our purpose is to examine the biases in generative AI, such divergences are informative.
 However, if researchers use AI-generated synthetic data for a pilot study, the results may mislead future research directions.
@@ -1194,10 +1194,10 @@ Our projected generative AI-driven tourism is still hypothetical; it is up to us
 
 Consider the following limitations when interpreting our findings.
 The results are subject to the modifiable areal unit problem  [@fotheringham1991].
-LLMs recommended destinations in varying geographic units, which we aggregated to the state level for analyses.
+Large language models recommended destinations in varying geographic units, which we aggregated to the state level for analyses.
 This aggregation masks variations at finer geographic scales, thus likely underestimates the differences between the empirical and generative AI-driven simulations.
 
-Our LLM simulations rely solely on demographic factors and exclude psychological, behavioral, and social factors that shape tourist decisions.
+Our large language model simulations rely solely on demographic factors and exclude psychological, behavioral, and social factors that shape tourist decisions.
 Two individuals with identical demographic profiles may visit the same destination with entirely different motivations.
 Future research could specify preferences and motivations for each simulated tourist [see @gao2024].
 Acceptance rates of generative AI recommendations also vary by tourists.
@@ -1208,7 +1208,7 @@ Such analysis would reveal whether outcomes of generative AI biases scale linear
 The simulations assume that everyone travels and selects a single destination, excluding non-travelers and multi-destination trips [@haukeland1990; @yang2013].
 We also do not account for interactions between simulated individuals, although empirical studies show one tourist's decision influencing decisions of others [@lee2025a].
 Further, studies show that generative AI exhibits stronger bias in relative decisions than absolute ones [@bai2025].
-Because we instructed LLMs to recommend any single destination instead of giving alternatives, the degree of popularity bias shown in this study may be conservative.
+Because we instructed large language models to recommend any single destination instead of giving alternatives, the degree of popularity bias shown in this study may be conservative.
 However, decisions of real-world tourists are also significantly affected by how and what choices are presented [@kim2025c].
 For future research examining generative AI models' biases in relative decision-making, we recommend conducting both empirical experiments and AI-driven simulations.
 
