@@ -2,6 +2,8 @@
 
 This repository contains code and data to reproduce results from the study "Large Language Models Yield Unsustainable Tourist Flows: Testing Algorithmic Biases Using the Baseline-Rescaling-Outcome Model" by Seonjin Lee and Lori Pennington-Gray.
 
+The latest version of the manuscript is available as `manuscript.pdf` file.
+
 The repository is currently being updated. If you have any questions or requests, feel free to reach out to me via the contact information in my profile.
 
 ## Reference
